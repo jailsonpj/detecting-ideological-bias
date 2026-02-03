@@ -1,0 +1,19 @@
+{
+    "name_process": "triplet-semi-hard-distilbert",
+    "path":"/content/drive/MyDrive/mestrado/src/projeto-final/src/",
+    "dataset":{
+	    "path_base":"/home/bolsista/jailson-mestrado/src/datasets/",
+        "documents_train": "news-mbic.csv",
+        "documents_val": "news-mbic.csv",
+        "rename_columns": {"Bias": "labels", "Content": "text"}
+    },
+    "function_loss":{
+        "loss": "triplet-semihard"
+    },
+    "train":{
+        "num_epochs": 100,
+        "folds":5
+    },
+    "path_base_save_model":"/home/bolsista/jailson-mestrado/src/outputs/",
+    "pre_trained": "distilbert-base-uncased"
+}

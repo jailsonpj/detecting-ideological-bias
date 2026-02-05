@@ -49,7 +49,7 @@ class NewsPaperData:
             df = df.rename(columns=dict_rename)
             
         self.df_dataset = df
-        return df[:10], None
+        return df, None
     
 class CustomDataset(Dataset):
     def __init__(self, df, tokenizer, max_len):

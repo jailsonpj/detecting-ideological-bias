@@ -1,0 +1,11 @@
+{
+    "train_path": "train.csv",
+    "val_path": "val.csv",
+    "test_path": "test.csv",
+    "text_column": "article_body",
+    "num_topics": 20,
+    "passes": 15,
+    "no_below": 5,
+    "no_above": 0.5,
+    "output_prefix": "processed_data"
+}

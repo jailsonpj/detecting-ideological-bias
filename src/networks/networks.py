@@ -2,7 +2,13 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from transformers import AutoModel
-
+import os, sys
+project_root = os.path.dirname(
+    os.path.dirname(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    )
+)
+sys.path.insert(0, project_root)
 class Classifier(nn.Module):
     def __init__(self, input_size, num_labels):
         super(Classifier, self).__init__()

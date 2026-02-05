@@ -1,19 +1,19 @@
 {
     "name_process": "triplet-semi-hard-distilbert",
-    "path":"/content/drive/MyDrive/mestrado/src/projeto-final/src/",
+    "path":"/Users/jailsonpereira/Documents/detecting-ideological-bias/src",
     "dataset":{
-	    "path_base":"/home/bolsista/jailson-mestrado/src/datasets/",
-        "documents_train": "news-mbic.csv",
-        "documents_val": "news-mbic.csv",
-        "rename_columns": {"Bias": "labels", "Content": "text"}
+	    "path_base":"/Users/jailsonpereira/Documents/detecting-ideological-bias/src/dataset/",
+        "documents_train": "abp_train.csv",
+        "documents_val": "abp_train.csv",
+        "rename_columns": {"bias": "labels", "content": "text"}
     },
     "function_loss":{
         "loss": "triplet-semihard"
     },
     "train":{
-        "num_epochs": 100,
+        "num_epochs": 1,
         "folds":5
     },
-    "path_base_save_model":"/home/bolsista/jailson-mestrado/src/outputs/",
+    "path_base_save_model":"/Users/jailsonpereira/Documents/detecting-ideological-bias/src/outputs/",
     "pre_trained": "distilbert-base-uncased"
 }

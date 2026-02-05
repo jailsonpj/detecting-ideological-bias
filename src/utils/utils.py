@@ -1,3 +1,12 @@
+import json
+import os
+import sys
+project_root = os.path.dirname(
+    os.path.dirname(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    )
+)
+sys.path.insert(0, project_root)
 def read_json(filename: str) -> dict:
     """
     Função responsável pela leitura de um

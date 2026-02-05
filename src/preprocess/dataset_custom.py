@@ -1,9 +1,13 @@
 import pandas as pd
-import numpy as np
-import random
-
 import torch
 from torch.utils.data import Dataset
+import os, sys
+project_root = os.path.dirname(
+    os.path.dirname(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    )
+)
+sys.path.insert(0, project_root)
 
 import warnings
 warnings.filterwarnings('ignore')
@@ -45,7 +49,7 @@ class NewsPaperData:
             df = df.rename(columns=dict_rename)
             
         self.df_dataset = df
-        return df, None
+        return df[:10], None
     
 class CustomDataset(Dataset):
     def __init__(self, df, tokenizer, max_len):

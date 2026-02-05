@@ -1,26 +1,22 @@
 import os
 import sys
-import pandas as pd
-import numpy as np
-import random
-import matplotlib.pyplot as plt
-
 import torch
-import torch.nn as nn
-import torch.optim as optim
-
+from torch.utils.data import DataLoader, SubsetRandomSampler
 from sklearn.model_selection import KFold
 from transformers import AutoTokenizer
 from transformers import logging
 
 logging.set_verbosity_warning()
+root_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+if root_path not in sys.path:
+    sys.path.append(root_path)
 
-from utils.utils import read_json
-from networks.networks import TransformerNet
-from dib.dib import DIB
-from losses.losses import ContrastiveLoss, OnlineTripletLoss
-from selectors.selectors import SemihardNegativeTripletSelector
-from preprocess.dataset_custom import NewsPaperData, CustomDataset
+from src.utils.utils import read_json
+from src.networks.networks import TransformerNet
+from src.dib.dib import DIB
+from src.losses.losses import ContrastiveLoss, OnlineTripletLoss
+from src.selectors.selectors import SemihardNegativeTripletSelector
+from src.preprocess.dataset_custom import NewsPaperData, CustomDataset
 
 def reset_weights(m):
     '''
@@ -32,11 +28,6 @@ def reset_weights(m):
             print(f'Reset trainable parameters of layer = {layer}')
             layer.reset_parameters()
 
-import os
-import torch
-import matplotlib.pyplot as plt
-from torch.utils.data import DataLoader, SubsetRandomSampler
-from sklearn.model_selection import KFold
 
 class RunDIB:
     def __init__(self, config) -> None:
@@ -55,13 +46,11 @@ class RunDIB:
         )
 
         # Obter DataFrames
-        df_train, _ = dataset_train.get_dataset_custom(
-            label_encoded=self.config["dataset"].get("label_col", "label"), # Adicionado parâmetro faltante
-            dict_map_rename_columns=self.config["dataset"]["rename_columns"]
+        df_train, _ = dataset_train.get_dataset_custom( # Adicionado parâmetro faltante
+            dict_rename=self.config["dataset"]["rename_columns"]
         )
         df_val, _ = dataset_val.get_dataset_custom(
-            label_encoded=self.config["dataset"].get("label_col", "label"),
-            dict_map_rename_columns=self.config["dataset"]["rename_columns"]
+            dict_rename=self.config["dataset"]["rename_columns"]
         )
 
         df_train = df_train.dropna(subset=["text"]).reset_index(drop=True)

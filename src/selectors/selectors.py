@@ -1,10 +1,13 @@
-import json
 from itertools import combinations
-
 import numpy as np
 import torch
-
-
+import os, sys
+project_root = os.path.dirname(
+    os.path.dirname(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    )
+)
+sys.path.insert(0, project_root)
 def pdist(vectors):
     distance_matrix = -2 * vectors.mm(torch.t(vectors)) + vectors.pow(2).sum(dim=1).view(1, -1) + vectors.pow(2).sum(
         dim=1).view(-1, 1)

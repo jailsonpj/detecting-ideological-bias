@@ -1,6 +1,12 @@
 import numpy as np
 import torch
-
+import os, sys
+project_root = os.path.dirname(
+    os.path.dirname(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    )
+)
+sys.path.insert(0, project_root)
 class DIB:
     def __init__(self, model, data, loss, name_process) -> None:
         self.model = model

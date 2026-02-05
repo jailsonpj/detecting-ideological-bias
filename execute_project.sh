@@ -1,11 +1,23 @@
 #!/bin/bash
 
-# Ativa o ambiente conda (opcional, mas recomendado)
-# Substitua 'nome_do_env' pelo nome do seu ambiente
-# source activate nome_do_env
+SCRIPT_PY=${1:-"./src/executors/executor_dib.py"}
+PARAMS_JSON=${2:-"./src/parameters/parameters_distil_bert_semi_hard.json"}
 
-echo "Iniciando o executor DIB..."
+if [ ! -f "$SCRIPT_PY" ]; then
+    echo "Erro: Arquivo Python '$SCRIPT_PY' não encontrado."
+    exit 1
+fi
 
-python ./src/executors/executor_dib.py ./src/parameters/parameters_distil_bert_semi_hard.json
+if [ ! -f "$PARAMS_JSON" ]; then
+    echo "Erro: Arquivo JSON '$PARAMS_JSON' não encontrado."
+    exit 1
+fi
 
-echo "Execução finalizada!"
+echo "Executando: $SCRIPT_PY"
+echo "Com parâmetros: $PARAMS_JSON"
+echo "--------------------------------"
+
+python "$SCRIPT_PY" "$PARAMS_JSON"
+
+echo "--------------------------------"
+echo "Execução concluída!"

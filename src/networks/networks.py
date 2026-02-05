@@ -67,26 +67,29 @@ class TransformerNet(nn.Module):
         return self.forward(ids, mask, token_type_ids)
     
 class TopicsNet(nn.Module):
-    def __init__(self):
+    def __init__(self, input_dim: int, output_dim: int):
         super(TopicsNet, self).__init__()
-        self.linear_relu_stack = nn.Linear(7, 10)
+        self.linear_relu_stack = nn.Sequencial(
+            nn.Linear(input_dim, output_dim),
+            nn.ReLU()
+        )
 
     def forward(self, x):
-        out = self.linear_relu_stack(x)
-        return out
+        return self.linear_relu_stack(x)
     
     def get_embeddings(self, x):
         return self.forward(x)
 
-class MultimodalNN(nn.Module):
-    def __init__(self, fusion_type: str):
-        super(MultimodalNN, self).__init__()
+class ModalText(nn.Module):
+    def __init__(self, fusion_type: str, text_hidden_size: int, topics_hidden_size: int):
+        super(ModalText, self).__init__()
         self.fusion_type = fusion_type
-
+        self.combined_dim = text_hidden_size + topics_hidden_size
         if self.fusion_type == "late_blending":
             self.fc1 = nn.Sequential(
+                nn.Linear(self.combined_dim, text_hidden_size),
                 nn.ReLU(),
-                nn.Linear(768 + 10, 768)
+                nn.Dropout(0.1) # Boa prática para evitar overfitting na fusão
             )
 
     def early_fuse(self, x1: torch.Tensor, x2: torch.Tensor, x3=None) -> torch.Tensor:
@@ -125,24 +128,24 @@ class MultimodalNN(nn.Module):
         torch.Tensor
             Vetor com as representações concatenadas
         """
-        if x3 == None:
-            return self.fc1(torch.cat((x1, x2), 1))
-        return self.fc1(torch.cat((x1, x2, x3), 1))
+        fused = torch.cat((x1, x2), dim=1) if x3 is None else torch.cat((x1, x2, x3), dim=1)
+        return self.fc1(fused)
     
     def fuse_features(self, x1: torch.Tensor, x2: torch.Tensor, x3=None) -> torch.Tensor:
         if self.fusion_type == "early":
             return self.early_fuse(x1, x2, x3)
         return self.late_blending_fuse(x1, x2, x3)
        
-class TextTopicsNet(MultimodalNN):
+class TextTopicsNet(ModalText):
     def __init__(self, dict_param: dict, name_model: str, fusion_type: str):
-        super(TextTopicsNet, self).__init__(fusion_type)
-        self.text_params = dict_param["text"]
-        self.topics_params = dict_param["topics"]
-        self.name_model = name_model
-        self.text_net = TransformerNet(self.name_model)
-        self.topics_net = TopicsNet()
-        self.fusion_type = fusion_type
+        text_dim = dict_param["text"]["hidden_size"]
+        topics_in = dict_param["topics"]["input_dim"]
+        topics_out = dict_param["topics"]["output_dim"]
+        
+        super(TextTopicsNet, self).__init__(fusion_type, text_dim, topics_out)
+        
+        self.text_net = TransformerNet(name_model)
+        self.topics_net = TopicsNet(topics_in, topics_out)
 
     def forward(self, ids, mask, topics):
         x1 = self.text_net(ids, mask)
@@ -152,3 +155,14 @@ class TextTopicsNet(MultimodalNN):
         
     def get_embedding(self, ids, mask, topics):
         return self.forward(ids, mask, topics)
+    
+
+"""params = {
+    "text": {"hidden_size": 768},
+    "topics": {
+        "input_dim": 20,  # O número de tópicos do seu LDA
+        "output_dim": 32  # Para quanto você quer projetar os tópicos antes da fusão
+    }
+}
+
+model = TextTopicsNet(params, "bert-base-uncased", "late_blending")"""

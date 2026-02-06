@@ -78,3 +78,33 @@ class CustomDataset(Dataset):
             "mask": torch.tensor(inputs["attention_mask"], dtype=torch.long)
         }
         return data_input, torch.tensor(self.targets[index], dtype=torch.long)
+    
+class CustomTopicsDataset(Dataset):
+    def __init__(self, df, topics, tokenizer, max_len):
+        self.tokenizer = tokenizer
+        self.max_len = max_len
+        self.texts = df['text'].astype(str).tolist()
+        self.topics = topics
+        self.targets = df['labels'].tolist()
+
+    def __len__(self):
+        return len(self.texts)
+    
+    def __getitem__(self, index):
+        text = " ".join(self.texts[index].split())
+        inputs = self.tokenizer(
+            text,
+            add_special_tokens=True,
+            max_length=self.max_len,
+            padding='max_length',
+            truncation=True,
+            return_tensors=None,
+            return_token_type_ids=True
+        )
+
+        data_input = {
+            "ids": torch.tensor(inputs["input_ids"], dtype=torch.long),
+            "mask": torch.tensor(inputs["attention_mask"], dtype=torch.long),
+            "topics": torch.tensor(self.topics[index], dtype=torch.long)
+        }
+        return data_input, torch.tensor(self.targets[index], dtype=torch.long)

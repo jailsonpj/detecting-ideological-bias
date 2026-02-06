@@ -156,13 +156,3 @@ class TextTopicsNet(ModalText):
     def get_embedding(self, ids, mask, topics):
         return self.forward(ids, mask, topics)
     
-
-"""params = {
-    "text": {"hidden_size": 768},
-    "topics": {
-        "input_dim": 20,  # O número de tópicos do seu LDA
-        "output_dim": 32  # Para quanto você quer projetar os tópicos antes da fusão
-    }
-}
-
-model = TextTopicsNet(params, "bert-base-uncased", "late_blending")"""

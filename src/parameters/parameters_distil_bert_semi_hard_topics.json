@@ -1,0 +1,32 @@
+{
+    "name_process": "triplet-semi-hard-distilbert-topics-20",
+    "path":"/Users/jailsonpereira/Documents/detecting-ideological-bias/src",
+    "dataset":{
+	    "path_base":"/Users/jailsonpereira/Documents/detecting-ideological-bias/src/dataset/",
+        "documents_train": "abp_train.csv",
+        "documents_val": "abp_train.csv",
+        "documents_test": "abp_train.csv",
+        "path_topics_train":"",
+        "rename_columns": {"bias": "labels", "content": "text"},
+        "text_column": "content"
+    },
+    "text": {"hidden_size": 768},
+    "topics": {
+        "input_dim": 20,
+        "output_dim": 20,
+        "outpt_prefix": "/Users/jailsonpereira/Documents/detecting-ideological-bias/src/outputs/topics/",
+        "no_below": 5,
+        "no_above": 0.5,
+        "passes": 15,
+        "random_state": 42
+    },
+    "function_loss":{
+        "loss": "triplet-semihard"
+    },
+    "train":{
+        "num_epochs": 100,
+        "folds":5
+    },
+    "path_base_save_model":"/Users/jailsonpereira/Documents/detecting-ideological-bias/src/outputs/",
+    "pre_trained": "distilbert-base-uncased"
+}

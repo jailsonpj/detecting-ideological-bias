@@ -5,6 +5,7 @@ Este projeto tem como objetivo a detecção de viés ideológico em textos utili
 ## 🚀 Estrutura do Projeto
 
 * `src/executors/`: Scripts principais para treinamento e inferência.
+* `src/topics/`: Scrips de treinamento e geração dos tópicos dos artigos de texto.
 * `src/parameters/`: Arquivos JSON de configuração de hiperparâmetros.
 * `src/dataset/`: Diretório destinado aos dados (ex: `abp_train.csv`).
 * `rodar_modelo.sh`: Script de automação para execução do pipeline.
@@ -64,9 +65,19 @@ Ou passe caminhos personalizados via linha de comando:
 
 ## 🧠 Modelos Utilizados
 
-O foco principal deste repositório é a implementação de:
+Transformers:
+- **DistilBERT**
+- **DistilRoberta**
 
-* **DistilBERT** (com abordagens de Semi-Hard triplet loss ou Fine-tuning padrão).
-* Processamento de enviesamento ideológico.
+Modelo de Tópicos:
+- **LDA**
 
+Funções métricas:
+- **Contrastive Loss**
+- **Triple Loss**
+
+Modelos de Classificação
+- **KNN**
+- **Kmeans**
+- **MLP**
 ---

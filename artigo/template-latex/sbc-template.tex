@@ -1,5 +1,5 @@
 \documentclass[12pt]{article}
-
+\usepackage{amsmath}
 \usepackage{sbc-template}
 \usepackage{graphicx,url}
 \usepackage[utf8]{inputenc}
@@ -49,101 +49,67 @@
 \end{resumo}
 
 
-\section{General Information}
+\section{Introdução}\label{sec:intro}
 
-All full papers and posters (short papers) submitted to some SBC conference,
-including any supporting documents, should be written in English or in
-Portuguese. The format paper should be A4 with single column, 3.5 cm for upper
-margin, 2.5 cm for bottom margin and 3.0 cm for lateral margins, without
-headers or footers. The main font must be Times, 12 point nominal size, with 6
-points of space before each paragraph. Page numbers must be suppressed.
+\section{Trabalhos Relacionados}\label{sec:trabalhos}
 
-Full papers must respect the page limits defined by the conference.
-Conferences that publish just abstracts ask for \textbf{one}-page texts.
+\section{Material e Métodos}\label{sec:material}
 
-\section{First Page}\label{sec:firstpage}
+\subsection{Dados Experimentais}\label{sec:dados}
 
-The first page must display the paper title, the name and address of the
-authors, the abstract in English and ``resumo'' in Portuguese (``resumos'' are
-required only for papers written in Portuguese). The title must be centered
-over the whole page, in 16 point boldface font and with 12 points of space
-before itself. Author names must be centered in 12 point font, bold, all of
-them disposed in the same line, separated by commas and with 12 points of
-space after the title. Addresses must be centered in 12 point font, also with
-12 points of space after the authors' names. E-mail addresses should be
-written using font Courier New, 10 point nominal size, with 6 points of space
-before and 6 points of space after.
+\subsection{Tarefa de Extração de Representações}\label{sec:representacoes}
 
-The abstract and ``resumo'' (if is the case) must be in 12 point Times font,
-indented 0.8cm on both sides. The word \textbf{Abstract} and \textbf{Resumo},
-should be written in boldface and must precede the text.
+%\begin{table}[ht]
+%\centering
+%\caption{Variables to be considered on the evaluation of interaction
+%  techniques}
+%\label{tab:exTable1}
+%\includegraphics[width=.7\textwidth]{table.jpg}
+%\end{table}
 
-\section{CD-ROMs and Printed Proceedings}
+\subsubsection{Mecanismos de Aproximação e Distanciamento}\label{sec:funcoes}
 
-In some conferences, the papers are published on CD-ROM while only the
-abstract is published in the printed Proceedings. In this case, authors are
-invited to prepare two final versions of the paper. One, complete, to be
-published on the CD and the other, containing only the first page, with
-abstract and ``resumo'' (for papers in Portuguese).
+\subsection{Tarefa de Classificação: Modelos e Parametrizaçao}\label{sec:classificacao}
 
-\section{Sections and Paragraphs}
+\subsection{Avaliação de Desempenho}
 
-Section titles must be in boldface, 13pt, flush left. There should be an extra
-12 pt of space before each title. Section numbering is optional. The first
-paragraph of each section should not be indented, while the first lines of
-subsequent paragraphs should be indented by 1.27 cm.
+O desempenho dos modelos de classificação propostos será avaliado quantitativamente através das métricas de Acurácia e \textit{Macro F1-score}. 
+A escolha de tais métricas fundamenta-se na necessidade de uma análise robusta: enquanto a acurácia fornece uma medida geral da taxa de acerto do modelo (Equação \ref{eq:accuracy}), 
+o \textit{Macro F1-score} permite uma avaliação criteriosa da capacidade preditiva em todas as classes, 
+mitigando distorções causadas por eventuais desbalanceamentos no conjunto de dados (Equação \ref{eq:macrof1}).
 
-\subsection{Subsections}
+As métricas são formalmente definidas como segue:
 
-The subsection titles must be in boldface, 12pt, flush left.
+\begin{equation}\label{eq:accuracy}
+\text{Acur\'{a}cia} = \frac{TP + TN}{TP + TN + FP + FN}
+\end{equation}
 
-\section{Figures and Captions}\label{sec:figs}
+\begin{equation}\label{eq:macrof1}
+\text{Macro } F1 = \frac{1}{N} \sum_{i=1}^{N} F1_i
+\end{equation}
 
+Onde o $F1$ de cada classe é a média harmônica entre a Precisão e a Revocação, definidas nas Equações \ref{eq:prec_rec} e \ref{eq:f1}:
 
-Figure and table captions should be centered if less than one line
-(Figure~\ref{fig:exampleFig1}), otherwise justified and indented by 0.8cm on
-both margins, as shown in Figure~\ref{fig:exampleFig2}. The caption font must
-be Helvetica, 10 point, boldface, with 6 points of space before and after each
-caption.
+\begin{equation}\label{eq:prec_rec}
+\text{Precis\~{a}o} = \frac{TP}{TP + FP}, \quad \text{Revocaç\~{a}o} = \frac{TP}{TP + FN}
+\end{equation}
 
-\begin{figure}[ht]
-\centering
-\includegraphics[width=.5\textwidth]{fig1.jpg}
-\caption{A typical figure}
-\label{fig:exampleFig1}
-\end{figure}
+\begin{equation}\label{eq:f1}
+F1 = \frac{2 \times (\text{Precis\~{a}o} \times \text{Revocação})}{\text{Precis\~{a}o} + \text{Revocaç\~{a}o}}
+\end{equation}
 
-\begin{figure}[ht]
-\centering
-\includegraphics[width=.3\textwidth]{fig2.jpg}
-\caption{This figure is an example of a figure caption taking more than one
-  line and justified considering margins mentioned in Section~\ref{sec:figs}.}
-\label{fig:exampleFig2}
-\end{figure}
+Neste contexto, $TP$, $TN$, $FP$ e $FN$ representam, respectivamente, os verdadeiros positivos, 
+verdadeiros negativos, falsos positivos e falsos negativos. $N$ indica o número total de categorias ideológicas. 
 
-In tables, try to avoid the use of colored or shaded backgrounds, and avoid
-thick, doubled, or unnecessary framing lines. When reporting empirical data,
-do not use more decimal digits than warranted by their precision and
-reproducibility. Table caption must be placed before the table (see Table 1)
-and the font used must also be Helvetica, 10 point, boldface, with 6 points of
-space before and after each caption.
+A validação da hipótese de pesquisa --- de que o discurso textual reflete o viés ideológico --- dar-se-á 
+mediante a obtenção de altos índices em ambas as métricas. 
+Espera-se que valores elevados de \textit{Macro F1-score} confirmem que o modelo possui alta 
+capacidade discriminatória entre as diferentes vertentes ideológicas, garantindo que o desempenho 
+não seja fruto de uma tendência majoritária no conjunto de dados.
 
-\begin{table}[ht]
-\centering
-\caption{Variables to be considered on the evaluation of interaction
-  techniques}
-\label{tab:exTable1}
-\includegraphics[width=.7\textwidth]{table.jpg}
-\end{table}
+\section{Resultados e Discussão}
 
-\section{Images}
-
-All images and illustrations should be in black-and-white, or gray tones,
-excepting for the papers that will be electronically available (on CD-ROMs,
-internet, etc.). The image resolution on paper should be about 600 dpi for
-black-and-white images, and 150-300 dpi for grayscale images.  Do not include
-images with excessive resolution, as they may take hours to print, without any
-visible difference in the result. 
+\section{Considerações Finais}
 
 \section{References}
 

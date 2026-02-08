@@ -54,7 +54,21 @@
 \section{Trabalhos Relacionados}\label{sec:trabalhos}
 
 \section{Material e Métodos}\label{sec:material}
+A metodologia fundamenta-se na premissa de que o viés ideológico se manifesta
+em padrões discursivos e semântico recorrentes. A abordagem proposta processa o
+conteúdo textual de notícias utilizando modelos pré-treinados para a geração de
+\textit{embeddings}, os quais são otimizados via \textit{fine-tuning} com as funções
+de perda \textit{Contrastive Loss} e \textit{Triplet Loss}. Esse refinamento visa
+maximizar orientações políticas, servindo como entrada para um classificador de
+aprendizado de máquina.
 
+Conforme ilustrado na Figura NUMERO, o fluxo de trabalho compreende quatro etapas principais:
+\begin{itemize}
+  \item \textbf{Aquisição de Dados}: Coleta baseada em conjunto de dados d literatura correlara;
+  \item \textbf{Otimização de Representações}: Refinamento de \textit{embeddings} através de aprendizagem métrica (\textit{Contrastive} e \textit{Triplet Loss});
+  \item \textbf{Treinamento}: Calibração do modelo de classificação sobre os vetores otimizados;
+  \item \textbf{Avaliação}: análise do desempenho do sistema e dos resultados obtidos.
+\end{itemize}
 \subsection{Dados Experimentais}\label{sec:dados}
 
 \subsection{Tarefa de Extração de Representações}\label{sec:representacoes}
@@ -70,6 +84,26 @@
 \subsubsection{Mecanismos de Aproximação e Distanciamento}\label{sec:funcoes}
 
 \subsection{Tarefa de Classificação: Modelos e Parametrizaçao}\label{sec:classificacao}
+Após o mapeamento dos \textit{embeddings}, onde a proximidade entre os veotres reflete a similaridade ideológica das notícias.
+A classificação dos artigos foi realizada por meio de três algoritmos: \textit{K-Nearest Neighbors (KNN)}, \textit{K-Means} e
+\textit{Multilayer Perceptron (MLP)}. O \textit{KNN} e o \textit{K-Means} foram utilizados para explorar a organização dos dados
+por vizinhaça e agrupamento, respectivamente. Para o \textit{KNN}, aplicou-se um \textit{grid search} sistemático para otimização de hiperparâmetros, variando o número de vizinhos ($k$)
+entre $5, 10, 15, 20, 25$ e $30$. Já o \textit{K-Means} foi configurado com o número de \textit{clusters} equivalente às classes
+presentes no conjunto de dados ABP.
+
+A rede \textit{MLP} foi estruturada com duas camadas densas (512 e 256 neurônios). Adotou-se a função de ativação \textit{ReLU}
+para garantir um treinamento mais rápido e estável [REFERENCIA], enquanto a camada de saída utilizou a \textit{softmax} para a 
+classificação final. O modelo otimizado com o algoritmo \textit{Adam} [REFERENCIA] e a função de perda
+\textit{Categorical Cross-Entropy}, escolhas consolidadas na literatura para problemas multiclasse [REFERENCIA GOODFELLOW].
+
+A confiabilidade do experimento foi assegurada pela validacruzada estritificada (5-fold). Esse procedimento garante que a proporção das classes
+seja mantida em todas as etapas, evitando resultados enviesados e permitindo medir com precisão a capacidade do modelo em classificar novos dados [REFERENCIA]
+
+O desenvolvimento foi implementado em linguagem \textbf{Python} utilizando as bibliotecas \textbf{Numpy}, \textbf{Pandas}, \textbf{Scikit-Learn} e \textbf{PyTorch}.
+Os experimentos foram executados em um ambiente de alto desempenho, composto por um processador \textbf{Intel Xeon W-2235}, 128 GB de memórias RAM e uma GPU \textbf{NVIDIA Quadro TRX 8000} (48 GB),
+garantindo a eficiência computacional necessária para o treinamento e teste dos modelos propostos. O código-fonte desenvolvido para este estudo, bem como as configurações dos hiperparâmetros e scripts 
+de pré-processamento, estão disponíveis no repositório oficial do projeto: \url{https://github.com/jailsonpj/detecting-ideological-bias}.
+
 
 \subsection{Avaliação de Desempenho}
 

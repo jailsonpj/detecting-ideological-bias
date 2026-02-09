@@ -72,7 +72,30 @@ Conforme ilustrado na Figura NUMERO, o fluxo de trabalho compreende quatro etapa
 \subsection{Dados Experimentais}\label{sec:dados}
 
 \subsection{Tarefa de Extração de Representações}\label{sec:representacoes}
+Para a tarefa, foram empregados dois modelos baseados em \textit{Bidirectional Encoder Representations from Transformers (BERT)} [Devli et al., 2018],
+que se destacam pela capacidade de modelar dependências de longo alcance e capturar relações semânticas em 
+diferentes níveis de um documento. Foram selecionados o DistilBERT e o DistilRoBERTa [Sanh, 2019], versões
+destiladas e eficientes que preservam a robustez das arquiteturas originais (BERT e RoBERTa, respectivamente), mas 
+com uma redução significativa no custo computacional e nos requisitos de me mória. Essa base estrutural
+permite a geração de representações vetoriais mais precisas e ágeis para tarefas complexas de processamento
+de linguagem natural [Gao et al., 2021].
 
+O processo de ajuste fino (\textit{fine-tuning}) foi realizado por meio de aprendizagem métrica\footnote{Para uma revisão detalhada sobre \textit{deep metric learning}.}, 
+utilizando as funções de perda \textit{Triplet Loss} e \textit{Contrastive Loss}. Essa abordagem foi fundamental para 
+otimizar os modelos na geração de \textit{embeddings} que preservam as relações semânticas dos dados, garantindo que 
+vetores de exemplos contextualmente semelhantes sejam posicionados de forma próxima no espaço de representação, 
+enquanto exemplos distintos permanecem devidamente segregados.
+
+Quanto ao processamento dos dados, cada texto foi processado pelo tokenizador específico do modelo e ajustado 
+(via truncamento ou \textit{padding}) para o limite de $512$ tokens. Notadamente, as \textit{stopwords} foram mantidas, visto que a 
+arquitetura BERT é capaz de extrair informações contextuais valiosas a partir delas. Para consolidar as informações, 
+aplicou-se a técnica de \textit{Mean Pooling} sobre a dimensão dos tokens, convertendo a sequência processada em um vetor único 
+que captura as características mais relevantes de cada entrada.
+
+Por fim, os modelos foram treinados seguindo as partições do ABP, utilizando o otimizador Adam com uma taxa de 
+aprendizado de $0.0001$ e \textit{batch size} de $16$. A configuração experimental definiu um limite de $100$ épocas, determinado 
+de forma empírica para o algoritmo de \textit{backpropagation}. Para evitar o \textit{overfitting}, aplicou-se a técnica de \textit{Early Stopping} 
+com paciência de $30$ ciclos, interrompendo o treinamento com base no desempenho da função de perda no conjunto de validação.
 %\begin{table}[ht]
 %\centering
 %\caption{Variables to be considered on the evaluation of interaction
@@ -82,6 +105,34 @@ Conforme ilustrado na Figura NUMERO, o fluxo de trabalho compreende quatro etapa
 %\end{table}
 
 \subsubsection{Mecanismos de Aproximação e Distanciamento}\label{sec:funcoes}
+
+
+Nesta abordagem, os codificadores (DistilBERT e DistilRoBERTa) ajustam os pesos de suas camadas para otimizar a 
+qualidade dos \textit{embeddings} via \textit{Contrastive Loss} e \textit{Triplet Loss}. 
+O objetivo é o aprendizado de representações vetoriais onde instâncias semanticamente similares convirjam no espaço representação, 
+enquanto exemplos dissimilaridades sejam repelidos.
+
+A \textit{Contrastive Loss} é aplicada utilizando a distância Euclidiana sobre pares de exemplos, conforme definido na Equação 1:
+
+\begin{equation}
+L = \frac{1}{2} (1-y) D^2 + \frac{1}{2} y \{ \max(0, m - D) \}^2
+\end{equation}
+
+Onde $y$ representa o rótulo binário (0 para similar, 1 para dissimilar), $D$ denota a distância entre as representações e $m$ é a margem de separação. 
+
+Complementarmente, a \textit{Triplet Loss} utiliza triplas compostas por uma âncora ($a$), um exemplo positivo ($p$) e um negativo ($n$). 
+O objetivo, expresso na Equação 2, assegura que a distância entre a âncora e o positivo seja inferior à distância entre a âncora e o negativo por uma margem $m$:
+
+\begin{equation}
+L = \max(0, D(a, p) - D(a, n) + m)
+\end{equation}
+
+Para otimizar o aprendizado, empregou-se o \textit{mining} de negativos \textit{semi-hard}. Esses exemplos, 
+que satisfazem a condição $D(a, p) < D(a, n) + m$, fornecem gradientes mais informativos e 
+mitigam o \textit{overfitting} em comparação a negativos \textit{hard} [kertez,2021]. Esse processo 
+refina a capacidade discriminatória do modelo, permitindo que os \textit{embeddings} 
+capturem relações semânticas profundas, como a ideologia de uma notícia, independentemente da fonte de publicação.
+
 
 \subsection{Tarefa de Classificação: Modelos e Parametrizaçao}\label{sec:classificacao}
 Após o mapeamento dos \textit{embeddings}, onde a proximidade entre os veotres reflete a similaridade ideológica das notícias.
@@ -98,12 +149,6 @@ classificação final. O modelo otimizado com o algoritmo \textit{Adam} [REFEREN
 
 A confiabilidade do experimento foi assegurada pela validacruzada estritificada (5-fold). Esse procedimento garante que a proporção das classes
 seja mantida em todas as etapas, evitando resultados enviesados e permitindo medir com precisão a capacidade do modelo em classificar novos dados [REFERENCIA]
-
-O desenvolvimento foi implementado em linguagem \textbf{Python} utilizando as bibliotecas \textbf{Numpy}, \textbf{Pandas}, \textbf{Scikit-Learn} e \textbf{PyTorch}.
-Os experimentos foram executados em um ambiente de alto desempenho, composto por um processador \textbf{Intel Xeon W-2235}, 128 GB de memórias RAM e uma GPU \textbf{NVIDIA Quadro TRX 8000} (48 GB),
-garantindo a eficiência computacional necessária para o treinamento e teste dos modelos propostos. O código-fonte desenvolvido para este estudo, bem como as configurações dos hiperparâmetros e scripts 
-de pré-processamento, estão disponíveis no repositório oficial do projeto: \url{https://github.com/jailsonpj/detecting-ideological-bias}.
-
 
 \subsection{Avaliação de Desempenho}
 
@@ -142,6 +187,12 @@ capacidade discriminatória entre as diferentes vertentes ideológicas, garantin
 não seja fruto de uma tendência majoritária no conjunto de dados.
 
 \section{Resultados e Discussão}
+
+A linguagem Python, com as bibliotecas Numpy, Pandas, Scikit-Learn e PyTorch, foi a ferramenta primária 
+para implementação e avaliação dos modelos. Os experimentos ocorreram em um servidor com processador 
+Intel Xeon W-2235, 128 GB de RAM e GPU NVIDIA RTX 8000 (48 GB VRAM), visando a aceleração em hardware.
+Para garantir a reprodutibilidade, o código-fonte, hiperparâmetros e scripts de pré-processamento estão 
+disponíveis em: \url{https://github.com/jailsonpj/detecting-ideological-bias}.
 
 \section{Considerações Finais}
 

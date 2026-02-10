@@ -80,11 +80,18 @@ Conforme ilustrado na Figura~\ref{fig:fluxo_dados}, o fluxo de trabalho compreen
 
 \subsection{Dados Experimentais}\label{sec:dados}
 
-Para o desenvolvimento deste estudo, utilizou-se o conjunto de dados \textit{Article Bias Prediction} (ABP), proposto por Baly et al, 2020. 
-O \textit{corpus} compreende $30.246$ artigos de notícias em língua inglesa, classificados de forma supervisionada nas
+Para o desenvolvimento deste estudo, utilizou-se o conjunto de dados \textit{Article Bias Prediction} (ABP), proposto por Baly $et$ $al.$ [2020].%\cite{baly2020we}.
+ O \textit{corpus} compreende $30.246$ artigos de notícias em língua inglesa, classificados de forma supervisionada nas
 categorias de viés ideológico: \textit{left}, \textit{center} e \textit{right}. A confiabilidade dos rótulos advém da plataforma AllSides\footnote{\url{https://www.allsides.com/media-bias/media-bias-rating-methods}},
 que emprega um processo rigoroso de auditoria -- incluindo revisões de terceiros e \textit{feedback} da comunidade -- garantindo que anotações
-reflitam com precisão a orientação política dos textos.
+reflitam com precisão a orientação política dos textos. A Figura~\ref{fig:example_article} ilustra um exemplo de como um tópico de notícia foi classificado de acordo com a ideologia presente no texto.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.8\textwidth]{./imagens/example_areticle.png}
+\caption{\centering Exemplo de uma amostra de artigo de notícia com o tópico sobre a pandemia de coronavírus \cite{baly2020we}.}
+\label{fig:example_article}
+\end{figure}
 
 O ABP apresenta elevada diversidade temática, abrangendo desde processos eleitorais até questões sociais complexas.
 Visando assegurar que os modelos de aprendizado de máquina capturam a ideologia expressa linguisticamente, e não apenas identifiquem a fonte de notícia,
@@ -145,9 +152,9 @@ informativas que otimizam a convergência e o aprendizado do modelo.
     \label{fig:fluxo_embeddings}
 \end{figure}
 
-Conforme delineado na arquitetura apresentada, empregaram-se dois modelos fundamentados em \textit{Bidirectional Encoder Representations from Transformers (BERT)} [Devlin2018], 
-reconhecidos pela eficácia na modelagem de dependências de longo alcance e na extração de relações semânticas granulares [Gao2021]. 
-A seleção recaiu sobre o DistilBERT [Sanh2019] e o DistilRoBERTa [Liu2019], variantes destiladas que preservam a robustez das arquiteturas originais, 
+Conforme delineado na arquitetura apresentada, empregaram-se dois modelos fundamentados em \textit{Bidirectional Encoder Representations from Transformers (BERT)} \cite{bert}, 
+reconhecidos pela eficácia na modelagem de dependências de longo alcance e na extração de relações semânticas granulares \cite{Zhang}. 
+A seleção recaiu sobre o DistilBERT \cite{distilbert} e o DistilRoBERTa \cite{roberta}, variantes destiladas que preservam a robustez das arquiteturas originais, 
 contudo, apresentam reduções substanciais no custo computacional e nos requisitos de memória.
 
 O modelo \textit{Transformer} processa as sequências de entrada, seguido por uma camada de \textit{Mean Pooling} que consolida 
@@ -160,13 +167,6 @@ a partir desses elementos. Por fim, o treinamento foi estabelecido com um limite
 taxa de aprendizado de $0,0001$ e \textit{batch size} de $16$. Para mitigar o \textit{overfitting} e assegurar a capacidade de 
 generalização dos modelos, aplicou-se a técnica de \textit{Early Stopping} com paciência de $30$ ciclos, monitorando-se a 
 convergência da função de perda no conjunto de validação.
-
-%\centering
-%\caption{Variables to be considered on the evaluation of interaction
-%  techniques}
-%\label{tab:exTable1}
-%\includegraphics[width=.7\textwidth]{table.jpg}
-%\end{table}
 
 \subsubsection{Mecanismos de Aproximação e Distanciamento}\label{sec:funcoes}
 
@@ -193,7 +193,7 @@ L = \max(0, D(a, p) - D(a, n) + m)
 
 Para otimizar o aprendizado, empregou-se o \textit{mining} de negativos \textit{semi-hard}. Esses exemplos, 
 que satisfazem a condição $D(a, p) < D(a, n) + m$, fornecem gradientes mais informativos e 
-mitigam o \textit{overfitting} em comparação a negativos \textit{hard} [kertez,2021]. Esse processo 
+mitigam o \textit{overfitting} em comparação a negativos \textit{hard} \cite{loss}. Esse processo 
 refina a capacidade discriminatória do modelo, permitindo que os \textit{embeddings} 
 capturem relações semânticas profundas, como a ideologia de uma notícia, independentemente da fonte de publicação.
 
@@ -206,12 +206,12 @@ entre $5, 10, 15, 20, 25$ e $30$. Já o \textit{K-Means} foi configurado com o n
 presentes no conjunto de dados ABP.
 
 A rede \textit{MLP} foi estruturada com duas camadas densas (512 e 256 neurônios). Adotou-se a função de ativação \textit{ReLU}
-para garantir um treinamento mais rápido e estável [REFERENCIA], enquanto a camada de saída utilizou a \textit{softmax} para a 
-classificação final. O modelo otimizado com o algoritmo \textit{Adam} [REFERENCIA] e a função de perda
-\textit{Categorical Cross-Entropy}, escolhas consolidadas na literatura para problemas multiclasse [REFERENCIA GOODFELLOW].
+para garantir um treinamento mais rápido e estável \cite{Zhang}, enquanto a camada de saída utilizou a \textit{softmax} para a 
+classificação final. O modelo otimizado com o algoritmo \textit{Adam} e a função de perda
+\textit{Categorical Cross-Entropy}, escolhas consolidadas na literatura para problemas multiclasse \cite{goodfellow2016deep}.
 
-A confiabilidade do experimento foi assegurada pela validacruzada estritificada (5-fold). Esse procedimento garante que a proporção das classes
-seja mantida em todas as etapas, evitando resultados enviesados e permitindo medir com precisão a capacidade do modelo em classificar novos dados [REFERENCIA]
+A confiabilidade do experimento foi assegurada pela validação cruzada estritificada (5-fold). Esse procedimento garante que a proporção das classes
+seja mantida em todas as etapas, evitando resultados enviesados e permitindo medir com precisão a capacidade do modelo em classificar novos dados \cite{nti2021performance}.
 
 \subsection{Avaliação de Desempenho}
 
@@ -248,25 +248,42 @@ mediante a obtenção de altos índices em ambas as métricas.
 Espera-se que valores elevados de \textit{Macro F1-score} confirmem a capacidade discriminatória do modelo entre
 as diferentes vertentes ideológicas, assegurando que o desempenho não seja reflexo de uma classe majoritária no conjunto de dados.
 
+\subsection{Configuração dos Experimentos e Espaço de Busca}
+
+A exploração da configuração ótima para os modelos foi formalizada por uma função de desempenho $\mathcal{P}$, que parametriza 
+as variações arquiteturais do método proposto conforme a Equação~\ref{eq:funcao_experimento}. Nesta formulação, $S$ 
+representa o protocolo de particionamento dos dados (\textit{media-bias} ou \textit{random split}), $R$ define o codificador 
+empregado na geração dos \textit{embeddings}, $L$ denota a função de perda aplicada ao aprendizado de representação em $R$, e $C$ 
+designa o algoritmo de classificação final.
+
+\begin{equation}\label{eq:funcao_experimento} 
+  \mathcal{P} = f(S, R, L, C) 
+\end{equation}
+
+O objetivo experimental consiste em identificar a tupla de parâmetros $\hat{e}$ que maximize o desempenho global do método proposto. 
+Tal busca é definida matematicamente pela operação de \textit{argmax} apresentada na Equação~\ref{eq:argmax}, permitindo a 
+identificação sistemática da arquitetura que apresenta os melhores índices de acurácia e \textit{Macro F1-score} entre todas as 
+combinações testadas.
+
+\begin{equation}\label{eq:argmax} 
+  \hat{e} = \arg\max f(S, R, L, C) 
+\end{equation}
+
+\subsection{Ambiente de Execução}
+
+A linguagem Python, com as bibliotecas NumPy, Pandas, Scikit-Learn e PyTorch, foi a ferramenta primária para implementação e avaliação dos modelos. 
+Os experimentos ocorreram em um servidor equipado com processador Intel Xeon W-2235, $128$ GB de RAM e GPU NVIDIA RTX $8000$ ($48$ GB VRAM), 
+visando a aceleração em hardware. Comprometendo-se com a transparência e a reprodutibilidade técnica, o código-fonte, 
+hiperparâmetros e \textit{scripts} de pré-processamento estão publicamente disponíveis\footnote{\url{https://github.com/jailsonpj/detecting-ideological-bias}}.
+
 \section{Resultados e Discussão}
 
-A linguagem Python, com as bibliotecas Numpy, Pandas, Scikit-Learn e PyTorch, foi a ferramenta primária 
-para implementação e avaliação dos modelos. Os experimentos ocorreram em um servidor com processador 
-Intel Xeon W-2235, 128 GB de RAM e GPU NVIDIA RTX 8000 (48 GB VRAM), visando a aceleração em hardware.
-Para garantir a reprodutibilidade, o código-fonte, hiperparâmetros e scripts de pré-processamento estão 
-disponíveis em: \url{https://github.com/jailsonpj/detecting-ideological-bias}.
+Esta metodologia permitiu uma comparação sistemática e rigorosa entre os \textit{baselines} estabelecidos por
+Baly et al. [2020] -- que operam sob uma configuração de aprendizado tradicional -- e as variantes propostas neste
+trabalho, que integram funções \textit{Contrastive Loss} e \textit{Triplet Loss} para o refinamento do espaço de características, como
+observado na Tabela.
 
 \section{Considerações Finais}
-
-\section{References}
-
-Bibliographic references must be unambiguous and uniform.  We recommend giving
-the author names references in brackets, e.g. \cite{knuth:84},
-\cite{boulic:91}, and \cite{smith:99}.
-
-The references must be listed using 12 point font size, with 6 points of space
-before each reference. The first line of each reference should not be
-indented, while the subsequent should be indented by 0.5 cm.
 
 \bibliographystyle{sbc}
 \bibliography{sbc-template}

@@ -1,18 +1,42 @@
 \begin{thebibliography}{}
 
-\bibitem[Boulic and Renault 1991]{boulic:91}
-Boulic, R. and Renault, O. (1991).
-\newblock 3d hierarchies for animation.
-\newblock In Magnenat-Thalmann, N. and Thalmann, D., editors, {\em New Trends in Animation and Visualization}. John Wiley {\&} Sons ltd.
+\bibitem[Baly et~al. 2020]{baly2020we}
+Baly, R., Da~San~Martino, G., Glass, J., and Nakov, P. (2020).
+\newblock We can detect your bias: Predicting the political ideology of news articles.
+\newblock In {\em Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing (EMNLP)}, pages 4982--4991.
 
-\bibitem[Knuth 1984]{knuth:84}
-Knuth, D.~E. (1984).
-\newblock {\em The {\TeX} Book}.
-\newblock Addison-Wesley, 15th edition.
+\bibitem[Devlin et~al. 2018]{bert}
+Devlin, J., Chang, M.-W., Lee, K., and Toutanova, K. (2018).
+\newblock Bert: Pre-training of deep bidirectional transformers for language understanding.
+\newblock {\em arXiv preprint arXiv:1810.04805}.
 
-\bibitem[Smith and Jones 1999]{smith:99}
-Smith, A. and Jones, B. (1999).
-\newblock On the complexity of computing.
-\newblock In Smith-Jones, A.~B., editor, {\em Advances in Computer Science}, pages 555--566. Publishing Press.
+\bibitem[Goodfellow 2016]{goodfellow2016deep}
+Goodfellow, I. (2016).
+\newblock Deep learning.
+
+\bibitem[Kertész 2021]{loss}
+Kertész, G. (2021).
+\newblock Different triplet sampling techniques for lossless triplet loss on metric similarity learning.
+\newblock In {\em 2021 IEEE 19th World Symposium on Applied Machine Intelligence and Informatics (SAMI)}, pages 000449--000454.
+
+\bibitem[Liu 2019]{roberta}
+Liu, Y. (2019).
+\newblock Roberta: A robustly optimized bert pretraining approach.
+\newblock {\em arXiv preprint arXiv:1907.11692}.
+
+\bibitem[Nti et~al. 2021]{nti2021performance}
+Nti, I.~K., Nyarko-Boateng, O., Aning, J., et~al. (2021).
+\newblock Performance of machine learning algorithms with different k values in k-fold cross-validation.
+\newblock {\em International Journal of Information Technology and Computer Science}, 13(6):61--71.
+
+\bibitem[Sanh 2019]{distilbert}
+Sanh, V. (2019).
+\newblock Distilbert, a distilled version of bert: Smaller, faster, cheaper and lighter.
+\newblock {\em arXiv preprint arXiv:1910.01108}.
+
+\bibitem[Zhang and Rao 2020]{Zhang}
+Zhang, Y. and Rao, Z. (2020).
+\newblock Deep neural networks with pre-train model bert for aspect-level sentiments classification.
+\newblock In {\em 2020 IEEE 5th Information Technology and Mechatronics Engineering Conference (ITOEC)}, pages 923--927. IEEE.
 
 \end{thebibliography}

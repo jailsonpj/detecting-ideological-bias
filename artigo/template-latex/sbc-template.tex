@@ -1,4 +1,6 @@
 \documentclass[12pt]{article}
+
+\usepackage{tabularx}
 \usepackage{amsmath}
 \usepackage{sbc-template}
 \usepackage{graphicx,url}
@@ -69,7 +71,7 @@ Conforme ilustrado na Figura~\ref{fig:fluxo_dados}, o fluxo de trabalho compreen
   \item \textbf{Avaliação da abordagem}: análise do desempenho do sistema e dos resultados obtidos.
 \end{itemize}
 
-\begin{figure}[ht]
+\begin{figure}[!ht]
 \centering
 \includegraphics[width=0.8\textwidth]{./imagens/fig_abordagem_proposta_texto.pdf}
 \caption{Visão geral do método de detecção de viés ideológico por meio do conteúdo textual de artigos de notícias.}
@@ -78,13 +80,65 @@ Conforme ilustrado na Figura~\ref{fig:fluxo_dados}, o fluxo de trabalho compreen
 
 \subsection{Dados Experimentais}\label{sec:dados}
 
+Para o desenvolvimento deste estudo, utilizou-se o conjunto de dados \textit{Article Bias Prediction} (ABP), proposto por Baly et al, 2020. 
+O \textit{corpus} compreende $30.246$ artigos de notícias em língua inglesa, classificados de forma supervisionada nas
+categorias de viés ideológico: \textit{left}, \textit{center} e \textit{right}. A confiabilidade dos rótulos advém da plataforma AllSides\footnote{\url{https://www.allsides.com/media-bias/media-bias-rating-methods}},
+que emprega um processo rigoroso de auditoria -- incluindo revisões de terceiros e \textit{feedback} da comunidade -- garantindo que anotações
+reflitam com precisão a orientação política dos textos.
+
+O ABP apresenta elevada diversidade temática, abrangendo desde processos eleitorais até questões sociais complexas.
+Visando assegurar que os modelos de aprendizado de máquina capturam a ideologia expressa linguisticamente, e não apenas identifiquem a fonte de notícia,
+os autores realizaram um pré-processamento para remover marcadores explícitos, como nomes de autores e de portais. Essa preocupação é
+fundamental para garantir a generalização do modelo e a integridade da análise discursiva, evitando que o classificador aprendizada
+vieses específicos de veículo de imprensa em vez de padrões semânticos.
+
+A robustez da avaliação foi garantida através de dois métodos de particionamento: o \textit{random split} e o \textit{media-bias split}. 
+Na Tabela~\ref{tab:particoes_media}, observa-se a configuração do \textit{media-bias split}, no qual as fontes são segregadas para garantir 
+que o modelo seja testado em veículos não epostos durante o treinamento, mitigando o vazamento de dados. em contraste, o \textit{random-split}
+permite a sobreposição de fontes entre as partições, mantendo a consitência na distribuição de classes entre treino e validação, como apresentado
+na Tabela~\ref{tab:particoes_random}. Neste trabalho, a totalidade das amostras do ABP foi empregada em todas as etapas metodológicas,
+desde a geração de \textit{embeddings} até o treinamento e avaliação final.
+
+
+\begin{table*}[!ht]
+    \caption{Estatísticas da partição \textit{media-bias split}.} \label{tab:particoes_media}
+    \centering
+    \begin{tabularx}{\textwidth}{@{} *{3}{>{\centering\arraybackslash}X} | *{3}{>{\centering\arraybackslash}X} | *{3}{>{\centering\arraybackslash}X} @{}}
+        \hline \hline
+        \multicolumn{3}{c|}{\textbf{Treino}} & \multicolumn{3}{c|}{\textbf{Validação}} & \multicolumn{3}{c}{\textbf{Teste}} \\ 
+        \hline
+        \textit{Viés} & \textit{Total} & \textit{\%} & \textit{Viés} & \textit{Total} & \textit{\%} & \textit{Viés} & \textit{Total} & \textit{\%} \\ 
+        \hline
+        Left   & 8.861  & 33,32\% & Left   & 1.640 & 69,60\% & Left   & 402 & 30,92\% \\
+        Center & 7.488  & 28,16\% & Center & 618   & 26,23\% & Center & 299 & 23,00\% \\
+        Right  & 10.241 & 38,51\% & Right  & 98    & 4,15\%  & Right  & 599 & 46,07\% \\ 
+        \hline \hline
+    \end{tabularx}
+\end{table*}
+
+\begin{table*}[!ht]
+    \caption{Estatísticas da partição \textit{random split}.} \label{tab:particoes_random}
+    \centering
+    \begin{tabularx}{\textwidth}{@{} *{3}{>{\centering\arraybackslash}X} | *{3}{>{\centering\arraybackslash}X} | *{3}{>{\centering\arraybackslash}X} @{}}
+        \hline \hline
+        \multicolumn{3}{c|}{\textbf{Treino}} & \multicolumn{3}{c|}{\textbf{Validação}} & \multicolumn{3}{c}{\textbf{Teste}} \\ 
+        \hline
+        \textit{Viés} & \textit{Total} & \textit{\%} & \textit{Viés} & \textit{Total} & \textit{\%} & \textit{Viés} & \textit{Total} & \textit{\%} \\ 
+        \hline
+        Left & 9.750  & 34,84\% & Left & 2.438 & 34,84\% & Left & 402 & 30,92\% \\
+        Center   & 7.988  & 28,55\% & Center   & 1.998 & 28,55\% & Center   & 299 & 23,00\% \\ 
+        Right  & 10.240 & 36,60\% & Right  & 2.560 & 36,59\% & Right  & 599 & 46,07\% \\
+        \hline \hline
+    \end{tabularx}
+\end{table*}
+
 \subsection{Tarefa de Geração de \textit{Embeddings}}\label{sec:representacoes}
 
 Para a execução da tarefa, a Figura~\ref{fig:fluxo_embeddings} ilustra o fluxo de processamento adotado. O processo inicia-se com a
 \textit{tokenização} dos artigos de notícias, seguida pela mineração de exemplos. Esta etapa é fundamental para selecionar amostras
 informativas que otimizam a convergência e o aprendizado do modelo.
 
-\begin{figure}[htpb]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.8\columnwidth]{./imagens/fig_geracao_embeddings.pdf}
     \caption{\centering Fluxo de treinamento e geração de características para artigos de notícias.}
@@ -97,7 +151,7 @@ A seleção recaiu sobre o DistilBERT [Sanh2019] e o DistilRoBERTa [Liu2019], va
 contudo, apresentam reduções substanciais no custo computacional e nos requisitos de memória.
 
 O modelo \textit{Transformer} processa as sequências de entrada, seguido por uma camada de \textit{Mean Pooling} que consolida 
-as representações em um vetor único. O (\textit{fine-tuning}) é regido por estratégias de aprendizagem métrica (\textit{metric learning}\footnote{aprendizagem métrica}), 
+as representações em um vetor único. O (\textit{fine-tuning}) é regido por estratégias de aprendizagem métrica\footnote{Aprendizagem métrica (ou \textit{metric learning}) refere-se ao uso de algoritmos para aprender uma função de distância que capture a similaridade entre dados.}, 
 utilizando as funções de perda \textit{Contrastive Loss} ou \textit{Triplet Loss}. Tal abordagem assegura que os \textit{embeddings} gerados na saída 
 posicionem instâncias contextualmente similares em regiões próximas do espaço de representação, otimizando a discriminação entre as classes.
 
@@ -161,39 +215,38 @@ seja mantida em todas as etapas, evitando resultados enviesados e permitindo med
 
 \subsection{Avaliação de Desempenho}
 
-O desempenho dos modelos de classificação propostos será avaliado quantitativamente através das métricas de Acurácia e \textit{Macro F1-score}. 
-A escolha de tais métricas fundamenta-se na necessidade de uma análise robusta: enquanto a acurácia fornece uma medida geral da taxa de 
-acerto do modelo (Equação~\ref{eq:accuracy}), o \textit{Macro F1-score} permite uma avaliação criteriosa da capacidade preditiva em todas as classes, 
-mitigando distorções causadas por eventuais desbalanceamentos no conjunto de dados (Equação~\ref{eq:macrof1}).
+O desempenho dos modelos de classificação será avaliado pelas métricas de Acurácia e \textit{Macro F1-score}.
+A Acurácia (Equação~\ref{eq:accuracy}) fornece uma medida geral da taxa de acerto para o conjunto de classes $C$.
+Complementarmente, o \textit{Macro F1-score} (Equação~\ref{eq:macrof1}) permite uma avaliação equilibrada entre as
+classes, mitigando distorções causadas por eventuais desbalanceamento no conjunto de dados.
 
-As métricas são formalmente definidas como segue:
+As métricas são formalmente definidas conforme segue:
 
 \begin{equation}\label{eq:accuracy}
-\text{Acurácia} = \frac{1}{|C|} \sum_{c \in C} \frac{TP_c + TN_c}{TP_c + TN_c + FP_c + FN_c}
+\text{Acurácia} = \frac{1}{|C|} \sum_{c \in C} \left ( \frac{TP_c + TN_c}{TP_c + TN_c + FP_c + FN_c} \right )
 \end{equation}
 
 \begin{equation}\label{eq:macrof1}
-\text{Macro } F1 = \frac{1}{N} \sum_{i=1}^{N} F1_i
+\text{Macro } F1 = \frac{1}{C} \sum_{c \in C} F1_c
 \end{equation}
 
-Onde o $F1$ de cada classe é a média harmônica entre a Precisão e a Revocação, definidas nas Equações \ref{eq:prec_rec} e \ref{eq:f1}:
+Em que $F1_c$ representa a média harmônica entre a Precisão ($P_c$) e a Revocação ($R_c$) para cada classe:
 
-\begin{equation}\label{eq:prec_rec}
-\text{Precis\~{a}o} = \frac{TP}{TP + FP}, \quad \text{Revocaç\~{a}o} = \frac{TP}{TP + FN}
+\begin{equation}\label{eq:prec_rec} 
+  P_c = \frac{TP_c}{TP_c + FP_c}, \quad R_c = \frac{TP_c}{TP_c + FN_c} 
 \end{equation}
 
-\begin{equation}\label{eq:f1}
-F1 = \frac{2 \times (\text{Precis\~{a}o} \times \text{Revocação})}{\text{Precis\~{a}o} + \text{Revocaç\~{a}o}}
+\begin{equation}\label{eq:f1_calc} 
+  F1_c = 2 \times \frac{P_c \times R_c}{P_c + R_c} 
 \end{equation}
 
 Neste contexto, $TP$, $TN$, $FP$ e $FN$ representam, respectivamente, os verdadeiros positivos, 
-verdadeiros negativos, falsos positivos e falsos negativos. $N$ indica o número total de categorias ideológicas. 
+verdadeiros negativos, falsos positivos e falsos negativos. 
 
 A validação da hipótese de pesquisa --- de que o discurso textual reflete o viés ideológico --- dar-se-á 
 mediante a obtenção de altos índices em ambas as métricas. 
-Espera-se que valores elevados de \textit{Macro F1-score} confirmem que o modelo possui alta 
-capacidade discriminatória entre as diferentes vertentes ideológicas, garantindo que o desempenho 
-não seja fruto de uma tendência majoritária no conjunto de dados.
+Espera-se que valores elevados de \textit{Macro F1-score} confirmem a capacidade discriminatória do modelo entre
+as diferentes vertentes ideológicas, assegurando que o desempenho não seja reflexo de uma classe majoritária no conjunto de dados.
 
 \section{Resultados e Discussão}
 

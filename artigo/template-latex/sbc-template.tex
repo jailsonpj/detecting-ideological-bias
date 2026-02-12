@@ -57,21 +57,11 @@
 \section{Trabalhos Relacionados}\label{sec:trabalhos}
 
 \section{Material e Métodos}\label{sec:material}
-A metodologia fundamenta-se na premissa de que o viés ideológico se manifesta
-em padrões discursivos e semântico recorrentes. A abordagem proposta processa o
-conteúdo textual de notícias utilizando modelos pré-treinados para a geração de
-\textit{embeddings}, os quais são otimizados via \textit{fine-tuning} com as funções
-de perda \textit{Contrastive Loss} e \textit{Triplet Loss}. Esse refinamento visa
-maximizar orientações políticas, servindo como entrada para um classificador de
-aprendizado de máquina.
-
-Conforme ilustrado na Figura~\ref{fig:fluxo_dados}, o fluxo de trabalho compreende quatro etapas principais:
-\begin{itemize}
-  \item \textbf{Conjunto de treino e teste}: Coleta baseada em conjunto de dados da literatura correlara;
-  \item \textbf{Geração de \textit{embeddings}}: \textit{Fine-tuning} de modelos pré-treinados com aprendizagem métrica (\textit{Contrastive} e \textit{Triplet Loss});
-  \item \textbf{Classificação}: Treinamento do modelo de classificação sobre os vetores otimizados;
-  \item \textbf{Avaliação da abordagem}: análise do desempenho do sistema e dos resultados obtidos.
-\end{itemize}
+A metodologia fundamenta-se na premissa de que o viés ideológico se manifesta em padrões discursivos e semânticos recorrentes, processando conteúdos 
+textuais via modelos pré-treinados para geração de \textit{embeddings} otimizados por \textit{Contrastive} e \textit{Triplet Loss}. 
+Como ilustrado na Figura~\ref{fig:fluxo_dados}, o fluxo de trabalho compreende quatro etapas principais: a definição de conjuntos de treino e 
+teste baseados na literatura, a geração de representações vetoriais via aprendizagem métrica, o treinamento de classificadores sobre vetores 
+otimizados e a análise sistemática do desempenho. As seções que seguem descrevem detalhadamente cada módulo integrante da arquitetura apresentada.
 
 \begin{figure}[!ht]
 \centering
@@ -140,6 +130,16 @@ desde a geração de \textit{embeddings} até o treinamento e avaliação final.
         \hline \hline
     \end{tabularx}
 \end{table*}
+
+\subsubsection{Avaliação de Generalização: Dataset FlipBias}\label{subsec:flipbias}
+
+Para avaliar o poder de generalização dos modelos experimentados, utilizou-se o conjunto de dados \textit{FlipBias} \cite{chen2018learning}. 
+Extraído da plataforma AllSides, o \textit{corpus} organiza-se em $2.781$ eventos noticiosos, cada qual coberto por perspectivas de diferentes inclinações 
+políticas (\textit{left}, \textit{center} e \textit{right}). 
+
+Para assegurar a comparabilidade dos resultados, os modelos foram submetidos às condições de avaliação estabelecidas por \cite{lin2024indivecexplorationleveraginglarge,lin-etal-2025-investigating}. 
+Essa abordagem permite verificar a robustez das representações na identificação de nuances ideológicas, garantindo que o desempenho observado reflita uma capacidade real de abstração frente a dados 
+não utilizados durante o treinamento.
 
 \subsection{Tarefa de Geração de \textit{Embeddings}}\label{sec:representacoes}
 
@@ -279,51 +279,85 @@ visando a aceleração em hardware. Comprometendo-se com a transparência e a re
 hiperparâmetros e \textit{scripts} de pré-processamento estão publicamente disponíveis\footnote{\url{https://github.com/jailsonpj/detecting-ideological-bias}}.
 
 \section{Resultados e Discussão}
-Os experimentos computacionais foram executados respeitando os passos da metodologia proposta, e a sítese dos resultados obtidos encontra-se na Tabela X.
-Ao todo, foram avaliadas $24$ configurações que combinaram modelos de liguagem (DistilBERT e distilRoBERTa), funções de perda 
-(\textit{Constrastive Loss} e \textit{Triplet Loss}) e diferentes classificadores (\textit{KNN}, \textit{K-Means} e \textit{MLP}).
-Essa abordagem permitiu analisar a sensibilidade dos modelos tanto em cenários de distribuição aleatória (\textit{random split})
-quanto sob condições de generalização para veículos de mídia não observados no treinamento (\textit{media-bias split}).
 
-Para garantir a clareza da exposição e evidenciar o ganho de desempenho em relação ao estado da arte, a Tabela X apresenta
-os resultados dos \textit{baselines} de referência em contraste com as configurações que atingiram os melhores índices em cada cenário.
+Os experimentos foram conduzidos seguindo a metodologia proposta, totalizando $24$ configurações que integraram os modelos  
+DistilBERT e DistilRoBERTa, funções de perda (\textit{Contrastive Loss} e \textit{Triplet Loss}), e classificadores como 
+\textit{KNN}, \textit{K-Means} e \textit{MLP}. Essa abordagem permitiu uma análise sistemática da sensibilidade dos modelos nos cenários \textit{random split} e 
+\textit{media-bias split}, cujo os melhores desempenhos estão sintetizados na Tabela~\ref{tab:resultados_ajustados} em 
+contraste com os \textit{baselines} da literatura.
+
 
 \begin{table}[!ht]
 \centering
-\caption{Comparativo de desempenho.}
+\caption{Desempenho comparativo (em \%) no conjunto de dados ABP utilizando as divisões \textit{media-bias split} e \textit{random split}.}
 \label{tab:resultados_ajustados}
 \resizebox{\textwidth}{!}{% % Adiciona o parâmetro de ajuste à largura do texto
 \begin{tabular}{@{}ccccc@{}}
 \toprule
 \textbf{Conj. de Dados}                                                                     & \textbf{Modelo}                                                       & \begin{tabular}[c]{@{}c@{}} \textbf{Configuração}\\ \textbf{(Repre. / Fun. de Perda / Classificador)}\end{tabular} & \textbf{Macro F1-Score} & \textbf{Acurácia} \\ \midrule
-\multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}ABP\\ (media- bias split)\end{tabular}} & Baly et al., (2020)                                          & BERT / - / BERT                                                                                 & 33.53          & 36.75    \\ 
-                                                                                   & \begin{tabular}[c]{@{}c@{}}Proposto\\ (Exp. 4)\end{tabular}  & DistilRoBERTa / Constrastive / KNN                                                              & 78.07          & 78.15    \\ \midrule
-\multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}ABP \\ (random split)\end{tabular}}     & Baly el al., (2020)                                          & BERT / - / BERT                                                                                 & 80.19          & 79.83    \\ 
-                                                                                   & \begin{tabular}[c]{@{}c@{}}Proposto\\ (Exp. 16)\end{tabular} & DistilRoBERTa / Constrastive / KNN                                                              & 84.82          & 84.54    \\ \bottomrule
+\multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}ABP\\ (media- bias split)\end{tabular}} & \begin{tabular}[c]{@{}c@{}}Proposto\\ (Exp. 4)\end{tabular}  & DistilRoBERTa / Constrastive / KNN                                           & 45.44          & 48.89    \\ 
+                                                                                   & Baly el al., (2020)                                          & BERT / - / BERT                                                              & 33.53          & 36.75    \\ \midrule
+\multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}ABP \\ (random split)\end{tabular}}     & \begin{tabular}[c]{@{}c@{}}Proposto\\ (Exp. 16)\end{tabular} & DistilRoBERTa / Constrastive / KNN                                           & 83.90          & 83.89    \\ 
+                                                                                   & Baly el al., (2020)                                          & BERT / - / BERT                                                              & 80.19          & 79.83    \\ \bottomrule
 \end{tabular}%
 }
 \end{table}
+
+Os resultados demonstram que o uso da \textit{Contrastive Loss} favorece a classificação de viés ideológico ao otimizar 
+a separação vetorial no espaço de \textit{embeddings}. Conforme a Tabela Tabela~\ref{tab:resultados_ajustados}, o modelo 
+proposto (\textit{DistilRoBERTa} + \textit{KNN}) atingiu $45,44\%$ de \textit{Macro F1-score} no cenário \textit{media-bias split}, 
+superando a abordagem de Baly et al. [2020] em aproximadamente $12$ pontos percentuais. No entanto, a análise dos 
+particionamentos revela que o desempenho é significativamente superior no \textit{random split} ($83,90\%$), onde 
+a presença de fontes comuns entre treino e teste facilita a predição. Já o \textit{media-bias split} impõe 
+um desafio de generalização maior, exigindo que o modelo identifique nuances ideológicas em portais inéditos, 
+servindo como um estágio intermediário entre a memorização de fontes e a generalização plena.
 
 \begin{table}[!ht]
 \centering
+\caption{Desempenho comparativo (em \%) no conjunto de dados FlipBias.}
+\label{tab:resultados_flibias}
 \resizebox{\textwidth}{!}{% % Parâmetro para ajustar ao texto
-\begin{tabular}{@{}ccc@{}}
+\begin{tabular}{@{}cccc@{}}
 \toprule
-\textbf{Modelo}                                              & \textbf{\begin{tabular}[c]{@{}c@{}}Configuração\\ (Repre. / Fun. de Perda / Classificador)\end{tabular}} & \textbf{Macro F1-Score} \\ \midrule
-Lin et al., (2025)                                           & - / - / GPT 3.5 - Fine Tuning                                                                            & 77.82                   \\
-Lin et al., (2025)                                           & - / - / Minstral - Zero Shot                                                                             & 76.38                   \\
-\begin{tabular}[c]{@{}c@{}}Proposto\\ (Exp. 16)\end{tabular} & DistilRoBERTa / Constrastive / KNN                                                                       & 72.98                   \\
-\begin{tabular}[c]{@{}c@{}}Proposto\\ (Exp. 4)\end{tabular}  & DistilRoBERTa / Constrastive / KNN                                                                       & 72.21                   \\
-Lin et al., (2025)                                           & - / - / GPT 4 - Zero Shot                                                                                & 44.69                   \\
-Lin et al., (2025)                                           & - / - / LLaMa2 - Zero Shot                                                                               & 57.16                   \\
-Lin et al., (2025)                                           & - / - / GPT 3.5 - Zero Shot                                                                              & 26.25                   \\ \bottomrule
+\textbf{Modelo}                                              & \textbf{\begin{tabular}[c]{@{}c@{}}Configuração\\ (Repre. / Fun. de Perda / Classificador)\end{tabular}} & \textbf{Estratégia} & \textbf{Macro F1-Score} \\ \midrule
+Lin et al. (2024)                                           & - / - / BERT                                                                              & Fine-tuning                                & 86.20                   \\
+Lin et al. (2025)                                           & - / - / GPT 3.5                                                                           & Fine-tuning                                & 77.82                   \\
+\begin{tabular}[c]{@{}c@{}}Proposto\\ (Exp. 16)\end{tabular} & DistilRoBERTa / Constrastive / KNN                                                        & Fine-tuning                               & 47.00                   \\
+\begin{tabular}[c]{@{}c@{}}Proposto\\ (Exp. 4)\end{tabular}  & DistilRoBERTa / Constrastive / KNN                                                        & Fine-tuning                               & 28.21                   \\ \bottomrule
 \end{tabular}%
 }
 \end{table}
 
+Para testar os limites dessa generalização em um cenário de estresse ainda mais rigoroso, 
+a Tabela~\ref{tab:resultados_flibias} apresenta os resultados de transferência de domínio no conjunto 
+\textit{FlipBias}. Diferente dos \textit{baselines} de Lin et al. [2024, 2025], que foram treinados e testados 
+integralmente no \textit{FlipBias}, as configurações propostas foram treinadas no \textit{dataset} ABP e avaliadas 
+sem exposição prévia ao novo domínio. Embora os experimentos $16$ e $4$ tenham obtido \textit{Macro F1-Scores} 
+de $47,00\%$ e $28,21\%$ — valores inferiores aos modelos \textit{in-domain}\footnote{In-domain refere-se a uma situação em que os dados utilizados 
+para treinar um modelo de aprendizagem de máquina e os dados usados para testá-lo vêm da mesma distribuição, contexto ou fonte.} —, os dados evidenciam os 
+desafios intrínsecos da avaliação \textit{cross-domain}\footnote{Cross-domain refere-se ao treinamento de um modelo de aprendizagem de máquina em um determinado contexto e avaliado em um contexto diferente.}. Essa análise valida a arquitetura ao demonstrar 
+que, mesmo sem ajuste fino no domínio específico, o modelo captura estruturas ideológicas fundamentais, 
+embora a especialização no domínio de destino continue sendo um fator determinante para o desempenho superior.
+
 \section{Considerações Finais}
-\cite{lin-etal-2025-investigating}
+
+Este estudo investigou o impacto da aprendizagem métrica na classificação de viés político, revelando que a \textit{Contrastive Loss} 
+integrada ao \textit{DistilRoBERTa} oferece uma base robusta para a separação semântica de discursos. Os resultados no conjunto ABP 
+demonstram que a arquitetura proposta supera \textit{baselines} consolidados mesmo no desafiador cenário \textit{media-bias split}, 
+mantendo uma capacidade de discernimento superior à literatura ao lidar com veículos de mídia inéditos. Evidenciou-se que, 
+embora o desempenho seja otimizado pela proximidade entre treino e teste, o modelo captura estruturas ideológicas fundamentais 
+que transcendem a simples memorização de fontes.
+
+Por outro lado, os experimentos no \textit{FlipBias} revelaram as fronteiras da generalização \textit{cross-domain}, 
+indicando que particularidades editoriais ainda influenciam os resultados em cenários sem ajuste fino. 
+Para mitigar essa disparidade, trabalhos futuros focarão em técnicas de \textit{Domain Adaptation}. Além disso, planeja-se expandir 
+os modelos para análises multilíngues e testar modelos de \textit{Large Language Models} (\textit{LLMs}).
+
+
+
+
 \bibliographystyle{sbc}
 \bibliography{sbc-template}
+
 
 \end{document}

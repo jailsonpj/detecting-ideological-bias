@@ -2,6 +2,8 @@
 \providecommand \babel@aux [2]{\global \let \babel@toc \@gobbletwo }
 \@nameuse{bbl@beforestart}
 \catcode `"\active 
+\citation{baly2020we}
+\citation{baly2020we}
 \babel@aux{brazil}{}
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introdução}{1}{}\protected@file@percent }
 \newlabel{sec:intro}{{1}{1}{Introdução}{section.1}{}}
@@ -9,15 +11,16 @@
 \newlabel{sec:trabalhos}{{2}{1}{Trabalhos Relacionados}{section.2}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {3}Material e Métodos}{1}{}\protected@file@percent }
 \newlabel{sec:material}{{3}{1}{Material e Métodos}{section.3}{}}
-\citation{baly2020we}
-\citation{baly2020we}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Dados Experimentais}{1}{}\protected@file@percent }
+\newlabel{sec:dados}{{3.1}{1}{Dados Experimentais}{subsection.3.1}{}}
+\citation{chen2018learning}
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces \centering  Visão geral do método de detecção de viés ideológico por meio do conteúdo textual de artigos de notícias.}}{2}{}\protected@file@percent }
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
 \newlabel{fig:fluxo_dados}{{1}{2}{Material e Métodos}{figure.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Dados Experimentais}{2}{}\protected@file@percent }
-\newlabel{sec:dados}{{3.1}{2}{Dados Experimentais}{subsection.3.1}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces \centering  Exemplo de uma amostra de artigo de notícia com o tópico sobre a pandemia de coronavírus \cite  {baly2020we}.}}{2}{}\protected@file@percent }
 \newlabel{fig:example_article}{{2}{2}{Dados Experimentais}{figure.2}{}}
+\citation{lin2024indivecexplorationleveraginglarge}
+\citation{lin-etal-2025-investigating}
 \citation{bert}
 \citation{Zhang}
 \citation{distilbert}
@@ -26,6 +29,8 @@
 \newlabel{tab:particoes_media}{{1}{3}{Dados Experimentais}{table.1}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Estatísticas da partição \textit  {random split}.}}{3}{}\protected@file@percent }
 \newlabel{tab:particoes_random}{{2}{3}{Dados Experimentais}{table.2}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.1}Avaliação de Generalização: Dataset FlipBias}{3}{}\protected@file@percent }
+\newlabel{subsec:flipbias}{{3.1.1}{3}{Avaliação de Generalização: Dataset FlipBias}{subsubsection.3.1.1}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Tarefa de Geração de \textit  {Embeddings}}{3}{}\protected@file@percent }
 \newlabel{sec:representacoes}{{3.2}{3}{Tarefa de Geração de \textit  {Embeddings}}{subsection.3.2}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces \centering  Fluxo de treinamento e geração de características para artigos de notícias.}}{3}{}\protected@file@percent }
@@ -42,22 +47,25 @@
 \newlabel{eq:accuracy}{{3}{5}{Avaliação de Desempenho}{equation.3}{}}
 \newlabel{eq:macrof1}{{4}{5}{Avaliação de Desempenho}{equation.4}{}}
 \newlabel{eq:prec_rec}{{5}{5}{Avaliação de Desempenho}{equation.5}{}}
-\newlabel{eq:f1_calc}{{6}{5}{Avaliação de Desempenho}{equation.6}{}}
-\citation{lin-etal-2025-investigating}
+\newlabel{eq:f1_calc}{{6}{6}{Avaliação de Desempenho}{equation.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5}Ambiente de Execução}{6}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}Resultados e Discussão}{6}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Desempenho comparativo (em \%) no conjunto de dados ABP utilizando as divisões \textit  {media-bias split} e \textit  {random split}.}}{6}{}\protected@file@percent }
+\newlabel{tab:resultados_ajustados}{{3}{6}{Resultados e Discussão}{table.3}{}}
 \bibstyle{sbc}
 \bibdata{sbc-template}
 \bibcite{baly2020we}{Baly et~al. 2020}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Desempenho comparativo (em \%) no conjunto de dados FlipBias.}}{7}{}\protected@file@percent }
+\newlabel{tab:resultados_flibias}{{4}{7}{Resultados e Discussão}{table.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Considerações Finais}{7}{}\protected@file@percent }
 \bibcite{brink2016real}{Brink et~al. 2016}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.5}Ambiente de Execução}{6}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4}Resultados e Discussão}{6}{}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Comparativo de desempenho.}}{6}{}\protected@file@percent }
-\newlabel{tab:resultados_ajustados}{{3}{6}{Resultados e Discussão}{table.3}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Considerações Finais}{6}{}\protected@file@percent }
+\bibcite{chen2018learning}{Chen et~al. 2018}
 \bibcite{bert}{Devlin et~al. 2018}
 \bibcite{goodfellow2016deep}{Goodfellow 2016}
 \bibcite{loss}{Kertész 2021}
 \bibcite{lin-etal-2025-investigating}{Lin et~al. 2025}
+\bibcite{lin2024indivecexplorationleveraginglarge}{Lin et~al. 2024}
 \bibcite{roberta}{Liu 2019}
 \bibcite{distilbert}{Sanh 2019}
 \bibcite{Zhang}{Zhang and Rao 2020}
-\gdef \@abspage@last{7}
+\gdef \@abspage@last{8}

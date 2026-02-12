@@ -4,45 +4,45 @@ The top-level auxiliary file: sbc-template.aux
 The style file: sbc.bst
 Database file #1: sbc-template.bib
 Warning--empty journal in brink2016real
-You've used 9 entries,
+You've used 11 entries,
             1935 wiz_defined-function locations,
-            520 strings with 5424 characters,
-and the built_in function-call counts, 3985 in all, are:
-= -- 399
-> -- 148
-< -- 9
-+ -- 48
-- -- 48
-* -- 286
-:= -- 652
-add.period$ -- 27
-call.type$ -- 9
-change.case$ -- 66
-chr.to.int$ -- 9
-cite$ -- 10
-duplicate$ -- 182
-empty$ -- 283
-format.name$ -- 59
-if$ -- 831
+            529 strings with 5878 characters,
+and the built_in function-call counts, 4889 in all, are:
+= -- 486
+> -- 199
+< -- 10
++ -- 66
+- -- 66
+* -- 360
+:= -- 807
+add.period$ -- 32
+call.type$ -- 11
+change.case$ -- 85
+chr.to.int$ -- 11
+cite$ -- 12
+duplicate$ -- 217
+empty$ -- 337
+format.name$ -- 79
+if$ -- 1010
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 8
-newline$ -- 46
-num.names$ -- 29
-pop$ -- 75
+missing$ -- 9
+newline$ -- 55
+num.names$ -- 35
+pop$ -- 97
 preamble$ -- 1
-purify$ -- 66
+purify$ -- 85
 quote$ -- 0
-skip$ -- 156
+skip$ -- 182
 stack$ -- 0
-substring$ -- 280
-swap$ -- 55
-text.length$ -- 4
+substring$ -- 328
+swap$ -- 63
+text.length$ -- 5
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 54
+type$ -- 66
 warning$ -- 1
-while$ -- 30
+while$ -- 37
 width$ -- 0
-write$ -- 113
+write$ -- 136
 (There was 1 warning)

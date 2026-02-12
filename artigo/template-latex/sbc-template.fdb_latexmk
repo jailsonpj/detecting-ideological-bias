@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex sbc-template"] 1770751570.87179 "sbc-template.aux" "sbc-template.bbl" "sbc-template" 1770751571.66255 0
-  "./sbc-template.bib" 1770751494.10242 2244 6f90bbff6a9a705f717cdbce741f8d93 ""
+["bibtex sbc-template"] 1770842285.30601 "sbc-template.aux" "sbc-template.bbl" "sbc-template" 1770844010.70352 0
+  "./sbc-template.bib" 1770842255.1623 4431 dac364f80f6b36d631bf5e48d10cfd5c ""
   "./sbc.bst" 1770296092.52672 21864 a668496cca21cfdd211f7fb5f0d57565 ""
-  "sbc-template.aux" 1770751571.43248 4635 d55c7b5843b6b2b2f4600ab42c6cf61e "pdflatex"
+  "sbc-template.aux" 1770844010.44344 4584 975e6d03193c7f279e3d434eb483da3f "pdflatex"
   (generated)
   "sbc-template.bbl"
   "sbc-template.blg"
   (rewritten before read)
-["pdflatex"] 1770751570.95945 "/Users/jailsonpereira/Documents/detecting-ideological-bias/artigo/template-latex/sbc-template.tex" "sbc-template.pdf" "sbc-template" 1770751571.66269 0
-  "/Users/jailsonpereira/Documents/detecting-ideological-bias/artigo/template-latex/sbc-template.tex" 1770751569.10562 18000 8b38f6b32488d16b8381ac037fbb46e8 ""
+["pdflatex"] 1770844009.90241 "/Users/jailsonpereira/Documents/detecting-ideological-bias/artigo/template-latex/sbc-template.tex" "sbc-template.pdf" "sbc-template" 1770844010.70369 0
+  "/Users/jailsonpereira/Documents/detecting-ideological-bias/artigo/template-latex/sbc-template.tex" 1770844009.66645 22187 f5b62b496d9a34f038fd00b7ddf0cc00 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/adobe/courier/pcrr7t.tfm" 1136768653 960 379cc0019370a9e0208a0a3f949f847a ""
@@ -79,6 +79,7 @@
   "/usr/local/texlive/2025/texmf-dist/tex/latex/base/article.cls" 1738182759 20144 63d8bacaf52e5abf4db3bc322373e1d4 ""
   "/usr/local/texlive/2025/texmf-dist/tex/latex/base/inputenc.sty" 1738182759 5048 0270515b828149155424600fd2d58ac5 ""
   "/usr/local/texlive/2025/texmf-dist/tex/latex/base/size12.clo" 1738182759 8449 ffe4ba2166a344827c3a832d1d5e0a91 ""
+  "/usr/local/texlive/2025/texmf-dist/tex/latex/booktabs/booktabs.sty" 1579038678 6078 f1cb470c9199e7110a27851508ed7a5c ""
   "/usr/local/texlive/2025/texmf-dist/tex/latex/caption/caption.sty" 1696191071 56128 c2ccf1a29d78c33bc553880402e4fb9a ""
   "/usr/local/texlive/2025/texmf-dist/tex/latex/caption/caption3.sty" 1696191071 72619 ee90b6612147680fd73c3b1406a74245 ""
   "/usr/local/texlive/2025/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty" 1579991033 13886 d1306dcf79a944f6988e688c1785f9ce ""
@@ -95,6 +96,7 @@
   "/usr/local/texlive/2025/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty" 1665067230 13815 760b0c02f691ea230f5359c4e1de23a7 ""
   "/usr/local/texlive/2025/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def" 1716410060 29785 9f93ab201fe5dd053afcc6c1bcf7d266 ""
   "/usr/local/texlive/2025/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg" 1279039959 678 4792914a8f45be57bb98413425e4c7af ""
+  "/usr/local/texlive/2025/texmf-dist/tex/latex/multirow/multirow.sty" 1731446765 6696 886c9f3087d0b973ed2c19aa79cb3023 ""
   "/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/ot1pcr.fd" 1137110629 985 1ed784d7bfe47179f3550d2303b073f8 ""
   "/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/ot1phv.fd" 1586716065 1679 51f99a09d5536398d3a0ad1d44df9625 ""
   "/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/ot1ptm.fd" 1137110629 961 15056f4a61917ceed3a44e4ac11fcc52 ""
@@ -111,10 +113,10 @@
   "imagens/example_areticle.png" 1770748452.71337 190209 ede12eab7ac1cf4f57522e4dd2431ef5 ""
   "imagens/fig_abordagem_proposta_texto.pdf" 1770661632.135 101902 ca710237b97d479b258e07aa0fcdeadb ""
   "imagens/fig_geracao_embeddings.pdf" 1770663637.09448 61419 e0482825b92891ea351d5a3cfa2359a3 ""
-  "sbc-template.aux" 1770751571.43248 4635 d55c7b5843b6b2b2f4600ab42c6cf61e "pdflatex"
-  "sbc-template.bbl" 1770751570.95761 1944 3b4ebbe75301c6816648d5c4fac9edf5 "bibtex sbc-template"
+  "sbc-template.aux" 1770844010.44344 4584 975e6d03193c7f279e3d434eb483da3f "pdflatex"
+  "sbc-template.bbl" 1770842285.40148 2285 eeec8892a6e0976e20131d94c15d783b "bibtex sbc-template"
   "sbc-template.sty" 1770296092.52619 6074 ecc54df5124d8db4ac67c42cc728f3a5 ""
-  "sbc-template.tex" 1770751569.10562 18000 8b38f6b32488d16b8381ac037fbb46e8 ""
+  "sbc-template.tex" 1770844009.66645 22187 f5b62b496d9a34f038fd00b7ddf0cc00 ""
   (generated)
   "sbc-template.aux"
   "sbc-template.log"

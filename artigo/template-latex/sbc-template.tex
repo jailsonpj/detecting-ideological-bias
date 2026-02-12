@@ -1,6 +1,8 @@
 \documentclass[12pt]{article}
-
+\usepackage{booktabs}
 \usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{array} % Necessário para o >{\centering\arraybackslash}
 \usepackage{amsmath}
 \usepackage{sbc-template}
 \usepackage{graphicx,url}
@@ -101,8 +103,8 @@ vieses específicos de veículo de imprensa em vez de padrões semânticos.
 
 A robustez da avaliação foi garantida através de dois métodos de particionamento: o \textit{random split} e o \textit{media-bias split}. 
 Na Tabela~\ref{tab:particoes_media}, observa-se a configuração do \textit{media-bias split}, no qual as fontes são segregadas para garantir 
-que o modelo seja testado em veículos não epostos durante o treinamento, mitigando o vazamento de dados. em contraste, o \textit{random-split}
-permite a sobreposição de fontes entre as partições, mantendo a consitência na distribuição de classes entre treino e validação, como apresentado
+que o modelo seja testado em veículos não expostos durante o treinamento, mitigando o vazamento de dados. Em contraste, o \textit{random-split}
+permite a sobreposição de fontes entre as partições, mantendo a consistência na distribuição de classes entre treino e validação, como apresentado
 na Tabela~\ref{tab:particoes_random}. Neste trabalho, a totalidade das amostras do ABP foi empregada em todas as etapas metodológicas,
 desde a geração de \textit{embeddings} até o treinamento e avaliação final.
 
@@ -211,7 +213,7 @@ classificação final. O modelo otimizado com o algoritmo \textit{Adam} e a fun�
 \textit{Categorical Cross-Entropy}, escolhas consolidadas na literatura para problemas multiclasse \cite{goodfellow2016deep}.
 
 A confiabilidade do experimento foi assegurada pela validação cruzada estritificada (5-fold). Esse procedimento garante que a proporção das classes
-seja mantida em todas as etapas, evitando resultados enviesados e permitindo medir com precisão a capacidade do modelo em classificar novos dados \cite{nti2021performance}.
+seja mantida em todas as etapas, evitando resultados enviesados e permitindo medir com precisão a capacidade do modelo em classificar novos dados \cite{brink2016real}.
 
 \subsection{Avaliação de Desempenho}
 
@@ -248,26 +250,26 @@ mediante a obtenção de altos índices em ambas as métricas.
 Espera-se que valores elevados de \textit{Macro F1-score} confirmem a capacidade discriminatória do modelo entre
 as diferentes vertentes ideológicas, assegurando que o desempenho não seja reflexo de uma classe majoritária no conjunto de dados.
 
-\subsection{Configuração dos Experimentos e Espaço de Busca}
+%\subsection{Configuração dos Experimentos e Espaço de Busca}
 
-A exploração da configuração ótima para os modelos foi formalizada por uma função de desempenho $\mathcal{P}$, que parametriza 
-as variações arquiteturais do método proposto conforme a Equação~\ref{eq:funcao_experimento}. Nesta formulação, $S$ 
-representa o protocolo de particionamento dos dados (\textit{media-bias} ou \textit{random split}), $R$ define o codificador 
-empregado na geração dos \textit{embeddings}, $L$ denota a função de perda aplicada ao aprendizado de representação em $R$, e $C$ 
-designa o algoritmo de classificação final.
+%A exploração da configuração ótima para os modelos foi formalizada por uma função de desempenho $\mathcal{P}$, que parametriza 
+%as variações arquiteturais do método proposto conforme a Equação~\ref{eq:funcao_experimento}. Nesta formulação, $S$ 
+%representa o protocolo de particionamento dos dados (\textit{media-bias} ou \textit{random split}), $R$ define o codificador 
+%empregado na geração dos \textit{embeddings}, $L$ denota a função de perda aplicada ao aprendizado de representação em $R$, e $C$ 
+%designa o algoritmo de classificação final.
 
-\begin{equation}\label{eq:funcao_experimento} 
-  \mathcal{P} = f(S, R, L, C) 
-\end{equation}
+%\begin{equation}\label{eq:funcao_experimento} 
+%  \mathcal{P} = f(S, R, L, C) 
+%\end{equation}
 
-O objetivo experimental consiste em identificar a tupla de parâmetros $\hat{e}$ que maximize o desempenho global do método proposto. 
-Tal busca é definida matematicamente pela operação de \textit{argmax} apresentada na Equação~\ref{eq:argmax}, permitindo a 
-identificação sistemática da arquitetura que apresenta os melhores índices de acurácia e \textit{Macro F1-score} entre todas as 
-combinações testadas.
+%O objetivo experimental consiste em identificar a tupla de parâmetros $\hat{e}$ que maximize o desempenho global do método proposto. 
+%Tal busca é definida matematicamente pela operação de \textit{argmax} apresentada na Equação~\ref{eq:argmax}, permitindo a 
+%identificação sistemática da arquitetura que apresenta os melhores índices de acurácia e \textit{Macro F1-score} entre todas as 
+%combinações testadas.
 
-\begin{equation}\label{eq:argmax} 
-  \hat{e} = \arg\max f(S, R, L, C) 
-\end{equation}
+%\begin{equation}\label{eq:argmax} 
+%  \hat{e} = \arg\max f(S, R, L, C) 
+%\end{equation}
 
 \subsection{Ambiente de Execução}
 
@@ -277,14 +279,50 @@ visando a aceleração em hardware. Comprometendo-se com a transparência e a re
 hiperparâmetros e \textit{scripts} de pré-processamento estão publicamente disponíveis\footnote{\url{https://github.com/jailsonpj/detecting-ideological-bias}}.
 
 \section{Resultados e Discussão}
+Os experimentos computacionais foram executados respeitando os passos da metodologia proposta, e a sítese dos resultados obtidos encontra-se na Tabela X.
+Ao todo, foram avaliadas $24$ configurações que combinaram modelos de liguagem (DistilBERT e distilRoBERTa), funções de perda 
+(\textit{Constrastive Loss} e \textit{Triplet Loss}) e diferentes classificadores (\textit{KNN}, \textit{K-Means} e \textit{MLP}).
+Essa abordagem permitiu analisar a sensibilidade dos modelos tanto em cenários de distribuição aleatória (\textit{random split})
+quanto sob condições de generalização para veículos de mídia não observados no treinamento (\textit{media-bias split}).
 
-Esta metodologia permitiu uma comparação sistemática e rigorosa entre os \textit{baselines} estabelecidos por
-Baly et al. [2020] -- que operam sob uma configuração de aprendizado tradicional -- e as variantes propostas neste
-trabalho, que integram funções \textit{Contrastive Loss} e \textit{Triplet Loss} para o refinamento do espaço de características, como
-observado na Tabela.
+Para garantir a clareza da exposição e evidenciar o ganho de desempenho em relação ao estado da arte, a Tabela X apresenta
+os resultados dos \textit{baselines} de referência em contraste com as configurações que atingiram os melhores índices em cada cenário.
+
+\begin{table}[!ht]
+\centering
+\caption{Comparativo de desempenho.}
+\label{tab:resultados_ajustados}
+\resizebox{\textwidth}{!}{% % Adiciona o parâmetro de ajuste à largura do texto
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+\textbf{Conj. de Dados}                                                                     & \textbf{Modelo}                                                       & \begin{tabular}[c]{@{}c@{}} \textbf{Configuração}\\ \textbf{(Repre. / Fun. de Perda / Classificador)}\end{tabular} & \textbf{Macro F1-Score} & \textbf{Acurácia} \\ \midrule
+\multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}ABP\\ (media- bias split)\end{tabular}} & Baly et al., (2020)                                          & BERT / - / BERT                                                                                 & 33.53          & 36.75    \\ 
+                                                                                   & \begin{tabular}[c]{@{}c@{}}Proposto\\ (Exp. 4)\end{tabular}  & DistilRoBERTa / Constrastive / KNN                                                              & 78.07          & 78.15    \\ \midrule
+\multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}ABP \\ (random split)\end{tabular}}     & Baly el al., (2020)                                          & BERT / - / BERT                                                                                 & 80.19          & 79.83    \\ 
+                                                                                   & \begin{tabular}[c]{@{}c@{}}Proposto\\ (Exp. 16)\end{tabular} & DistilRoBERTa / Constrastive / KNN                                                              & 84.82          & 84.54    \\ \bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\begin{table}[!ht]
+\centering
+\resizebox{\textwidth}{!}{% % Parâmetro para ajustar ao texto
+\begin{tabular}{@{}ccc@{}}
+\toprule
+\textbf{Modelo}                                              & \textbf{\begin{tabular}[c]{@{}c@{}}Configuração\\ (Repre. / Fun. de Perda / Classificador)\end{tabular}} & \textbf{Macro F1-Score} \\ \midrule
+Lin et al., (2025)                                           & - / - / GPT 3.5 - Fine Tuning                                                                            & 77.82                   \\
+Lin et al., (2025)                                           & - / - / Minstral - Zero Shot                                                                             & 76.38                   \\
+\begin{tabular}[c]{@{}c@{}}Proposto\\ (Exp. 16)\end{tabular} & DistilRoBERTa / Constrastive / KNN                                                                       & 72.98                   \\
+\begin{tabular}[c]{@{}c@{}}Proposto\\ (Exp. 4)\end{tabular}  & DistilRoBERTa / Constrastive / KNN                                                                       & 72.21                   \\
+Lin et al., (2025)                                           & - / - / GPT 4 - Zero Shot                                                                                & 44.69                   \\
+Lin et al., (2025)                                           & - / - / LLaMa2 - Zero Shot                                                                               & 57.16                   \\
+Lin et al., (2025)                                           & - / - / GPT 3.5 - Zero Shot                                                                              & 26.25                   \\ \bottomrule
+\end{tabular}%
+}
+\end{table}
 
 \section{Considerações Finais}
-
+\cite{lin-etal-2025-investigating}
 \bibliographystyle{sbc}
 \bibliography{sbc-template}
 

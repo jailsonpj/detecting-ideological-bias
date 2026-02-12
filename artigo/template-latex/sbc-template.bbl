@@ -5,6 +5,10 @@ Baly, R., Da~San~Martino, G., Glass, J., and Nakov, P. (2020).
 \newblock We can detect your bias: Predicting the political ideology of news articles.
 \newblock In {\em Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing (EMNLP)}, pages 4982--4991.
 
+\bibitem[Brink et~al. 2016]{brink2016real}
+Brink, H., Richards, J., and Fetherolf, M. (2016).
+\newblock Real-world machine learning. manning publications.
+
 \bibitem[Devlin et~al. 2018]{bert}
 Devlin, J., Chang, M.-W., Lee, K., and Toutanova, K. (2018).
 \newblock Bert: Pre-training of deep bidirectional transformers for language understanding.
@@ -19,15 +23,15 @@ Kertész, G. (2021).
 \newblock Different triplet sampling techniques for lossless triplet loss on metric similarity learning.
 \newblock In {\em 2021 IEEE 19th World Symposium on Applied Machine Intelligence and Informatics (SAMI)}, pages 000449--000454.
 
+\bibitem[Lin et~al. 2025]{lin-etal-2025-investigating}
+Lin, L., Wang, L., Guo, J., and Wong, K.-F. (2025).
+\newblock Investigating bias in {LLM}-based bias detection: Disparities between {LLM}s and human perception.
+\newblock In Rambow, O., Wanner, L., Apidianaki, M., Al-Khalifa, H., Eugenio, B.~D., and Schockaert, S., editors, {\em Proceedings of the 31st International Conference on Computational Linguistics}, pages 10634--10649, Abu Dhabi, UAE. Association for Computational Linguistics.
+
 \bibitem[Liu 2019]{roberta}
 Liu, Y. (2019).
 \newblock Roberta: A robustly optimized bert pretraining approach.
 \newblock {\em arXiv preprint arXiv:1907.11692}.
-
-\bibitem[Nti et~al. 2021]{nti2021performance}
-Nti, I.~K., Nyarko-Boateng, O., Aning, J., et~al. (2021).
-\newblock Performance of machine learning algorithms with different k values in k-fold cross-validation.
-\newblock {\em International Journal of Information Technology and Computer Science}, 13(6):61--71.
 
 \bibitem[Sanh 2019]{distilbert}
 Sanh, V. (2019).

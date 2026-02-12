@@ -11,10 +11,14 @@ INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/base/size12.clo
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/base/size12.clo
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
+INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/booktabs/booktabs.sty
+INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/booktabs/booktabs.sty
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/tools/tabularx.sty
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/tools/tabularx.sty
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/tools/array.sty
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/tools/array.sty
+INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/multirow/multirow.sty
+INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/multirow/multirow.sty
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/amsmath/amsmath.sty
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/amsmath/amsmath.sty
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/amsmath/amsopn.sty

@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex sbc-template"] 1770927332.32039 "sbc-template.aux" "sbc-template.bbl" "sbc-template" 1770927510.0691 0
+["bibtex sbc-template"] 1771009329.57403 "sbc-template.aux" "sbc-template.bbl" "sbc-template" 1771009346.74015 0
   "./sbc-template.bib" 1770906867.91443 5149 9d87cae7e45bd19f3849bf6e72e90814 ""
   "./sbc.bst" 1770296092.52672 21864 a668496cca21cfdd211f7fb5f0d57565 ""
-  "sbc-template.aux" 1770927509.80987 5384 296760512a4a0fbf94067fba64fcc196 "pdflatex"
+  "sbc-template.aux" 1771009346.50235 5614 36f16dfc69c0ddaac2039eec39d5c5e2 "pdflatex"
   (generated)
   "sbc-template.bbl"
   "sbc-template.blg"
   (rewritten before read)
-["pdflatex"] 1770927509.27378 "/Users/jailsonpereira/Documents/detecting-ideological-bias/artigo/template-latex/sbc-template.tex" "sbc-template.pdf" "sbc-template" 1770927510.0693 0
-  "/Users/jailsonpereira/Documents/detecting-ideological-bias/artigo/template-latex/sbc-template.tex" 1770927509.02046 25453 b9fcac3d2e505ff70fb00df1ac2a3095 ""
+["pdflatex"] 1771009346.00122 "/Users/jailsonpereira/Documents/detecting-ideological-bias/artigo/template-latex/sbc-template.tex" "sbc-template.pdf" "sbc-template" 1771009346.7403 0
+  "/Users/jailsonpereira/Documents/detecting-ideological-bias/artigo/template-latex/sbc-template.tex" 1771009345.80586 27351 3ea0ffc2dfcca1e9d8be598d0bb78e0c ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/adobe/courier/pcrr7t.tfm" 1136768653 960 379cc0019370a9e0208a0a3f949f847a ""
@@ -110,10 +110,10 @@
   "imagens/example_areticle.png" 1770748452.71337 190209 ede12eab7ac1cf4f57522e4dd2431ef5 ""
   "imagens/fig_abordagem_proposta_texto.pdf" 1770661632.135 101902 ca710237b97d479b258e07aa0fcdeadb ""
   "imagens/fig_geracao_embeddings.pdf" 1770663637.09448 61419 e0482825b92891ea351d5a3cfa2359a3 ""
-  "sbc-template.aux" 1770927509.80987 5384 296760512a4a0fbf94067fba64fcc196 "pdflatex"
-  "sbc-template.bbl" 1770927332.4227 2825 b679502b719dcf8bd67567681ac74b6a "bibtex sbc-template"
+  "sbc-template.aux" 1771009346.50235 5614 36f16dfc69c0ddaac2039eec39d5c5e2 "pdflatex"
+  "sbc-template.bbl" 1771009329.66549 2825 b679502b719dcf8bd67567681ac74b6a "bibtex sbc-template"
   "sbc-template.sty" 1770296092.52619 6074 ecc54df5124d8db4ac67c42cc728f3a5 ""
-  "sbc-template.tex" 1770927509.02046 25453 b9fcac3d2e505ff70fb00df1ac2a3095 ""
+  "sbc-template.tex" 1771009345.80586 27351 3ea0ffc2dfcca1e9d8be598d0bb78e0c ""
   (generated)
   "sbc-template.aux"
   "sbc-template.log"

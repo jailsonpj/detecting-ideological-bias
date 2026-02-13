@@ -224,22 +224,39 @@ classes, mitigando distorções causadas por eventuais desbalanceamento no conju
 
 As métricas são formalmente definidas conforme segue:
 
-\begin{equation}\label{eq:accuracy}
-\text{Acurácia} = \frac{1}{|C|} \sum_{c \in C} \left ( \frac{TP_c + TN_c}{TP_c + TN_c + FP_c + FN_c} \right )
-\end{equation}
+%\begin{equation}\label{eq:accuracy}
+%\text{Acurácia} = \frac{1}{|C|} \sum_{c \in C} \left ( \frac{TP_c + TN_c}{TP_c + TN_c + FP_c + FN_c} \right )
+%\end{equation}
 
-\begin{equation}\label{eq:macrof1}
-\text{Macro } F1 = \frac{1}{C} \sum_{c \in C} F1_c
+%\begin{equation}\label{eq:macrof1}
+%\text{Macro } F1 = \frac{1}{C} \sum_{c \in C} F1_c
+%\end{equation}
+
+\noindent
+\begin{minipage}{0.50\linewidth}
+\begin{equation}\label{eq:accuracy}
+\text{Acurácia} = \frac{TP + TN}{TP + TN + FP + FN}
 \end{equation}
+\end{minipage}\hfill
+\begin{minipage}{0.48\linewidth}
+\begin{equation}\label{eq:macrof1}
+\text{Macro } F1 = \frac{1}{|C|} \sum_{c \in C} F1_c
+\end{equation}
+\end{minipage}
 
 Em que $F1_c$ representa a média harmônica entre a Precisão ($P_c$) e a Revocação ($R_c$) para cada classe:
 
-\begin{equation}\label{eq:prec_rec} 
-  P_c = \frac{TP_c}{TP_c + FP_c}, \quad R_c = \frac{TP_c}{TP_c + FN_c} 
-\end{equation}
+%\begin{equation}\label{eq:prec_rec} 
+%  P_c = \frac{TP_c}{TP_c + FP_c}, \quad R_c = \frac{TP_c}{TP_c + FN_c} 
+%\end{equation}
 
-\begin{equation}\label{eq:f1_calc} 
-  F1_c = 2 \times \frac{P_c \times R_c}{P_c + R_c} 
+%\begin{equation}\label{eq:f1_calc} 
+%  F1_c = 2 \times \frac{P_c \times R_c}{P_c + R_c} 
+%\end{equation}
+
+\
+\begin{equation}\label{eq:prec_rec} 
+  P_c = \frac{TP_c}{TP_c + FP_c}, \quad R_c = \frac{TP_c}{TP_c + FN_c}, \quad F1_c = 2 \times \frac{P_c \times R_c}{P_c + R_c} 
 \end{equation}
 
 Neste contexto, $TP$, $TN$, $FP$ e $FN$ representam, respectivamente, os verdadeiros positivos, 
@@ -328,16 +345,33 @@ Lin et al. (2025)                                           & - / - / GPT 3.5   
 }
 \end{table}
 
-Para testar os limites dessa generalização em um cenário de estresse ainda mais rigoroso, 
-a Tabela~\ref{tab:resultados_flibias} apresenta os resultados de transferência de domínio no conjunto 
-\textit{FlipBias}. Diferente dos \textit{baselines} de Lin et al. [2024, 2025], que foram treinados e testados 
-integralmente no \textit{FlipBias}, as configurações propostas foram treinadas no \textit{dataset} ABP e avaliadas 
-sem exposição prévia ao novo domínio. Embora os experimentos $16$ e $4$ tenham obtido \textit{Macro F1-Scores} 
-de $47,00\%$ e $28,21\%$ — valores inferiores aos modelos \textit{in-domain}\footnote{In-domain refere-se a uma situação em que os dados utilizados 
-para treinar um modelo de aprendizagem de máquina e os dados usados para testá-lo vêm da mesma distribuição, contexto ou fonte.} —, os dados evidenciam os 
-desafios intrínsecos da avaliação \textit{cross-domain}\footnote{Cross-domain refere-se ao treinamento de um modelo de aprendizagem de máquina em um determinado contexto e avaliado em um contexto diferente.}. Essa análise valida a arquitetura ao demonstrar 
-que, mesmo sem ajuste fino no domínio específico, o modelo captura estruturas ideológicas fundamentais, 
-embora a especialização no domínio de destino continue sendo um fator determinante para o desempenho superior.
+\begin{table}[!ht]
+\centering
+\caption{Desempenho comparativo (em \%) no conjunto aleatório de 90 instâncias da partição de teste do \textit{media-bias split}.}
+\label{tab:resultados_90}
+\begin{tabular}{@{}cccc@{}}
+\toprule
+\textbf{Modelo}                                             & \textbf{\begin{tabular}[c]{@{}c@{}}Configuração\\ (Repre. / Fun. de Perda / Classificador)\end{tabular}} & \textbf{Estratégia} & \textbf{Macro F1-Score} \\ \midrule
+Gemini 3                                                    & - / - / Chat Gemini                                                                                       & Zero Shot           & 34.0                    \\
+\begin{tabular}[c]{@{}c@{}}Proposto\\ (Exp. 4)\end{tabular} & DistilRoBERTa / Constrastive / KNN                                                                        & Fine-tuning         & 27.0                    \\
+DeepSeek                                                    & - / - / Chat DeepSeek                                                                                     & Zero Shot           & 16.0                    \\ \bottomrule
+\end{tabular}
+\end{table}
+
+Para avaliar a generalização em cenários de estresse ainda mais rigoroso, a Tabela~\ref{tab:resultados_flibias}
+apresenta os resultados de transferência de domínio no conjunto FlipBias. Embora as configurações propostas
+tenham obtido \textit{Macro F1-scores} de $47.00\%$ (Exp. 16) e $28.21\%$ (Exp. 4)) -- valores inferiores aos modelos
+\textit{in-domain}\footnote{In-domain refere-se a uma situação em que os dados utilizados 
+para treinar um modelo de aprendizagem de máquina e os dados usados para testá-lo vêm da 
+mesma distribuição, contexto ou fonte.} de Lin et al. [2024, 2025] --, os dados evidenciam
+a capacidade da arquitetura em capturar estruturas ideológicas fundamentais mesmo sem exposição prévia
+ao novo domínio. Adicionalmente, realizou-se uma análise comparativa utilizando uma amostragem aleatória de $90$ 
+instâncias do conjunto de teste \textit{media-bias split}. Nesse cenário, o modelo porposto (Exp. 4) alcançou
+$27.0\%$ de \textit{Macro F1-score}, superando o desempenho \textit{zero-shot} do \textit{DeepSeek}($16.0\%$) e 
+aproximando-se do \textit{Gemini 3} ($34.0\%$), como presentados na Tabela~\ref{tab:resultados_90}. Tais resultados validam a robustez da \textit{Contrastive Loss}, que
+demonstra competitividade frente a modelos de linguagem de larga escala em tarefas de inferência direta, mesmo sob 
+restrição de dados.
+
 
 \section{Considerações Finais}
 
@@ -348,10 +382,10 @@ mantendo uma capacidade de discernimento superior à literatura ao lidar com ve�
 embora o desempenho seja otimizado pela proximidade entre treino e teste, o modelo captura estruturas ideológicas fundamentais 
 que transcendem a simples memorização de fontes.
 
-Por outro lado, os experimentos no \textit{FlipBias} revelaram as fronteiras da generalização \textit{cross-domain}, 
+Por outro lado, os experimentos no FlipBias revelaram as fronteiras da generalização \textit{cross-domain}\footnote{Cross-domain refere-se à capacidade de um modelo, treinado em um conjunto de dados específico, de atuar ou ser avaliado em um outro conjunto de dados com características diferentes}, 
 indicando que particularidades editoriais ainda influenciam os resultados em cenários sem ajuste fino. 
 Para mitigar essa disparidade, trabalhos futuros focarão em técnicas de \textit{Domain Adaptation}. Além disso, planeja-se expandir 
-os modelos para análises multilíngues e testar modelos de \textit{Large Language Models} (\textit{LLMs}).
+os modelos para análises multilíngues e testar outros mecanismo utilizando modelos de linguagem de larga escala.
 
 
 

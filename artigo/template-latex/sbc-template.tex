@@ -353,10 +353,9 @@ Lin et al. (2025)                                           & GPT 3.5           
 \end{table} 
 \subsection{Comparação com Modelos de Linguagem de Larga Escala (LLMs)}
 
-Uma análise comparativa foi realizada com uma amostra de $90$ instâncias do teste \textit{media-bias split} para situar o modelo frente a LLMs de última 
-geração. Observa-se que o modelo proposto, mesmo sendo uma arquitetura destilada e leve (DistilRoBERTa), superou o desempenho \textit{zero-shot} do DeepSeek ($16,0\%$) 
-e aproximou-se da performance do Gemini 3 ($34,0\%)$. Isso valida a eficácia da \textit{Contrastive Loss} em gerar representações discriminatórias competitivas, 
-mesmo sob restrição de dados e poder computacional.
+Uma análise comparativa foi realizada com uma amostra de $90$ instâncias do teste \textit{media-bias split} para situar o modelo 
+frente a LLMs de última geração. Observa-se que o modelo proposto, mesmo sendo uma arquitetura destilada e leve (\textit{DistilRoBERTa}), 
+superou o desempenho \textit{zero-shot} do DeepSeek ($16,0\%$) e aproximou-se da performance do Gemini 3 ($34,0\%$). 
 
 \begin{table}[ht]
 \centering
@@ -371,6 +370,10 @@ DeepSeek        & Zero-Shot           & 16,0\%                  \\ \bottomrule
 \end{tabular}
 \end{table}
 
+É fundamental ressaltar que, embora o desempenho absoluto seja inferior ao Gemini 3, o modelo proposto é ordens de magnitude menor em termos de parâmetros 
+e requisitos computacionais. Enquanto LLMs exigem infraestruturas massivas de nuvem, a arquitetura baseada em aprendizagem métrica aqui apresentada 
+é perfeitamente viável para ambientes com recursos computacionais restritos. Isso valida a eficácia da \textit{Contrastive Loss} em 
+gerar representações discriminatórias competitivas, priorizando a eficiência e a viabilidade prática em cenários limitados.
 
 
 \section{Considerações Finais}

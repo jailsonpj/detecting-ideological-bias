@@ -14,10 +14,35 @@ Chen, W.-F., Wachsmuth, H., Al~Khatib, K., and Stein, B. (2018).
 \newblock Learning to flip the bias of news headlines.
 \newblock In {\em Proceedings of the 11th International conference on natural language generation}, pages 79--88.
 
+\bibitem[Chiang and Knight 2011]{chiang2011media}
+Chiang, C.-F. and Knight, B. (2011).
+\newblock Media bias and influence: Evidence from newspaper endorsements.
+\newblock {\em The Review of economic studies}, 78(3):795--820.
+
+\bibitem[Dallmann et~al. 2015]{dallmann2015media}
+Dallmann, A., Lemmerich, F., Zoller, D., and Hotho, A. (2015).
+\newblock Media bias in german online newspapers.
+\newblock In {\em Proceedings of the 26th ACM Conference on Hypertext \& Social Media}, pages 133--137.
+
 \bibitem[Devlin et~al. 2018]{bert}
 Devlin, J., Chang, M.-W., Lee, K., and Toutanova, K. (2018).
 \newblock Bert: Pre-training of deep bidirectional transformers for language understanding.
 \newblock {\em arXiv preprint arXiv:1810.04805}.
+
+\bibitem[Efron 2004]{efron2004liberal}
+Efron, M. (2004).
+\newblock The liberal media and right-wing conspiracies: using cocitation information to estimate political orientation in web documents.
+\newblock In {\em Proceedings of the thirteenth ACM international conference on Information and Knowledge Management}, pages 390--398.
+
+\bibitem[Gangula et~al. 2019]{gangula-etal-2019-detecting}
+Gangula, R. R.~R., Duggenpudi, S.~R., and Mamidi, R. (2019).
+\newblock Detecting political bias in news articles using headline attention.
+\newblock In {\em Proceedings of the 2019 ACL Workshop BlackboxNLP: Analyzing and Interpreting Neural Networks for NLP}, pages 77--84. Association for Computational Linguistics.
+
+\bibitem[Gentzkow and Shapiro 2006]{gentzkow2006media}
+Gentzkow, M. and Shapiro, J.~M. (2006).
+\newblock Media bias and reputation.
+\newblock {\em Journal of political Economy}, 114(2):280--316.
 
 \bibitem[Goodfellow 2016]{goodfellow2016deep}
 Goodfellow, I. (2016).
@@ -37,15 +62,35 @@ Lin, L., Wang, L., Guo, J., and Wong, K.-F. (2025).
 Lin, L., Wang, L., Zhao, X., Li, J., and Wong, K.-F. (2024).
 \newblock Indivec: An exploration of leveraging large language models for media bias detection with fine-grained bias indicators.
 
+\bibitem[Lin et~al. 2011]{lin2011more}
+Lin, Y.-R., Bagrow, J., and Lazer, D. (2011).
+\newblock More voices than ever? quantifying media bias in networks.
+\newblock In {\em Proceedings of the international AAAI conference on web and social media}, volume~5, pages 193--200.
+
 \bibitem[Liu 2019]{roberta}
 Liu, Y. (2019).
 \newblock Roberta: A robustly optimized bert pretraining approach.
 \newblock {\em arXiv preprint arXiv:1907.11692}.
 
+\bibitem[Liu et~al. 2022]{liu-etal-2022-politics}
+Liu, Y., Zhang, X.~F., Wegsman, D., Beauchamp, N., and Wang, L. (2022).
+\newblock {POLITICS}: Pretraining with same-story article comparison for ideology prediction and stance detection.
+\newblock In {\em Findings of the Association for Computational Linguistics: NAACL 2022}, pages 1354--1374, Seattle, United States. Association for Computational Linguistics.
+
+\bibitem[Patricia~Aires et~al. 2019]{patricia2019link}
+Patricia~Aires, V., G.~Nakamura, F., and F.~Nakamura, E. (2019).
+\newblock A link-based approach to detect media bias in news websites.
+\newblock In {\em Companion proceedings of the 2019 world wide web conference}, pages 742--745.
+
 \bibitem[Sanh 2019]{distilbert}
 Sanh, V. (2019).
 \newblock Distilbert, a distilled version of bert: Smaller, faster, cheaper and lighter.
 \newblock {\em arXiv preprint arXiv:1910.01108}.
+
+\bibitem[Spinde et~al. 2021]{spinde2022neural}
+Spinde, T., Plank, M., Krieger, J.-D., Ruas, T., Gipp, B., and Aizawa, A. (2021).
+\newblock Neural media bias detection using distant supervision with {BABE} - bias annotations by experts.
+\newblock In {\em Findings of the Association for Computational Linguistics: EMNLP 2021}, pages 1166--1177. Association for Computational Linguistics.
 
 \bibitem[Zhang and Rao 2020]{Zhang}
 Zhang, Y. and Rao, Z. (2020).

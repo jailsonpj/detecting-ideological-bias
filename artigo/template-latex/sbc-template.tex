@@ -11,7 +11,7 @@
 
 \sloppy
 
-\title{Instructions for Authors of SBC Conferences\\ Papers and Abstracts}
+\title{Detecção de Viés Ideológico em Artigos de Notícias Utilizando Aprendizagem Métrica Profunda e Representações Contextuais}
 
 %\author{Jailson Pereira Januário\inst{1}, André Carvalho\inst{2}}
 
@@ -34,34 +34,65 @@
 \maketitle
 
 \begin{abstract}
-  This meta-paper describes the style to be used in articles and short papers
-  for SBC conferences. For papers in English, you should add just an abstract
-  while for the papers in Portuguese, we also ask for an abstract in
-  Portuguese (``resumo''). In both cases, abstracts should not have more than
-  10 lines and must be in the first page of the paper.
+  This study investigates ideological bias identification using metric learning with BERT-based models. It demonstrates that Contrastive and Triplet Loss optimize 
+  embedding extraction for political classification, outperforming the literature baseline by 12 percentage points in rigorous evaluations. The model proved competitive 
+  against zero-shot LLMs, establishing itself as a robust, efficient alternative that captures semantic nuances beyond outlet memorization, ensuring integrity in analyzing unseen data.
 \end{abstract}
      
 \begin{resumo} 
-  Este meta-artigo descreve o estilo a ser usado na confecção de artigos e
-  resumos de artigos para publicação nos anais das conferências organizadas
-  pela SBC. É solicitada a escrita de resumo e abstract apenas para os artigos
-  escritos em português. Artigos em inglês deverão apresentar apenas abstract.
-  Nos dois casos, o autor deve tomar cuidado para que o resumo (e o abstract)
-  não ultrapassem 10 linhas cada, sendo que ambos devem estar na primeira
-  página do artigo.
+  Este estudo investiga a identificação de viés ideológico via aprendizagem métrica com modelos pré-treinados baseados em BERT. 
+  Demonstra-se que o uso de Contrastive e Triplet Loss otimiza a extração de embeddings para classificação política, superando o baseline da literatura em 12 pontos percentuais 
+  em avaliações rigorosas. O modelo mostrou-se competitivo frente a LLMs em modo zero-shot, consolidando-se como uma alternativa robusta e eficiente que captura nuances semânticas 
+  além da memorização de veículos de imprensa, garantindo integridade na análise de dados inéditos.
 \end{resumo}
 
 
 \section{Introdução}\label{sec:intro}
+Nos últimos anos, a expansão exponencial de informações online via portais de notícias impõe o desafio de assegurar a imparcialidade dos conteúdos. 
+O viés ideológico em artigos pode distorcer a percepção pública e influenciar decisões políticas e resultados eleitorais \cite{gentzkow2006media, chiang2011media}. 
+Dada a subjetividade inerente ao discurso, a identificação automatizada dessa inclinação é uma tarefa complexa, tornando o desenvolvimento de métodos precisos de detecção uma área 
+de pesquisa altamente relevante para a integridade da informação.
+
+No campo do Processamento de Linguagem Natural (PLN), abordagens buscam automatizar essa detecção via conteúdo textual, hiperlinks e teoria da informação \cite{spinde2022neural,patricia2019link}. 
+Contudo, as soluções atuais frequentemente limitam-se a métricas isoladas ou cenários puramente polarizados. A forte dependência de fontes externas compromete a autonomia desses métodos, 
+dificultando a criação de sistemas capazes de identificar nuances ideológicas em contextos abrangentes e sem metadados complementares.
+
+Para superar tais limitações, este estudo propõe uma metodologia baseada em aprendizagem métrica para construir espaços de características que aproximam artigos 
+de mesma orientação ideológica. Diferente de abordagens restritas a sentenças, esta pesquisa explora o conteúdo integral dos documentos. O trabalho avança ao mitigar 
+a dependência de fontes externas e ao superar a divisão bipartidária, incorporando o espectro político de centro nas análises para uma generalização mais robusta.
+
+As contribuições deste estudo incluem a análise do espectro centrista e o desenvolvimento de classificadores independentes de fontes externas. 
+Utilizam-se técnicas de \textit{Contrastive} e \textit{Triplet Loss} para gerar espaços de \textit{embeddings} otimizados via arquiteturas pré-treinadas. 
+Os resultados demonstram maior eficácia frente às abordagens da literatura, validando o uso de aprendizagem métrica para capturar nuances semânticas e garantir 
+robustez na classificação de documentos completos em cenários inéditos.
 
 \section{Trabalhos Relacionados}\label{sec:trabalhos}
 
+A classificação de viés ideológico em portais de notícias fundamenta-se em dimensões analíticas que variam do estrutural ao puramente textual. Tradicionalmente, 
+métodos baseados em hiperlinks utilizam informações de cocitação e modelos probabilísticos para estimar a orientação de documentos \cite{efron2004liberal}. Outras abordagens 
+exploram redes de comunicação e padrões de consumo para correlacionar a reputação das fontes com as preferências de sua audiência \cite{gentzkow2006media, lin2011more}. 
+Tais estratégias iniciais pavimentaram o caminho para a análise de conexões sistêmicas entre veículos de imprensa.
+
+No âmbito do conteúdo textual, as pesquisas investigam desde o enquadramento discursivo até o uso de mecanismos de atenção para capturar orientações implícitas em manchetes \cite{dallmann2015media, gangula-etal-2019-detecting}. 
+Estudos demonstraram que, embora o PLN alcance alta acurácia em fontes conhecidas, a generalização para veículos não vistos durante o treino permanece um desafio crítico \cite{baly2020we}. 
+Essas técnicas evidenciam que a semântica textual é o indicador mais intuitivo, porém complexo, da inclinação ideológica, exigindo modelos capazes de capturar nuances linguísticas profundas.
+
+Recentemente, LLMs têm sido usados para identificar vieses e investigar inclinações nativas nessas arquiteturas. O modelo \textit{POLITICS} utiliza aprendizagem métrica com \textit{Triplet Loss} 
+para comparar artigos sobre o mesmo tema \cite{liu-etal-2022-politics}. Pesquisas com o ChatGPT revelaram preferências ideológicas intrínsecas, enquanto o \textit{framework} \textit{IndiVec} 
+foca em indicadores para aumentar a explicabilidade \cite{lin2024indivecexplorationleveraginglarge}. Tais frentes sublinham a necessidade de distinguir entre o viés do conteúdo e o viés 
+algorítmico \cite{lin-etal-2025-investigating}.
+
+Para superar as limitações de generalização e dependência externa, este trabalho propõe um método focado exclusivamente no conteúdo integral dos artigos via modelos BERT. 
+Ao contrário de abordagens restritas a sentenças, nossa estratégia utiliza aprendizagem métrica para garantir robustez em cenários de avaliação rigorosa. 
+Adota-se o trabalho de \cite{baly2020we} como \textit{baseline} principal, por fornecer condições comparativas ideais de treino e avaliação dentro do mesmo \textit{corpus}, 
+visando avançar na identificação de nuances semânticas e ideológicas em dados inéditos.
+
 \section{Material e Métodos}\label{sec:material}
-A metodologia fundamenta-se na premissa de que o viés ideológico se manifesta em padrões discursivos e semânticos recorrentes, processando conteúdos 
-textuais via modelos pré-treinados para geração de \textit{embeddings} otimizados por \textit{Contrastive} e \textit{Triplet Loss}. 
-Como ilustrado na Figura~\ref{fig:fluxo_dados}, o fluxo de trabalho compreende quatro etapas principais: a definição de conjuntos de treino e 
-teste baseados na literatura, a geração de representações vetoriais via aprendizagem métrica, o treinamento de classificadores sobre vetores 
-otimizados e a análise sistemática do desempenho. As seções que seguem descrevem detalhadamente cada módulo integrante da arquitetura apresentada.
+
+A metodologia assume que o viés ideológico se manifesta em padrões discursivos, processando textos via modelos pré-treinados e 
+otimizando \textit{embeddings} por \textit{Contrastive} e \textit{Triplet Loss}. Conforme a Figura~\ref{fig:fluxo_dados}, o 
+fluxo abrange quatro etapas: definição dos conjuntos de dados, geração de representações por aprendizagem métrica, 
+treinamento de classificadores e análise de desempenho. As seções seguintes detalham cada módulo da arquitetura proposta.
 
 \begin{figure}[!ht]
 \centering
@@ -71,12 +102,13 @@ otimizados e a análise sistemática do desempenho. As seções que seguem descr
 \end{figure}
 
 \subsection{Dados Experimentais}\label{sec:dados}
+Para o desenvolvimento deste estudo, utilizou-se o conjunto de dados \textit{Article Bias Prediction} (ABP) \cite{baly2020we}, composto
+por $30.246$ notícias em inglês rotuladas em três categorias (\textit{left, center} e \textit{right}.) A fidedignidade dos rótulos
+advém plataforma AllSides\footnote{\url{https://www.allsides.com/media-bias/media-bias-rating-methods}}, que
+emprega auditorias rigorosas e revisões da comunidade, conforme ilustrado na Figura~\ref{fig:example_article}. Visando a integridade
+da análise, o \textit{corpus} foi pré-processado para remover marcadores de autoria e portais, garantindo que o modelo identifique nuances
+linguísticas em vez de apenas a fonte da notícia.
 
-Para o desenvolvimento deste estudo, utilizou-se o conjunto de dados \textit{Article Bias Prediction} (ABP), proposto por Baly $et$ $al.$ [2020].%\cite{baly2020we}.
- O \textit{corpus} compreende $30.246$ artigos de notícias em língua inglesa, classificados de forma supervisionada nas
-categorias de viés ideológico: \textit{left}, \textit{center} e \textit{right}. A confiabilidade dos rótulos advém da plataforma AllSides\footnote{\url{https://www.allsides.com/media-bias/media-bias-rating-methods}},
-que emprega um processo rigoroso de auditoria -- incluindo revisões de terceiros e \textit{feedback} da comunidade -- garantindo que anotações
-reflitam com precisão a orientação política dos textos. A Figura~\ref{fig:example_article} ilustra um exemplo de como um tópico de notícia foi classificado de acordo com a ideologia presente no texto.
 
 \begin{figure}[!ht]
 \centering
@@ -85,25 +117,17 @@ reflitam com precisão a orientação política dos textos. A Figura~\ref{fig:ex
 \label{fig:example_article}
 \end{figure}
 
-O ABP apresenta elevada diversidade temática, abrangendo desde processos eleitorais até questões sociais complexas.
-Visando assegurar que os modelos de aprendizado de máquina capturam a ideologia expressa linguisticamente, e não apenas identifiquem a fonte de notícia,
-os autores realizaram um pré-processamento para remover marcadores explícitos, como nomes de autores e de portais. Essa preocupação é
-fundamental para garantir a generalização do modelo e a integridade da análise discursiva, evitando que o classificador aprendizada
-vieses específicos de veículo de imprensa em vez de padrões semânticos.
-
-A robustez da avaliação foi garantida através de dois métodos de particionamento: o \textit{random split} e o \textit{media-bias split}. 
-Na Tabela~\ref{tab:particoes_media}, observa-se a configuração do \textit{media-bias split}, no qual as fontes são segregadas para garantir 
-que o modelo seja testado em veículos não expostos durante o treinamento, mitigando o vazamento de dados. Em contraste, o \textit{random-split}
-permite a sobreposição de fontes entre as partições, mantendo a consistência na distribuição de classes entre treino e validação, como apresentado
-na Tabela~\ref{tab:particoes_random}. Neste trabalho, a totalidade das amostras do ABP foi empregada em todas as etapas metodológicas,
-desde a geração de \textit{embeddings} até o treinamento e avaliação final.
-
+A robustez metodológica foi validada por dois critérios de particionamento: o \textit{media-bias split} (Tabela~\ref{tab:particoes_media}), que 
+segrega veículos para mitigar o vazamento de dados, e o \textit{random split} (Tabela~\ref{tab:particoes_random}), que mantém a consistência 
+na distribuição de classes entre treino e validação. Adicionalmente, a generalização foi avaliada com o conjunto \textit{FlipBias} \cite{chen2018learning}, 
+contendo $2.781$ eventos sob múltiplas perspectivas. Os modelos seguiram as diretrizes de \cite{lin2024indivecexplorationleveraginglarge,lin-etal-2025-investigating} 
+para aferir a robustez das representações em dados não expostos no treinamento.
 
 \begin{table*}[!ht]
     \caption{Estatísticas da partição \textit{media-bias split}.} \label{tab:particoes_media}
     \centering
     \begin{tabularx}{\textwidth}{@{} *{3}{>{\centering\arraybackslash}X} | *{3}{>{\centering\arraybackslash}X} | *{3}{>{\centering\arraybackslash}X} @{}}
-        \hline \hline
+        \hline 
         \multicolumn{3}{c|}{\textbf{Treino}} & \multicolumn{3}{c|}{\textbf{Validação}} & \multicolumn{3}{c}{\textbf{Teste}} \\ 
         \hline
         \textit{Viés} & \textit{Total} & \textit{\%} & \textit{Viés} & \textit{Total} & \textit{\%} & \textit{Viés} & \textit{Total} & \textit{\%} \\ 
@@ -111,7 +135,7 @@ desde a geração de \textit{embeddings} até o treinamento e avaliação final.
         Left   & 8.861  & 33,32\% & Left   & 1.640 & 69,60\% & Left   & 402 & 30,92\% \\
         Center & 7.488  & 28,16\% & Center & 618   & 26,23\% & Center & 299 & 23,00\% \\
         Right  & 10.241 & 38,51\% & Right  & 98    & 4,15\%  & Right  & 599 & 46,07\% \\ 
-        \hline \hline
+        \hline
     \end{tabularx}
 \end{table*}
 
@@ -119,7 +143,7 @@ desde a geração de \textit{embeddings} até o treinamento e avaliação final.
     \caption{Estatísticas da partição \textit{random split}.} \label{tab:particoes_random}
     \centering
     \begin{tabularx}{\textwidth}{@{} *{3}{>{\centering\arraybackslash}X} | *{3}{>{\centering\arraybackslash}X} | *{3}{>{\centering\arraybackslash}X} @{}}
-        \hline \hline
+        \hline
         \multicolumn{3}{c|}{\textbf{Treino}} & \multicolumn{3}{c|}{\textbf{Validação}} & \multicolumn{3}{c}{\textbf{Teste}} \\ 
         \hline
         \textit{Viés} & \textit{Total} & \textit{\%} & \textit{Viés} & \textit{Total} & \textit{\%} & \textit{Viés} & \textit{Total} & \textit{\%} \\ 
@@ -127,19 +151,9 @@ desde a geração de \textit{embeddings} até o treinamento e avaliação final.
         Left & 9.750  & 34,84\% & Left & 2.438 & 34,84\% & Left & 402 & 30,92\% \\
         Center   & 7.988  & 28,55\% & Center   & 1.998 & 28,55\% & Center   & 299 & 23,00\% \\ 
         Right  & 10.240 & 36,60\% & Right  & 2.560 & 36,59\% & Right  & 599 & 46,07\% \\
-        \hline \hline
+        \hline
     \end{tabularx}
 \end{table*}
-
-\subsubsection{Avaliação de Generalização: Dataset FlipBias}\label{subsec:flipbias}
-
-Para avaliar o poder de generalização dos modelos experimentados, utilizou-se o conjunto de dados \textit{FlipBias} \cite{chen2018learning}. 
-Extraído da plataforma AllSides, o \textit{corpus} organiza-se em $2.781$ eventos noticiosos, cada qual coberto por perspectivas de diferentes inclinações 
-políticas (\textit{left}, \textit{center} e \textit{right}). 
-
-Para assegurar a comparabilidade dos resultados, os modelos foram submetidos às condições de avaliação estabelecidas por \cite{lin2024indivecexplorationleveraginglarge,lin-etal-2025-investigating}. 
-Essa abordagem permite verificar a robustez das representações na identificação de nuances ideológicas, garantindo que o desempenho observado reflita uma capacidade real de abstração frente a dados 
-não utilizados durante o treinamento.
 
 \subsection{Tarefa de Geração de \textit{Embeddings}}\label{sec:representacoes}
 
@@ -292,8 +306,8 @@ as diferentes vertentes ideológicas, assegurando que o desempenho não seja ref
 
 A linguagem Python, com as bibliotecas NumPy, Pandas, Scikit-Learn e PyTorch, foi a ferramenta primária para implementação e avaliação dos modelos. 
 Os experimentos ocorreram em um servidor equipado com processador Intel Xeon W-2235, $128$ GB de RAM e GPU NVIDIA RTX $8000$ ($48$ GB VRAM), 
-visando a aceleração em hardware. Comprometendo-se com a transparência e a reprodutibilidade técnica, o código-fonte, 
-hiperparâmetros e \textit{scripts} de pré-processamento estão publicamente disponíveis\footnote{\url{https://github.com/jailsonpj/detecting-ideological-bias}}.
+visando a aceleração em hardware. %Comprometendo-se com a transparência e a reprodutibilidade técnica, o código-fonte, 
+%hiperparâmetros e \textit{scripts} de pré-processamento estão publicamente disponíveis\footnote{\url{https://github.com/jailsonpj/detecting-ideological-bias}}.
 
 \section{Resultados e Discussão} \label{sec:resultados}
 
@@ -327,7 +341,6 @@ Este resultado é particularmente relevante, pois o \textit{media-bias split} ex
 imprensa nunca vistos durante o treinamento. Contudo, a queda de desempenho em relação ao \textit{random split} ($83,90\%$) evidencia que a 
 presença de fontes comuns facilita a predição por meio da memorização de padrões específicos do veículo, e não necessariamente da 
 ideologia pura.
-
 \subsection{Avaliação de Generalização}
 
 Para testar a robustez em cenários de estresse rigoroso, o modelo foi submetido ao dataset \textit{FlipBias} sem ajuste fino adicional. 
@@ -375,23 +388,17 @@ e requisitos computacionais. Enquanto LLMs exigem infraestruturas massivas de nu
 é perfeitamente viável para ambientes com recursos computacionais restritos. Isso valida a eficácia da \textit{Contrastive Loss} em 
 gerar representações discriminatórias competitivas, priorizando a eficiência e a viabilidade prática em cenários limitados.
 
-
 \section{Considerações Finais}
 
-Este estudo investigou o impacto da aprendizagem métrica na classificação de viés político, revelando que a \textit{Contrastive Loss} 
-integrada ao \textit{DistilRoBERTa} oferece uma base robusta para a separação semântica de discursos. Os resultados no conjunto ABP 
-demonstram que a arquitetura proposta supera \textit{baselines} consolidados mesmo no desafiador cenário \textit{media-bias split}, 
-mantendo uma capacidade de discernimento superior à literatura ao lidar com veículos de mídia inéditos. Evidenciou-se que, 
-embora o desempenho seja otimizado pela proximidade entre treino e teste, o modelo captura estruturas ideológicas fundamentais 
-que transcendem a simples memorização de fontes.
+Este estudo objetivou avaliar a eficácia da aprendizagem métrica na identificação de viés ideológico, integrando modelos pré-treinados e 
+funções de perda contrastivas. Os resultados demonstram que a \textit{Contrastive Loss} otimiza a separação vetorial, superando o baseline de 
+\cite{baly2020we} em $12$ pontos percentuais no cenário \textit{media-bias split}. A arquitetura mostrou-se competitiva frente a LLMs em modo \textit{zero-shot}, 
+validando a viabilidade de modelos leves e eficientes para a análise de nuances discursivas.
 
-Por outro lado, os experimentos no FlipBias revelaram as fronteiras da generalização \textit{cross-domain}\footnote{Cross-domain refere-se à capacidade de um modelo, treinado em um conjunto de dados específico, de atuar ou ser avaliado em um outro conjunto de dados com características diferentes}, 
-indicando que particularidades editoriais ainda influenciam os resultados em cenários sem ajuste fino. 
-Para mitigar essa disparidade, trabalhos futuros focarão em técnicas de \textit{Domain Adaptation}. Além disso, planeja-se expandir 
-os modelos para análises multilíngues e testar outros mecanismo utilizando modelos de linguagem de larga escala.
-
-
-
+Para trabalhos futuros, pretende-se explorar técnicas de \textit{Domain Adaptation} para otimizar a transferência de conhecimento e elevar o desempenho em 
+dados de fontes não expostas durante o treinamento. Além disso, planeja-se investigar o comportamento de LLMs sob estratégias de \textit{Few-Shot} e \textit{Fine-Tuning}, permitindo 
+uma comparação mais consistente com a arquitetura proposta. Tais avanços visam mitigar a memorização de padrões específicos de veículos e consolidar a robustez do modelo em 
+cenários de generalização rigorosa.
 
 \bibliographystyle{sbc}
 \bibliography{sbc-template}

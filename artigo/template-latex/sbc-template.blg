@@ -4,45 +4,46 @@ The top-level auxiliary file: sbc-template.aux
 The style file: sbc.bst
 Database file #1: sbc-template.bib
 Warning--empty journal in brink2016real
-You've used 11 entries,
+Warning--can't use both volume and number fields in lin2011more
+You've used 20 entries,
             1935 wiz_defined-function locations,
-            529 strings with 5878 characters,
-and the built_in function-call counts, 4889 in all, are:
-= -- 486
-> -- 199
-< -- 10
-+ -- 66
-- -- 66
-* -- 360
-:= -- 807
-add.period$ -- 32
-call.type$ -- 11
-change.case$ -- 85
-chr.to.int$ -- 11
-cite$ -- 12
-duplicate$ -- 217
-empty$ -- 337
-format.name$ -- 79
-if$ -- 1010
+            585 strings with 7985 characters,
+and the built_in function-call counts, 9742 in all, are:
+= -- 992
+> -- 370
+< -- 21
++ -- 128
+- -- 124
+* -- 733
+:= -- 1545
+add.period$ -- 62
+call.type$ -- 20
+change.case$ -- 159
+chr.to.int$ -- 20
+cite$ -- 22
+duplicate$ -- 436
+empty$ -- 694
+format.name$ -- 150
+if$ -- 2049
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 9
-newline$ -- 55
-num.names$ -- 35
-pop$ -- 97
+missing$ -- 18
+newline$ -- 100
+num.names$ -- 62
+pop$ -- 186
 preamble$ -- 1
-purify$ -- 85
+purify$ -- 159
 quote$ -- 0
-skip$ -- 182
+skip$ -- 356
 stack$ -- 0
-substring$ -- 328
-swap$ -- 63
-text.length$ -- 5
+substring$ -- 722
+swap$ -- 139
+text.length$ -- 13
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 66
-warning$ -- 1
-while$ -- 37
+type$ -- 120
+warning$ -- 2
+while$ -- 80
 width$ -- 0
-write$ -- 136
-(There was 1 warning)
+write$ -- 258
+(There were 2 warnings)

@@ -1,0 +1,67 @@
+The detection of ideological bias in news has been addressed through various lenses, ranging from structural networks to advanced linguistic modeling. 
+Early systematic studies, such as those by Efron [2004], focused on structural elements like co-citation information to estimate political orientation. 
+Similarly, Gentzkow and Shapiro [2006] proposed economic models to analyze how media reputations influence audience alignment. Advancing this structural 
+view, Lin et al. [2011] combined social network analysis with NLP to quantify bias through interaction graphs between sources and entities. While effective, 
+these methods often struggle with documents containing sparse hyperlink data or those isolated from established citation networks.
+
+The analysis of textual content remains the most direct approach to bias detection. Dallmann et al. [2015] examined framing in German newspapers, 
+identifying how word choice and theme frequency reflect ideological tendencies. Gangula et al. [2019] utilized attention mechanisms to capture bias specifically 
+in headlines, highlighting their role in shaping reader perception. In a broader context, Baly et al. [2020] developed a robust framework using BERT and LSTM 
+for textual classification. Their findings indicated that while high accuracy could be achieved on known sources, these models often failed to generalize when 
+faced with news articles from unseen sources, a limitation that remains a central challenge in the field.
+
+Social media platforms offer alternative metadata for bias inference through user interactions and demographic data. Rao and Spasojevic [2016] utilized word 
+embeddings and LSTM networks to classify the political leaning of tweets, achieving high accuracy in binary U.S. political contexts. Elejalde et al. [2017] 
+automated political orientation tests by analyzing news outlets' tweets and vocabulary. Furthermore, Ribeiro et al. [2018] inferred ideological orientation 
+by analyzing ad interface data on Facebook and Twitter, estimating bias based on the demographic profile of a source's audience. Despite their effectiveness, 
+these methods remain dependent on external platform data and are often restricted to highly polarized, country-specific scenarios.
+
+The emergence of Large Language Models (LLMs) has introduced new paradigms, such as the \textit{POLITICS} framework [Liu et al., 2022], which uses ideology-driven 
+pre-training to compare articles across different media outlets. Similarly, \textit{IndiVec} [Lin et al., 2024] leverages the instruction-following capabilities of 
+LLMs combined with vector databases to provide fine-grained bias indicators. However, the use of LLMs introduces complexities, as studies by Rozado [2023] show 
+that architectures like ChatGPT manifest consistent preferences for specific political viewpoints. Furthermore, significant disparities have been observed between 
+LLM predictions and human perception of bias [Lin et al., 2025], necessitating more transparent and specialized architectures.
+
+To address these gaps, this research explores Deep Metric Learning to create structured feature spaces where ideological proximity is modeled by distance metrics. 
+This study introduces a source-independent method focusing on the article’s raw text, utilizing localized textual segments to extract source-agnostic signatures. 
+By applying \textit{Triplet/Contrastive Losses}, the approach clusters articles by ideological similarity more cohesively than traditional classification heads, capturing 
+the core editorial framing while maintaining the efficiency of standard Transformer encoders. This shift to metric representation learning extracts source-agnostic signatures, 
+overcoming generalization hurdles and providing a computationally sustainable alternative to LLMs without compromising detection accuracy.
+
+
+\subsection{Summary and Comparison}
+
+The methods reviewed indicate that most approaches are either limited to specific case studies, restricted to polarized binary classifications, or dependent on external metadata. 
+Structural methods often fail with sparse data, while social media-based methods remain platform-dependent. Although LLM approaches are powerful, they introduce concerns regarding 
+inherent model bias and high computational costs. Table~\ref{tab:sum_rela} summarizes these works, contrasting traditional models with recent LLM-based state-of-the-art results to 
+highlight the critical trade-off between computational cost and predictive performance.
+
+\begin{table*}[!ht]
+\centering
+\caption{Summary of the related work including LLM-based approaches and datasets.} 
+\label{tab:sum_rela}
+\resizebox{\textwidth}{!}{%
+    \begin{tabular}{l l l l l}
+    \toprule
+    \textbf{Author} & \textbf{Strategy} & \textbf{Dataset} & \textbf{Bias Classes} & \textbf{Performance} \\
+    \midrule
+    Efron [2004] & Co-citation/hyperlinks & Open Directory & Liberal/Conservative & 77.5\% (Accuracy) \\
+    Lin et al. [2011] & Social Network Analysis & OpenCongress & Democrat/Republican & - \\
+    Dallmann et al. [2015] & Similarity metrics & German federal parliament & German political party & - \\
+    Rao et al. [2016] & Word embeddings + LSTM & Twitter API & Democrat/Republican & 87\% (Accuracy) \\
+    Elejalde et al. [2017] & Rank difference & Twitter API & Liberal/Conservative & - \\
+    Ribeiro et al. [2018] & Audience statistics & Facebook API & Liberal/Conservative & - \\
+    Baly et al. [2020] & BERT + LSTM & ABP & Left/Center/Right & 79.83\% (Macro F1) \\
+    Liu et al. [2022] (POLITICS) & Ideology-driven Pre-training & BIGNEWS  & Left/Center/Right & 82.2\% (Avg. Acc.)  \\
+    Lin et al. [2024] (IndiVec) & LLM + Vector Database & FLIPBIAS  & Left/Center/Right & 81.3\% (Accuracy)  \\
+    Lin et al. [2025] & LLM (zero-shot) & FLIPBIAS & Left/Center/Right & 39.4\% (Macro F1) \\
+    \bottomrule
+    \end{tabular}%
+}
+\end{table*}
+
+
+In this context, the model by Baly et al. [2020] is adopted as the primary baseline for direct comparison, as it was specifically trained and evaluated on the Articles Bias Prediction (ABP) dataset. Although LLM-based frameworks like \textit{POLITICS} 
+report high metrics ($82.2\%$ average accuracy) using massive pre-training on the BIGNEWS dataset, Baly et al. [2020] provides more comparable experimental 
+conditions to evaluate the impact of metric learning architectures. This choice allows for isolating the model's effectiveness in identifying ideological 
+nuances without relying on massive scales or external knowledge bases.

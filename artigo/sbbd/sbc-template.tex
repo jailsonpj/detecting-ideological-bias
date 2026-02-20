@@ -1,0 +1,65 @@
+\documentclass[12pt]{article}
+\usepackage{wrapfig}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{array} % Necessário para o >{\centering\arraybackslash}
+\usepackage{amsmath}
+\usepackage{sbc-template}
+\usepackage{graphicx,url}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{supertabular}
+
+
+\sloppy
+
+\title{Detecção de Viés Ideológico em Artigos de Notícias Utilizando Aprendizagem Métrica Profunda e Representações Contextuais}
+
+%\author{Jailson Pereira Januário\inst{1}, André Carvalho\inst{2}}
+
+
+\address{%Instituto de Computação -- Universidade Federal do Amazonas
+%  (UFAM)\\
+%  Caixa Postal 15.064 -- 91.501-970 -- Manaus -- AM -- Brasil
+%  \email{\{jailson,acarvalho\}@iicomp.ufam.edu.br}
+%\nextinstitute
+%  Department of Computer Science -- University of Durham\\
+%  Durham, U.K.
+%\nextinstitute
+%  Instituto de Computação\\
+%  Universidade Federal do Amazonas (UFAM) -- Manaus, AM -- Brasil
+%  \email{\{jailson,acarvalho\}@iicomp.ufam.edu.br}
+}
+
+\begin{document} 
+
+\maketitle
+
+\begin{abstract}
+  This study investigates ideological bias identification using metric learning with BERT-based models. It demonstrates that Contrastive and Triplet Loss optimize 
+  embedding extraction for political classification, outperforming the literature baseline by 12 percentage points in rigorous evaluations. The model proved competitive 
+  against zero-shot LLMs, establishing itself as a robust, efficient alternative that captures semantic nuances beyond outlet memorization, ensuring integrity in analyzing unseen data.
+\end{abstract}
+     
+%\begin{resumo} 
+%  Este estudo investiga a identificação de viés ideológico via aprendizagem métrica com modelos pré-treinados baseados em BERT. 
+%  Demonstra-se que o uso de Contrastive e Triplet Loss otimiza a extração de embeddings para classificação política, superando o baseline da literatura em 12 pontos percentuais 
+%  em avaliações rigorosas. O modelo mostrou-se competitivo frente a LLMs em modo zero-shot, consolidando-se como uma alternativa robusta e eficiente que captura nuances semânticas 
+%  além da memorização de veículos de imprensa, garantindo integridade na análise de dados inéditos.
+%\end{resumo}
+
+
+\section{Introduction}\label{sec:intro}
+\input{capitulos/introduction.tex}
+
+\section{Related Work}\label{sec:trabalhos}
+\input{capitulos/related_work.tex}
+
+\section{Proposed Approaches}\label{sec:approaches}
+\input{capitulos/proposed_approaches.tex}
+
+\bibliographystyle{sbc}
+\bibliography{sbc-template}
+
+\end{document}

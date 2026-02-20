@@ -1,0 +1,88 @@
+In this section, We present the proposed approaches for classifying ideological bias in news articles using deep metric models to generate richer embedding representations, based both on their textual content and on the combination of textual representations with their topic probability distribution.
+
+\subsection{Textual Content-Based Method}
+\begin{wrapfigure}{r}{0.45\textwidth} 
+  \centering
+  \vspace{-15pt} % Ajusta o recuo superior para alinhar com o texto
+  \includegraphics[width=0.43\textwidth]{/Users/jailsonpereira/Documents/detecting-ideological-bias/artigo/sbbd/imagens/abordagem_texto_updated.pdf}
+  \caption{Overview of the textual content-based classification method.}
+  \label{fig:abordagem_proposta}
+  \vspace{-10pt} % Ajusta o recuo inferior para não sobrar muito espaço branco
+\end{wrapfigure}
+
+
+The methodology adopted in this study is based on the hypothesis that articles sharing the same ideological bias exhibit similar discursive forms, 
+demonstrating ideological alignment in both structure and content. This approach focuses on the analysis of textual content in news articles, specifically 
+examining discursive disparities between sources with distinct ideological orientations. To achieve this, pre-trained models are employed for the generation of 
+textual embeddings, which are subsequently refined through fine-tuning using \textit{Contrastive Loss} and \textit{Triplet Loss} to effectively capture the nuances 
+of political bias. As illustrated in Figure~\ref{fig:abordagem_proposta}, the methodological process follows a sequential workflow consisting of data acquisition 
+based on related works, the generation of news article embeddings optimized via the aforementioned loss functions, the training of a classification model utilizing 
+these refined textual representations through machine learning techniques, and the final evaluation of the results.
+
+\subsubsection{Dataset}
+
+Data acquisition followed the methodology of Baly et al. [2020], utilizing the Article Bias Prediction (ABP) dataset. Articles were sourced from diverse news portals 
+and labeled via the AllSides platform, which ensures high reliability through rigorous editorial audits and independent reviews.
+
+The dataset comprises $30,246$ English-language news articles, supervisedly classified into three categories: left, right, and center. This robust labeling facilitates 
+precise analysis of discursive divergences, providing a solid foundation for training and testing machine learning models across various political contexts.
+
+\begin{table}[ht]
+\centering
+\caption{Statistics of the Article Bias Prediction (ABP) dataset.}
+\label{tab:dataset_stats}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Ideological Bias} & \textbf{Quantity} & \textbf{Percentage (\%)} \\ 
+\midrule
+Left                      & 12,003            & 34.55 \\
+Center                    & 9,743             & 28.05 \\
+Right                     & 12,991            & 37.40 \\ 
+\midrule
+\textbf{Total}            & \textbf{34,737}   & \textbf{100.00} \\ 
+\bottomrule
+\end{tabular}
+\end{table}
+
+As detailed in Table 2, the ABP statistics show a distribution of $34.6\%$ left, $37.3\%$ right, and $28.1\%$ center, covering diverse topics from elections to social issues. 
+This study utilizes the full dataset for embedding generation, topic extraction, and final classification model evaluation.
+
+\subsubsection{Embedding Generation}
+
+This research utilizes pre-trained models based on Bidirectional Encoder Representations from Transformers (BERT) [Devlin et al., 2018] to 
+capture long-range semantic dependencies and complex contextual relationships. This architecture enables a deep understanding of sentence structure, 
+resulting in more effective vector representations for natural language processing tasks [Gao et al., 2021].
+
+The study evaluates DistilBERT [Sanh, 2019], a compact version focused on computational efficiency, and DistilRoBERTa [Liu, 2019], which offers superior 
+performance due to optimized large-scale training. Both models underwent fine-tuning via Metric Learning, applying \textit{Triplet Loss} and \textit{Contrastive Loss} 
+functions to ensure that semantically similar examples occupy adjacent spaces within the embedding domain.
+
+Data processing involved specific tokenizers standardized to $512$ tokens, as illustrated in Figure 3. Stopwords were retained to preserve the contextual nuances inherent 
+in BERT-based models. Finally, Mean Pooling was applied across the token dimension to generate a single vector representation that synthesizes the most relevant features of each document.
+
+\subsection{Loss Functions}
+
+In this approach, the DistilBERT and DistilRoBERTa encoders adjust their layer weights to enhance embedding quality through 
+\textit{Contrastive} and \textit{Triplet Loss} functions. The objective is to produce vector representations where similar ideological examples converge in the embedding space 
+while dissimilar ones diverge. Consequently, the encoders are optimized to cluster articles by ideological alignment rather than source-specific characteristics.
+
+\textit{Contrastive Loss} is implemented using Euclidean distance ($D$) between pairs of positive and negative examples, as defined in Equation~\ref{eq:contrastive}: 
+
+\begin{equation}
+\label{eq:contrastive}
+L = (1-y)\frac{1}{2}D^2 + \frac{y}{2}\{\max(0, m-D)\}^2
+\end{equation}
+
+where $y$ is the binary similarity label and $m$ is the margin. Conversely, the model with \textit{Triplet Loss} utilizes triplets composed of an anchor ($a$), a positive example ($p$), 
+and a negative example ($n$), following Equation~\ref{eq:triplet}:
+
+\begin{equation}
+\label{eq:triplet}
+L = \max(0, D(a, p) - D(a, n) + m)
+\end{equation}
+
+to ensure that the positive example remains closer to the anchor than its negative counterpart. 
+
+To refine discriminative performance, the methodology incorporates the mining of semi-hard negative samples, identifying triplets where $D(a, p) < D(a, n) + m$. This technique provides 
+more informative gradients and mitigates \textit{overfitting} compared to hard negative samples \cite{kertesz2021}. As illustrated in Figure~4, this process ensures that the model clusters 
+articles by ideology—such as matching an anchor with a positive case from a different news outlet—thereby generating source-independent semantic signatures.

@@ -1,0 +1,28 @@
+The digitalization of news media has led to an unprecedented proliferation of online content, particularly through news portals. This growth presents the critical challenge of ensuring the 
+integrity and impartiality of disseminated information, given that ideological bias can distort public perception and significantly influence public opinion [Gentzkow and Shapiro, 2006]. 
+Previous studies have demonstrated that media bias affects how readers interpret political decisions and social discussions, potentially even influencing election outcomes [Chiang and Knight, 2011; DellaVigna and Kaplan, 2007]. 
+However, identifying such bias remains a complex task due to the inherent subjectivity involved, making the development of automated detection methods a highly relevant and urgent area of research [Yigit-Sert et al., 2016].
+
+The automatic detection of ideological bias represents a significant challenge within Natural Language Processing (NLP) and Machine Learning. Various studies have addressed this task by 
+analyzing textual content [Krestel et al., 2012; Spinde et al., 2021], hyperlinks [Efron, 2004], and social media interactions [Ribeiro et al., 2018]. Despite these efforts, existing approaches often struggle 
+with scalability and accuracy in broader contexts, as they are frequently limited to isolated metrics or specific case studies. Furthermore, many methodologies rely heavily on external metadata, which hinders 
+the creation of autonomous solutions capable of identifying diverse types of bias across shifting contexts.
+
+Recent literature has expanded this field by exploring Large Language Models (LLMs) and specialized pre-training objectives. For instance, the \textit{POLITICS} framework introduces ideology-driven pre-training by 
+comparing articles on the same story across different outlets [Liu et al., 2022], while tools like \textit{IndiVec} leverage fine-grained indicators to improve adaptability [Lin et al., 2024]. However, 
+these advancements introduce new complexities, such as inherent political biases within the LLMs themselves, which may manifest as preferences for specific viewpoints [Rozado, 2023] or create disparities 
+between model predictions and human perception [Lin et al., 2025]. These findings underscore the necessity of developing more robust and transparent methodologies that can navigate ideological nuances without 
+being compromised by the biases of underlying architectures.
+
+To mitigate these shortcomings, this work introduces a novel framework based on Deep Metric Learning to create optimized feature spaces that minimize the distance between news articles sharing the same ideological 
+orientation. Unlike approaches limited to sentence-level classification, this research explores multiple textual aspects, including full-text content and probabilistic topic distribution.
+
+By integrating these elements, this study aims to advance the state of the art through the following contributions:
+
+\begin{itemize}
+  \item Deep Metric Learning Framework: The application of \textit{Triplet Loss} and \textit{Contrastive Loss} to generate optimized embedding spaces for full-text documents, specifically tailored for political bias detection.
+  \item Multidimensional Ideological Analysis: A classification approach that encompasses a broader political spectrum, including centrist positions, moving beyond restrictive binary (left/right) models.
+  \item Computational Efficiency and Accessibility: The implementation of a specialized architecture with a parameter count significantly lower than that of LLMs, facilitating high-performance inference on standard hardware without sacrificing accuracy.
+  \item Autonomous and Source-Independent Classification: A methodology that operates exclusively on raw textual content, eliminating the dependency on external metadata or third-party knowledge bases.
+  \item Empirical Performance Gains: Demonstration of superior effectiveness over traditional baselines by leveraging the synergy between Transformer architectures and metric learning techniques.
+\end{itemize}

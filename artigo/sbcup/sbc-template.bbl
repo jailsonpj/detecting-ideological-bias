@@ -58,8 +58,12 @@ Lin, L., Wang, L., Guo, J., and Wong, K.-F. (2025).
 \newblock Investigating bias in {LLM}-based bias detection: Disparities between {LLM}s and human perception.
 \newblock In Rambow, O., Wanner, L., Apidianaki, M., Al-Khalifa, H., Eugenio, B.~D., and Schockaert, S., editors, {\em Proceedings of the 31st International Conference on Computational Linguistics}, pages 10634--10649, Abu Dhabi, UAE. Association for Computational Linguistics.
 
-\bibitem[Lin et~al. 2024]{lin2024indivecexplorationleveraginglarge}
-Lin, L., Wang, L., Zhao, X., Li, J., and Wong, K.-F. (2024).
+\bibitem[Lin et~al. 2024a]{lin2024indivec}
+Lin, L., Wang, L., Zhao, X., Li, J., and Wong, K. (2024a).
+\newblock Indivec: An exploration of leveraging large language models for media bias detection with fine-grained bias indicators (no. arxiv: 2402.00345). arxiv.
+
+\bibitem[Lin et~al. 2024b]{lin2024indivecexplorationleveraginglarge}
+Lin, L., Wang, L., Zhao, X., Li, J., and Wong, K.-F. (2024b).
 \newblock Indivec: An exploration of leveraging large language models for media bias detection with fine-grained bias indicators.
 
 \bibitem[Lin et~al. 2011]{lin2011more}

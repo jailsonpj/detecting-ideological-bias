@@ -1,0 +1,76 @@
+Os experimentos foram conduzidos seguindo a metodologia proposta, totalizando $24$ configurações que integraram os modelos DistilBERT e DistilRoBERTa, 
+funções de perda (\textit{Contrastive Loss} e \textit{Triplet Loss}) e classificadores (\textit{KNN, K-Means} e \textit{MLP}). 
+Esta abordagem permitiu uma análise sistemática da sensibilidade dos modelos nos cenários \textit{random split} e \textit{media-bias split}.
+
+\subsection{Desempenho no Conjunto de Dados ABP}
+
+Os resultados consolidados na Tabela~\ref{tab:resultados_ajustados} demonstram que a utilização de aprendizagem métrica, especificamente a \textit{Contrastive Loss}, 
+favorece significativamente a separação vetorial no espaço de \textit{embeddings} para a tarefa de viés ideológico.
+
+\begin{table}[!ht]
+\centering
+\caption{Desempenho comparativo (em \%) no conjunto de dados ABP utilizando as divisões \textit{media-bias split} e \textit{random split}.}
+\label{tab:resultados_ajustados}
+\resizebox{\textwidth}{!}{% % Adiciona o parâmetro de ajuste à largura do texto
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+\textbf{Cenário}                                                                     & \textbf{Modelo}                                                       & \begin{tabular}[c]{@{}c@{}} \textbf{Configuração}\\ \textbf{(Repre. / Fun. de Perda / Classificador)}\end{tabular} & \textbf{Macro F1-Score} & \textbf{Acurácia} \\ \midrule
+\multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}ABP\\ (media- bias split)\end{tabular}} & \begin{tabular}[c]{@{}c@{}}Proposto\\ (Exp. 4)\end{tabular}  & DistilRoBERTa / Constrastive / KNN                                           & 45,44          & 48,89    \\ 
+                                                                                   & Baly el al., (2020)                                          & BERT / - / BERT                                                              & 33,53          & 36,75    \\ \midrule
+\multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}ABP \\ (random split)\end{tabular}}     & \begin{tabular}[c]{@{}c@{}}Proposto\\ (Exp. 16)\end{tabular} & DistilRoBERTa / Constrastive / KNN                                           & 83,90          & 83,89    \\ 
+                                                                                   & Baly el al., (2020)                                          & BERT / - / BERT                                                              & 80,19          & 79,83    \\ \bottomrule
+\end{tabular}%
+}
+\end{table}
+
+No cenário \textit{media-bias split}, o modelo proposto superou o baseline de Baly et al.[2020] em aproximadamente $12$ pontos percentuais. 
+Este resultado é particularmente relevante, pois o \textit{media-bias split} exige que o modelo identifique nuances ideológicas em veículos de 
+imprensa nunca vistos durante o treinamento. Contudo, a queda de desempenho em relação ao \textit{random split} ($83,90\%$) evidencia que a 
+presença de fontes comuns facilita a predição por meio da memorização de padrões específicos do veículo, e não necessariamente da 
+ideologia pura.
+\subsection{Avaliação de Generalização}
+
+Para testar a robustez em cenários de estresse rigoroso, o modelo foi submetido ao dataset \textit{FlipBias} sem ajuste fino adicional. 
+Embora os índices de \textit{Macro F1-score} ($47,00\%$ no Exp. 16), apresentados na Tabela~\ref{tab:resultados_flibias}, tenham sido inferiores aos modelos \textit{in-domain}\footnote{In-domain refere-se a uma situação em que os dados utilizados 
+para treinar um modelo de aprendizagem de máquina e os dados usados para testá-lo vêm da 
+mesma distribuição, contexto ou fonte.} de Lin et al. [2024, 2025], 
+os dados sugerem que a arquitetura captura estruturas ideológicas fundamentais que transcendem o domínio original.
+
+\begin{table}[!ht]
+\centering
+\caption{Desempenho comparativo (em \%) no conjunto de dados FlipBias.}
+\label{tab:resultados_flibias}
+\resizebox{\textwidth}{!}{% % Parâmetro para ajustar ao texto
+\begin{tabular}{@{}cccc@{}}
+\toprule
+\textbf{Autor}                                              & \textbf{\begin{tabular}[c]{@{}c@{}}Modelo / Configuração \end{tabular}} & \textbf{Estratégia} & \textbf{Macro F1-Score} \\ \midrule
+Lin et al. (2024)                                           & BERT                                                                              & Fine-tuning                                & 86,20                   \\
+Lin et al. (2025)                                           & GPT 3.5                                                                           & Fine-tuning                                & 77,82                   \\
+\begin{tabular}[c]{@{}c@{}}Proposto\\ (Exp. 16)\end{tabular} & DistilRoBERTa / Constrastive / KNN                                               & Fine-tuning                               & 47,00                   \\
+\begin{tabular}[c]{@{}c@{}}Proposto\\ (Exp. 4)\end{tabular}  & DistilRoBERTa / Constrastive / KNN                                               & Fine-tuning                               & 28,21                   \\ \bottomrule
+\end{tabular}%
+}
+\end{table} 
+\subsection{Comparação com Modelos de Linguagem de Larga Escala (LLMs)}
+
+Uma análise comparativa foi realizada com uma amostra de $90$ instâncias do teste \textit{media-bias split} para situar o modelo 
+frente a LLMs de última geração. Observa-se que o modelo proposto, mesmo sendo uma arquitetura destilada e leve (\textit{DistilRoBERTa}), 
+superou o desempenho \textit{zero-shot} do DeepSeek ($16,0\%$) e aproximou-se da performance do Gemini 3 ($34,0\%$). 
+
+\begin{table}[ht]
+\centering
+\caption{Comparação com LLMs (Amostra Aleatória)}
+\label{tab:llm}
+\begin{tabular}{@{}llc@{}}
+\toprule
+\textbf{Modelo} & \textbf{Estratégia} & \textbf{Macro F1-Score} \\ \midrule
+Gemini 3        & Zero-Shot           & 34,0\%                  \\
+Proposto (Exp. 4) & Fine-tuning       & 27,0\%                  \\
+DeepSeek        & Zero-Shot           & 16,0\%                  \\ \bottomrule
+\end{tabular}
+\end{table}
+
+É fundamental ressaltar que, embora o desempenho absoluto seja inferior ao Gemini 3, o modelo proposto é ordens de magnitude menor em termos de parâmetros 
+e requisitos computacionais. Enquanto LLMs exigem infraestruturas massivas de nuvem, a arquitetura baseada em aprendizagem métrica aqui apresentada 
+é perfeitamente viável para ambientes com recursos computacionais restritos. Isso valida a eficácia da \textit{Contrastive Loss} em 
+gerar representações discriminatórias competitivas, priorizando a eficiência e a viabilidade prática em cenários limitados.

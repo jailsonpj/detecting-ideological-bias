@@ -1,5 +1,6 @@
 import os
 import sys
+import copy
 import torch
 from torch.utils.data import DataLoader, SubsetRandomSampler
 from sklearn.model_selection import KFold
@@ -12,6 +13,7 @@ if root_path not in sys.path:
     sys.path.append(root_path)
 
 from src.utils.utils import read_json
+from src.utils.early_stopping import EarlyStopping
 from src.networks.networks import TransformerNet
 from src.dib.dib import DIB
 from src.losses.losses import ContrastiveLoss, OnlineTripletLoss
@@ -103,6 +105,8 @@ class RunDIB:
             
             optimizer = torch.optim.Adam(model.parameters(), lr=1e-6)
             scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=8, gamma=0.1)
+            fold_ckpt_path = f"temp_fold_{fold}.pt"
+            early_stopping = EarlyStopping(patience=5, verbose=True, path=fold_ckpt_path)
 
             dib = DIB(
                 model=model,
@@ -111,29 +115,29 @@ class RunDIB:
                 name_process=self.config["name_process"]
             )
 
-            train_plot, val_plot = dib.fit(
+            train_plot, val_plot, fold_best_loss = dib.fit(
                 optimizer=optimizer,
                 scheduler=scheduler,
                 num_epochs=self.config["train"]["num_epochs"],
                 device=self.device,
                 fold=fold,
+                early_stopping=early_stopping,
                 metrics=[],
                 type_train=self.config["name_process"]
             )
 
-            current_avg_loss = sum(val_plot) / len(val_plot)
-            if current_avg_loss < best_avg_loss:
-                best_avg_loss = current_avg_loss
-                save_model = dib.get_model()
+            if fold_best_loss < best_avg_loss:
+                best_avg_loss = fold_best_loss
                 save_fold = fold
+                save_model = copy.deepcopy(dib.get_model().state_dict())
                 print(f"Novo melhor modelo encontrado no Fold {fold} com Loss: {best_avg_loss:.4f}")
 
-        if save_model:
+        if save_model is not None:
             save_path = os.path.join(self.config["path_base_save_model"], self.config["name_process"])
             os.makedirs(save_path, exist_ok=True)
             full_path = os.path.join(save_path, f"{self.config['name_process']}_fold{save_fold}_model.pth")
             
-            torch.save(save_model.state_dict(), full_path) 
+            torch.save(save_model, full_path) 
             print(f"\nTop 1 Median Loss: {best_avg_loss:.4f} - Salvo em: {full_path}")
 
 def run():

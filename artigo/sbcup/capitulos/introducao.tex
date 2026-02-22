@@ -1,0 +1,18 @@
+Nos últimos anos, a expansão exponencial de informações online via portais de notícias impõe o desafio de assegurar a imparcialidade dos conteúdos. 
+O viés ideológico em artigos pode distorcer a percepção pública e influenciar decisões políticas e resultados eleitorais \cite{gentzkow2006media, chiang2011media}. 
+Dada a subjetividade inerente ao discurso, a identificação automatizada dessa inclinação é uma tarefa complexa, tornando o desenvolvimento de métodos precisos de detecção uma área 
+de pesquisa altamente relevante para a integridade da informação.
+
+No campo do Processamento de Linguagem Natural (PLN), abordagens buscam automatizar essa detecção via conteúdo textual, hiperlinks e teoria da informação \cite{spinde2022neural,patricia2019link}. 
+Contudo, as soluções atuais frequentemente limitam-se a cenários puramente polarizados ou dependentem de fontes externas, os que comprometem a autonomia dos métodos e dificulta 
+a identificação de nuances ideológicas em contextos onde metadados não estão disponíveis. Além disso, avanços recentes com \textit{Large Language Models} (LLMs) \cite{liu-etal-2022-politics,lin2024indivec}
+enfrentam críticas por manifestarem vieses políticos nativos de suas arquiteturas e disparidades com a percepeção humana \cite{lin-etal-2025-investigating}.
+
+Para mitigar essas limitações, este trabalho propõe uma metodologia baseada em \textit{Deep Metric Learning}. Diferente de classificadores tradicionais, nossa abordagem foca na
+extração de características ideológicas a partir de fragmentos textuais locais, permitindo uma classificação agnóstica à fonte. As principais contribuições deste estudo são:
+
+\begin{itemize}
+    \item Aplicação de \textit{Triplet} e \textit{Contrastive Losses} para estruturar espaços vetoriais onde a proximidade reflete afinidade ideológica;
+    \item Método capaz de identificar vieses em fontes inéditas, superando o sobreasjuste comum em modelos baseados em BERT;
+    \item Uma arquitetura especializada com contagem de parâmetros reduzida, garantindo baixo custo de inferência e operação e hardware convencional.
+\end{itemize}

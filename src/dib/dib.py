@@ -1,6 +1,8 @@
 import numpy as np
 import torch
 import os, sys
+
+
 project_root = os.path.dirname(
     os.path.dirname(
         os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -70,7 +72,7 @@ class DIB:
                 metric(outputs, targets_device)
 
             if batch_idx % 20 == 0 and batch_idx > 0:
-                avg_loss = np.mean(losses_batch)
+                avg_loss = np.mean(losses)
                 message = "Train: [{}/{} ({:.0f}%)]\tLoss: {:.6f}".format(
                     batch_idx * len(target), # len(target) é o batch_size real
                     len(self.get_train_loader().dataset),
@@ -81,7 +83,7 @@ class DIB:
                     message += '\t{}: {}'.format(metric.name(), metric.value())
 
                 print(message)
-                losses_batch = []
+                losses = []
         total_loss = running_loss / len(self.get_train_loader())
         return total_loss, metrics
     
@@ -126,7 +128,8 @@ class DIB:
         scheduler, 
         num_epochs, 
         device,
-        fold, 
+        fold,
+        early_stopping, 
         metrics=[], 
         start_epoch=0, 
         type_train="contrastive"
@@ -163,4 +166,12 @@ class DIB:
             print(message)
             print("-" * 30)
 
-        return train_plot, val_plot
+            early_stopping(val_loss, self.model)
+
+            if early_stopping.early_stop:
+                print("Early stopping atingido. Encerrando Fold.")
+                break
+
+        self.model.load_state_dict(torch.load(early_stopping.path))
+
+        return train_plot, val_plot, early_stopping.val_loss_min

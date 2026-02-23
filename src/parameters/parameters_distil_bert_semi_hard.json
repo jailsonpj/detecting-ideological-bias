@@ -1,5 +1,5 @@
 {
-    "name_process": "triplet-semi-hard-distilbert",
+    "name_process": "triplet_semi_hard_distilbert",
     "path":"/Users/jailsonpereira/Documents/detecting-ideological-bias/src",
     "dataset":{
 	    "path_base":"/Users/jailsonpereira/Documents/detecting-ideological-bias/src/dataset/",
@@ -11,7 +11,7 @@
         "loss": "triplet-semihard"
     },
     "train":{
-        "num_epochs": 1,
+        "num_epochs": 100,
         "folds":5
     },
     "path_base_save_model":"/Users/jailsonpereira/Documents/detecting-ideological-bias/src/outputs/",

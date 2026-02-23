@@ -35,19 +35,34 @@ class NewsPaperData:
     def read_file(self, filename: str) -> pd.DataFrame:
         full_path = os.path.join(self.path, filename)
         if filename.endswith('.csv'):
-            return pd.read_csv(full_path)
+            return pd.read_csv(full_path, on_bad_lines='skip')
         return pd.read_excel(full_path)
 
     def union_title_corpus(self, df: pd.DataFrame, col_title: str, col_corpus: str) -> pd.DataFrame:
         df["text"] = df[col_title].astype(str) + " " + df[col_corpus].astype(str)
         return df
     
-    def get_dataset_custom(self, dict_rename: Dict = {}) -> Tuple[pd.DataFrame, None]:
+    def get_corpus_flipbias(self, df):
+        pattern = r'(?i)(right|center|left)'
+        map_bias = {'left': 0, 'center': 1, 'right': 2}
+
+        df['labels'] = df['labels'].str.extract(pattern, expand=False).str.lower()
+        df = df[['labels', 'text']]
+        df['labels'] = df['labels'].map(map_bias)
+        
+        return df
+
+    def get_dataset_custom(self, dict_rename: Dict = {}, corpus = 'abp') -> Tuple[pd.DataFrame, None]:
         df = self.read_file(self.filename)
         
         if dict_rename:
             df = df.rename(columns=dict_rename)
-            
+
+        if corpus == 'flip':
+            df = self.get_corpus_flipbias(df=df)
+            self.df_dataset = df
+            return df, None
+           
         self.df_dataset = df
         return df, None
     

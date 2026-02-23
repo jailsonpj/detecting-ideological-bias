@@ -45,21 +45,21 @@ O projeto utiliza um script shell para facilitar a execução com diferentes con
 Dê permissão de execução (apenas na primeira vez):
 
 ```bash
-chmod +x rodar_modelo.sh
+chmod +x execute_project.sh
 
 ```
 
 Execute com os parâmetros padrão:
 
 ```bash
-./rodar_modelo.sh
+./execute_project.sh
 
 ```
 
 Ou passe caminhos personalizados via linha de comando:
 
 ```bash
-./rodar_modelo.sh ./src/executors/meu_script.py ./src/parameters/config.json
+./execute_project.sh ./src/executors/meu_script.py ./src/parameters/config.json
 
 ```
 

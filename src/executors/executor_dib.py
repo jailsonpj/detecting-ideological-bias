@@ -49,14 +49,19 @@ class RunDIB:
 
         # Obter DataFrames
         df_train, _ = dataset_train.get_dataset_custom( # Adicionado parâmetro faltante
-            dict_rename=self.config["dataset"]["rename_columns"]
+            dict_rename=self.config["dataset"]["rename_columns"],
+            corpus=self.config["dataset"]["corpus"]
         )
         df_val, _ = dataset_val.get_dataset_custom(
-            dict_rename=self.config["dataset"]["rename_columns"]
+            dict_rename=self.config["dataset"]["rename_columns"],
+            corpus=self.config["dataset"]["corpus"]
         )
 
         df_train = df_train.dropna(subset=["text"]).reset_index(drop=True)
         df_val = df_val.dropna(subset=["text"]).reset_index(drop=True)
+
+        df_train = df_train.dropna(subset=["labels"]).reset_index(drop=True)
+        df_val = df_val.dropna(subset=["labels"]).reset_index(drop=True)
 
         return df_train, df_val
 
@@ -78,7 +83,6 @@ class RunDIB:
         df_train, _ = self.read_data()
         tokenizer = AutoTokenizer.from_pretrained(self.config["pre_trained"])
 
-        # O Dataset deve ser criado sobre o df limpo
         ds_train = CustomDataset(
             df=df_train,
             tokenizer=tokenizer,
@@ -105,7 +109,7 @@ class RunDIB:
             
             optimizer = torch.optim.Adam(model.parameters(), lr=1e-6)
             scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=8, gamma=0.1)
-            fold_ckpt_path = f"temp_fold_{fold}.pt"
+            fold_ckpt_path = f"{self.config["path_base_save_model"]}/temp_fold_{fold}.pt"
             early_stopping = EarlyStopping(patience=5, verbose=True, path=fold_ckpt_path)
 
             dib = DIB(

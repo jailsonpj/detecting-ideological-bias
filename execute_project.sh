@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SCRIPT_PY=${1:-"./src/executors/executor_dib.py"}
-PARAMS_JSON=${2:-"./src/parameters/parameters_distil_bert_semi_hard.json"}
+PARAMS_JSON=${2:-"./src/parameters/parameters_distil_bert_semi_hard_flip.json"}
 
 if [ ! -f "$SCRIPT_PY" ]; then
     echo "Erro: Arquivo Python '$SCRIPT_PY' não encontrado."

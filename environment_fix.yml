@@ -1,0 +1,20 @@
+name: dib_stable_fix
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pytorch
+  - torchvision
+  - torchaudio
+  - cpuonly  # Ou remova isso se o servidor tiver GPU
+  - transformers
+  - pandas
+  - scikit-learn
+  - tqdm
+  - aiohttp
+  - pip
+  - pip:
+      - accelerate
+      - sentencepiece

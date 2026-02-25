@@ -8,7 +8,6 @@ dependencies:
   - pytorch
   - torchvision
   - torchaudio
-  - cpuonly  # Ou remova isso se o servidor tiver GPU
   - transformers
   - pandas
   - scikit-learn

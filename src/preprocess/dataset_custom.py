@@ -35,7 +35,7 @@ class NewsPaperData:
     def read_file(self, filename: str) -> pd.DataFrame:
         full_path = os.path.join(self.path, filename)
         if filename.endswith('.csv'):
-            return pd.read_csv(full_path, on_bad_lines='skip')
+            return pd.read_csv(full_path, on_bad_lines='skip', encoding_errors='ignore')
         return pd.read_excel(full_path)
 
     def union_title_corpus(self, df: pd.DataFrame, col_title: str, col_corpus: str) -> pd.DataFrame:

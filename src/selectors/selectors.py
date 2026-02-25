@@ -8,6 +8,7 @@ project_root = os.path.dirname(
     )
 )
 sys.path.insert(0, project_root)
+
 def pdist(vectors):
     distance_matrix = -2 * vectors.mm(torch.t(vectors)) + vectors.pow(2).sum(dim=1).view(1, -1) + vectors.pow(2).sum(
         dim=1).view(-1, 1)
@@ -50,11 +51,21 @@ class AllPositivePairSelector(PairSelector):
     def get_pairs(self, embeddings, labels):
         labels = labels.cpu().data.numpy()
         all_pairs = np.array(list(combinations(range(len(labels)), 2)))
+
+        if len(all_pairs) == 0:
+            return torch.LongTensor([]), torch.LongTensor([])
+        
         all_pairs = torch.LongTensor(all_pairs)
-        positive_pairs = all_pairs[(labels[all_pairs[:, 0]] == labels[all_pairs[:, 1]]).nonzero()]
-        negative_pairs = all_pairs[(labels[all_pairs[:, 0]] != labels[all_pairs[:, 1]]).nonzero()]
-        if self.balance:
-            negative_pairs = negative_pairs[torch.randperm(len(negative_pairs))[:len(positive_pairs)]]
+
+        pos_mask = labels[all_pairs[:, 0]] == labels[all_pairs[:, 1]]
+        neg_mask = ~pos_mask
+        
+        positive_pairs = all_pairs[pos_mask]
+        negative_pairs = all_pairs[neg_mask]
+
+        if self.balance and len(positive_pairs) > 0 and len(negative_pairs) > 0:
+            num_neg = min(len(negative_pairs), len(positive_pairs))
+            negative_pairs = negative_pairs[torch.randperm(len(negative_pairs))[:num_neg]]
 
         return positive_pairs, negative_pairs
     

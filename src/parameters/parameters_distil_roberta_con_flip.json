@@ -1,5 +1,5 @@
 {
-    "name_process": "triplet_semi_hard_droberta",
+    "name_process": "contrastive_droberta_flip",
     "path":"./src",
     "dataset":{
 	    "path_base":"./src/dataset/",
@@ -9,7 +9,7 @@
         "corpus": "flip"
     },
     "function_loss":{
-        "loss": "triplet-semihard"
+        "loss": "contrastive"
     },
     "train":{
         "num_epochs": 100,

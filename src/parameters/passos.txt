@@ -1,0 +1,23 @@
+Passo 1 
+- baixar o repositório : https://github.com/jailsonpj/detecting-ideological-bias
+
+----------------------------------------------------------------------------------
+
+Passo 2
+- baixar o dataset enviado por email e transferir somente o CSV para dentro da pasta src/dataset
+
+obs: O diretório não vai existir dentro dessa pasta src entao primeiro faz faz o mkdir dataset dentro do diretório src/ 
+e depois transfere o arquivo CSV.
+
+----------------------------------------------------------------------------------
+
+Passo 3
+- É só seguir o README do repositório
+
+Que é:
+- conda env create -f environment.yml
+- conda activate dib_stable
+- chmod + execute_project.sh
+- ./execute_project.sh ./src/executors/executor_dib.py ./src/parameters/parameters_distil_bert_semi_hard_flip.json
+
+obs: talvez tenha que dá o nohup para a execução ficar em segundo plano e caso tua sessão cair, o processo não parar 

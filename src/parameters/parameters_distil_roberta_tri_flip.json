@@ -1,0 +1,20 @@
+{
+    "name_process": "triplet_semihard_droberta_flip",
+    "path":"./src",
+    "dataset":{
+	    "path_base":"./src/dataset/",
+        "documents_train": "data_public.csv",
+        "documents_val": "data_public.csv",
+        "rename_columns": {"bias": "labels", "original_body": "text"},
+        "corpus": "flip"
+    },
+    "function_loss":{
+        "loss": "triplet-semihard"
+    },
+    "train":{
+        "num_epochs": 100,
+        "folds":5
+    },
+    "path_base_save_model":"./src/outputs/",
+    "pre_trained": "distilroberta-base"
+}

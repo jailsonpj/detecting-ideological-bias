@@ -147,6 +147,7 @@ INPUT capitulos/trabalhos_relacionados.tex
 INPUT ./capitulos/metodos.tex
 INPUT ./capitulos/metodos.tex
 INPUT capitulos/metodos.tex
+INPUT /usr/local/texlive/2025/texmf-dist/fonts/vf/adobe/times/ptmr8c.vf
 INPUT ./imagens/fig_abordagem_proposta_texto.pdf
 INPUT ./imagens/fig_abordagem_proposta_texto.pdf
 INPUT ./imagens/fig_abordagem_proposta_texto.pdf
@@ -167,7 +168,6 @@ INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/adobe/courier/pcrr7t.tfm
-INPUT /usr/local/texlive/2025/texmf-dist/fonts/vf/adobe/times/ptmr8c.vf
 INPUT ./imagens/example_areticle.png
 INPUT ./imagens/example_areticle.png
 INPUT ./imagens/example_areticle.png

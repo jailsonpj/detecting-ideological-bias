@@ -16,8 +16,8 @@ from src.utils.utils import read_json
 from src.utils.early_stopping import EarlyStopping
 from src.networks.networks import TransformerNet
 from src.dib.dib import DIB
-from src.losses.losses import ContrastiveLoss, OnlineTripletLoss
-from src.selectors.selectors import SemihardNegativeTripletSelector
+from src.losses.losses import OnlineTripletLoss, OnlineContrastiveLoss, ContrastiveLoss
+from src.selectors.selectors import SemihardNegativeTripletSelector, AllPositivePairSelector
 from src.preprocess.dataset_custom import NewsPaperData, CustomDataset
 
 def reset_weights(m):
@@ -68,7 +68,10 @@ class RunDIB:
     def get_loss(self, loss_name):
         margin = 1.0
         loss_map = {
-            "contrastive": lambda: ContrastiveLoss(margin=margin),
+            "contrastive": lambda: OnlineContrastiveLoss(
+                margin=margin,
+                pair_selector=AllPositivePairSelector()
+            ),
             "cross": lambda: torch.nn.CrossEntropyLoss(),
             "triplet-semihard": lambda: OnlineTripletLoss(
                 margin=margin, 
@@ -109,7 +112,7 @@ class RunDIB:
             
             optimizer = torch.optim.Adam(model.parameters(), lr=1e-6)
             scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=8, gamma=0.1)
-            fold_ckpt_path = f"{self.config["path_base_save_model"]}/temp_fold_{fold}.pt"
+            fold_ckpt_path = f"{self.config['path_base_save_model']}/temp_fold_{fold}.pt"
             early_stopping = EarlyStopping(patience=5, verbose=True, path=fold_ckpt_path)
 
             dib = DIB(

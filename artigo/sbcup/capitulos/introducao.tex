@@ -4,8 +4,8 @@ Dada a subjetividade inerente ao discurso, a identificação automatizada dessa 
 de pesquisa altamente relevante para a integridade da informação.
 
 No campo do Processamento de Linguagem Natural (PLN), abordagens buscam automatizar essa detecção via conteúdo textual, hiperlinks e teoria da informação \cite{spinde2022neural,patricia2019link}. 
-Contudo, as soluções atuais frequentemente limitam-se a cenários puramente polarizados ou dependentem de fontes externas, os que comprometem a autonomia dos métodos e dificulta 
-a identificação de nuances ideológicas em contextos onde metadados não estão disponíveis. Além disso, avanços recentes com \textit{Large Language Models} (LLMs) \cite{liu-etal-2022-politics,lin2024indivec}
+Contudo, as soluções atuais frequentemente limitam-se a cenários puramente polarizados ou dependente de fontes externas, os que comprometem a autonomia dos métodos e dificulta 
+a identificação de nuances ideológicas em contextos onde metadados não estão disponíveis. Além disso, avanços recentes com modelos de linguagem pré-treinados e sistemas baseados em \textit{Large Language Models} (LLMs) \cite{lin2024indivec}
 enfrentam críticas por manifestarem vieses políticos nativos de suas arquiteturas e disparidades com a percepeção humana \cite{lin-etal-2025-investigating}.
 
 Para mitigar essas limitações, este trabalho propõe uma metodologia baseada em \textit{Deep Metric Learning}. Diferente de classificadores tradicionais, nossa abordagem foca na
@@ -13,6 +13,6 @@ extração de características ideológicas a partir de fragmentos textuais loca
 
 \begin{itemize}
     \item Aplicação de \textit{Triplet} e \textit{Contrastive Losses} para estruturar espaços vetoriais onde a proximidade reflete afinidade ideológica;
-    \item Método capaz de identificar vieses em fontes inéditas, superando o sobreasjuste comum em modelos baseados em BERT;
+    \item Método capaz de identificar vieses em fontes inéditas, superando o sobreasjuste comum em modelos baseados em arquiteturas de \textit{Transformers};
     \item Uma arquitetura especializada com contagem de parâmetros reduzida, garantindo baixo custo de inferência e operação e hardware convencional.
 \end{itemize}

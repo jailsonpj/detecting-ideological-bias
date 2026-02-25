@@ -1,16 +1,20 @@
 A literatura aborda a detecção de viés ideológico sob diversas óticas, desde redes estruturais \cite{efron2004liberal} até modelos econômicos de reputação midiática \cite{gentzkow2006media}. 
 Avanços integraram análise de redes sociais e PLN para quantificar o viés via gráficos de interação \cite{lin2011more}. Contudo, tais métodos enfrentam limitações severas em documentos com 
-dados esparsos de hiperlinks ou isolados de redes de citação estabelecidas, dificultando a generalização pretendida.
-
-A análise textual direta foca na escolha lexical e frequência temática como reflexos de tendências ideológicas \cite{dallmann2015media}, utilizando inclusive mecanismos de atenção para capturar o enquadramento (\textit{framing}) 
-em manchetes \cite{gangula-etal-2019-detecting}. Estruturas baseadas em BERT e LSTM \cite{baly2020we} alcançam alta precisão em fontes conhecidas, mas demonstram fragilidade ao processar artigos de domínios novos. 
-Esse desafio permanece central na área, exigindo modelos que identifiquem assinaturas ideológicas independentemente da identidade da fonte.
+dados esparsos de hiperlinks ou isolados de redes de citação estabelecidas, limitando a capacidade de generalização do modelo.
 
 Alternativamente, metadados de redes sociais, como interações no Twitter [Rao and Spasojevic, 2016; Elejalde et al., 2017] e perfis demográficos de audiência no Facebook [Ribeiro et al., 2018], 
 auxiliam na inferência de inclinação política. Entretanto, essas abordagens são dependentes de APIs de terceiros e restringem-se frequentemente a cenários de alta polarização binária.
 Tal dependência reforça a necessidade de soluções que operem exclusivamente sobre o conteúdo textual bruto.
 
-Recentemente, o surgimento de LLMs introduziu paradigmas como o framework \textit{POLITICS} \cite{liu-etal-2022-politics} e o sistema \textit{IndiVec} \cite{lin2024indivec}. Apesar do alto desempenho, 
-esses modelos manifestam preferências políticas consistentes em suas arquiteturas e falham em alinhar suas predições com a percepção humana em tarefas de zero-shot \cite{lin-etal-2025-investigating}. 
-Este trabalho propõe o uso do \textit{Deep Metric Learning} como uma alternativa robusta e transparente, superando as limitações de generalização de \textit{baselines} estabelecidos \cite{baly2020we} 
-sem a complexidade computacional excessiva dos modelos de larga escala.
+No âmbito da análise textual direta, as investigações priorizam a escolha lexical e a recorrência temática como indicadores de inclinação ideológica \cite{dallmann2015media}, empregando mecanismos 
+de atenção para capturar o enquadramento (\textit{framing}) em manchetes \cite{gangula-etal-2019-detecting}. Embora modelos baseados na arquitetura \textit{Transformer}, como o BERT (\textit{Bidirectional Encoder Representations from Transformers}), 
+atinjam elevada precisão em fontes previamente mapeadas, tais estruturas demonstram fragilidade ao processar artigos de domínios inéditos \cite{baly2020we}.
+
+Para mitigar essa lacuna, o framework \textit{POLITICS} \cite{liu-etal-2022-politics} introduziu o aprendizado contrastivo, visando alinhar perspectivas distintas sobre um mesmo evento noticioso. Esse esforço foi aprimorado por volf2025political, 
+que realizaram o ajuste fino (\textit{fine-tuning}) do modelo \textit{POLITICS} utilizando múltiplos datasets unificados. Os autores demonstraram que essa especialização, aliada a uma filtragem prévia de textos sobre assuntos políticos, é essencial para assegurar a robustez e a 
+generalização dos classificadores em diversos domínios.
+
+Contudo, apesar do desempenho robusto desses modelos especializados, tanto as versões refinadas quanto sistemas baseados em modelos de larga escala, como o \textit{IndiVec} \cite{lin2024indivec}, estão sujeitos a vieses políticos inerentes ou a falhas de alinhamento com a percepção humana 
+em cenários \textit{zero-shot} \cite{lin-etal-2025-investigating}. Diante dessas limitações, este trabalho propõe o emprego de \textit{Deep Metric Learning} fundamentado na técnica de \textit{semi-hard sampling}. Diferente de abordagens puramente classificatórias, esta estratégia visa otimizar 
+a topologia do espaço de características, forçando o modelo a distinguir nuances ideológicas através de uma amostragem mais informativa. Com isso, busca-se superar os gargalos de generalização dos modelos tradicionais sem incorrer na excessiva complexidade computacional típica de 
+arquiteturas de larga escala.

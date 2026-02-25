@@ -36,27 +36,40 @@ class TripletLoss(nn.Module):
         loss = self.loss(anchor, positive, negative)
         return loss
     
-class OnlineContastiveLoss(nn.Module):
+class OnlineContrastiveLoss(nn.Module):
     """
     Online Contrative Loss
     """
     def __init__(self, margin, pair_selector):
-        super(OnlineContastiveLoss, self).__init__()
+        super(OnlineContrastiveLoss, self).__init__()
         self.margin = margin
         self.pair_selector = pair_selector
+        self.eps = 1e-7
         
     def forward(self, embeddings, target):
         positive_pairs, negative_pairs = self.pair_selector.get_pairs(embeddings, target)
+
         if embeddings.is_cuda:
             positive_pairs = positive_pairs.cuda()
             negative_pairs = negative_pairs.cuda()
-        positive_loss = (
-            embeddings[positive_pairs[:, 0]] - embeddings[positive_pairs[:, 1]]
-        ).pow(2).sum(1)
-        negative_loss = F.relu(
-            self.margin - (embeddings[negative_pairs[:, 0]] - embeddings[negative_pairs[:, 1]]).pow(2).sum(
-                1).sqrt()).pow(2)
-        loss = torch.cat([positive_loss, negative_loss], dim=0)
+
+        if len(positive_pairs) == 0 and len(negative_pairs) == 0:
+            return embeddings.sum() * 0
+        
+        losses = []
+
+        if len(positive_pairs) > 0:
+            pos_dist_sq = (embeddings[positive_pairs[:, 0]] - embeddings[positive_pairs[:, 1]]).pow(2).sum(1)
+            losses.append(pos_dist_sq)
+
+        if len(negative_pairs) > 0:
+            neg_dist_sq = (embeddings[negative_pairs[:, 0]] - embeddings[negative_pairs[:, 1]]).pow(2).sum(1)
+            neg_dist = torch.sqrt(neg_dist_sq + self.eps)
+            
+            neg_loss = F.relu(self.margin - neg_dist).pow(2)
+            losses.append(neg_loss)
+
+        loss = torch.cat(losses, dim=0).mean() 
         return loss.mean()
     
 class OnlineTripletLoss(nn.Module):
@@ -79,7 +92,11 @@ class OnlineTripletLoss(nn.Module):
             triplets = triplets.cuda()
 
         ap_distances = (embeddings[triplets[:, 0]] - embeddings[triplets[:, 1]]).pow(2).sum(1)  # .pow(.5)
+        ap_distances = torch.sqrt(ap_distances.clamp(min=1e-7))
+
         an_distances = (embeddings[triplets[:, 0]] - embeddings[triplets[:, 2]]).pow(2).sum(1)  # .pow(.5)
+        an_distances = torch.sqrt(an_distances.clamp(min=1e-7))
+
         losses = F.relu(ap_distances - an_distances + self.margin)
 
         return losses.mean(), len(triplets)

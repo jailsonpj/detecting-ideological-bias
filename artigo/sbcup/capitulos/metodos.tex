@@ -11,12 +11,22 @@ treinamento de classificadores e análise de desempenho. As seções seguintes d
 \end{figure}
 
 \subsection{Dados Experimentais}\label{sec:dados}
-Para o desenvolvimento deste estudo, utilizou-se o conjunto de dados \textit{Article Bias Prediction} (ABP) \cite{baly2020we}, composto
-por $30.246$ notícias em inglês rotuladas em três categorias (\textit{left, center} e \textit{right}.) A fidedignidade dos rótulos
-advém plataforma AllSides\footnote{\url{https://www.allsides.com/media-bias/media-bias-rating-methods}}, que
-emprega auditorias rigorosas e revisões da comunidade, conforme ilustrado na Figura~\ref{fig:example_article}. Visando a integridade
-da análise, o \textit{corpus} foi pré-processado para remover marcadores de autoria e portais, garantindo que o modelo identifique nuances
-linguísticas em vez de apenas a fonte da notícia.
+Para o desenvolvimento deste estudo, utilizaram-se os conjunto de dados detalhados na Tabela~\ref{tab:conjuntos}. O foco principal recai
+sobre os dados do \textit{Article Bias Prediction} (ABP) \cite{baly2020we}, composto por $37.554$ notícias em inglês rotuladas em três categorias:
+\textit{left, center e right}. A confiabilidade desses rótulos provém da plataforma AllSides\footnote{\url{https://www.allsides.com/media-bias/media-bias-rating-methods}}, que
+emprega auditorias rigorosas e revisões da comunidade, conforme ilustrado na Figura~\ref{fig:example_article}. 
+
+\begin{table}[ht]
+\centering
+\caption{Resumo dos conjuntos de dados e volume de amostras.}
+\label{tab:conjuntos}
+\begin{tabular}{@{}llc@{}}
+\toprule
+\textbf{Conjunto de Dados} & \textbf{Classes} & \textbf{Quantidade} \\ \midrule
+FlipBias \cite{chen2018learning}        & Left/Center/Right          & 3.066                 \\
+ABP \cite{baly2020we}                   & Left/Center/Right          & 37.554                 \\ \bottomrule
+\end{tabular}
+\end{table}
 
 
 \begin{figure}[!ht]
@@ -26,11 +36,10 @@ linguísticas em vez de apenas a fonte da notícia.
 \label{fig:example_article}
 \end{figure}
 
-A robustez metodológica foi validada por dois critérios de particionamento: o \textit{media-bias split} (Tabela~\ref{tab:particoes_media}), que 
-segrega veículos para mitigar o vazamento de dados, e o \textit{random split} (Tabela~\ref{tab:particoes_random}), que mantém a consistência 
-na distribuição de classes entre treino e validação. Adicionalmente, a generalização foi avaliada com o conjunto \textit{FlipBias} \cite{chen2018learning}, 
-contendo $2.781$ eventos sob múltiplas perspectivas. Os modelos seguiram as diretrizes de \cite{lin2024indivecexplorationleveraginglarge,lin-etal-2025-investigating} 
-para aferir a robustez das representações em dados não expostos no treinamento.
+A robustez metodológica foi validada por dois critérios de particionamento. O primeiro, \textit{media-bias split} (Tabela~\ref{tab:particoes_media}), 
+segrega os artigos de modo que os dados de uma mesma fonte de notícia sejam exclusivos a uma única partição, impedindo que veículos presentes no conjunto de treinamento apareçam na validação ou teste. 
+Essa estratégia é fundamental para mitigar o vazamento de dados e avaliar a capacidade de generalização para fontes não vistas. O segundo, \textit{random split} (Tabela~\ref{tab:particoes_random}), 
+mantém a consistência na distribuição de classes entre treino e validação por meio de uma amostragem aleatória.
 
 \begin{table*}[!ht]
     \caption{Estatísticas da partição \textit{media-bias split}.} \label{tab:particoes_media}
@@ -64,6 +73,10 @@ para aferir a robustez das representações em dados não expostos no treinament
     \end{tabularx}
 \end{table*}
 
+Adicionalmente, a generalização foi avaliada com o conjunto \textit{FlipBias} \cite{chen2018learning}, que contém $2.781$ eventos sob múltiplas perspectivas. 
+Os experimentos seguiram as diretrizes de \cite{lin2024indivecexplorationleveraginglarge,lin-etal-2025-investigating} para aferir a robustez das representações em dados 
+não expostos durante a etapa de treinamento.
+
 \subsection{Tarefa de Geração de \textit{Embeddings}}\label{sec:representacoes}
 
 Para a execução da tarefa, a Figura~\ref{fig:fluxo_embeddings} ilustra o fluxo de processamento adotado. O processo inicia-se com a
@@ -89,8 +102,8 @@ posicionem instâncias contextualmente similares em regiões próximas do espaç
 
 No que se refere ao pré-processamento, as \textit{stopwords} foram preservadas, visto que a arquitetura BERT demonstra eficácia na extração de nuances contextuais 
 a partir desses elementos. Por fim, o treinamento foi estabelecido com um limite de $100$ épocas, utilizando o otimizador Adam com 
-taxa de aprendizado de $0,0001$ e \textit{batch size} de $16$. Para mitigar o \textit{overfitting} e assegurar a capacidade de 
-generalização dos modelos, aplicou-se a técnica de \textit{Early Stopping} com paciência de $30$ ciclos, monitorando-se a 
+taxa de aprendizado de $10^{-4}$ e \textit{batch size} de $16$. Para mitigar o \textit{overfitting} e assegurar a capacidade de 
+generalização dos modelos, aplicou-se a técnica de \textit{Early Stopping} com paciência de $5$ ciclos, monitorando-se a 
 convergência da função de perda no conjunto de validação.
 
 \subsubsection{Mecanismos de Aproximação e Distanciamento}\label{sec:funcoes}
@@ -130,12 +143,12 @@ por vizinhaça e agrupamento, respectivamente. Para o \textit{KNN}, aplicou-se u
 entre $5, 10, 15, 20, 25$ e $30$. Já o \textit{K-Means} foi configurado com o número de \textit{clusters} equivalente às classes
 presentes no conjunto de dados ABP.
 
-A rede \textit{MLP} foi estruturada com duas camadas densas (512 e 256 neurônios). Adotou-se a função de ativação \textit{ReLU}
+A rede \textit{MLP} foi estruturada com duas camadas densas ($512$ e $256$ neurônios). Adotou-se a função de ativação \textit{ReLU}
 para garantir um treinamento mais rápido e estável \cite{Zhang}, enquanto a camada de saída utilizou a \textit{softmax} para a 
 classificação final. O modelo otimizado com o algoritmo \textit{Adam} e a função de perda
 \textit{Categorical Cross-Entropy}, escolhas consolidadas na literatura para problemas multiclasse \cite{goodfellow2016deep}.
 
-A confiabilidade do experimento foi assegurada pela validação cruzada estritificada (5-fold). Esse procedimento garante que a proporção das classes
+A confiabilidade do experimento foi assegurada pela validação cruzada \textit{k-folds}, utilizando $5$ \textit{folds} . Esse procedimento garante que a proporção das classes
 seja mantida em todas as etapas, evitando resultados enviesados e permitindo medir com precisão a capacidade do modelo em classificar novos dados \cite{brink2016real}.
 
 \subsection{Avaliação de Desempenho}
@@ -146,14 +159,6 @@ Complementarmente, o \textit{Macro F1-score} (Equação~\ref{eq:macrof1}) permit
 classes, mitigando distorções causadas por eventuais desbalanceamento no conjunto de dados.
 
 As métricas são formalmente definidas conforme segue:
-
-%\begin{equation}\label{eq:accuracy}
-%\text{Acurácia} = \frac{1}{|C|} \sum_{c \in C} \left ( \frac{TP_c + TN_c}{TP_c + TN_c + FP_c + FN_c} \right )
-%\end{equation}
-
-%\begin{equation}\label{eq:macrof1}
-%\text{Macro } F1 = \frac{1}{C} \sum_{c \in C} F1_c
-%\end{equation}
 
 \noindent
 \begin{minipage}{0.50\linewidth}

@@ -6,11 +6,11 @@ Alternativamente, metadados de redes sociais, como interações no Twitter [Rao 
 auxiliam na inferência de inclinação política. Entretanto, essas abordagens são dependentes de APIs de terceiros e restringem-se frequentemente a cenários de alta polarização binária.
 Tal dependência reforça a necessidade de soluções que operem exclusivamente sobre o conteúdo textual bruto.
 
-No âmbito da análise textual direta, as investigações priorizam a escolha lexical e a recorrência temática como indicadores de inclinação ideológica \cite{dallmann2015media}, empregando mecanismos 
+No âmbito da análise textual direta, as investigações priorizam a escolha lexical e a recorrência temática como indicadores de inclinação ideológica~\cite{dallmann2015media}, empregando mecanismos 
 de atenção para capturar o enquadramento (\textit{framing}) em manchetes \cite{gangula-etal-2019-detecting}. Embora modelos baseados na arquitetura \textit{Transformer}, como o BERT (\textit{Bidirectional Encoder Representations from Transformers}), 
-atinjam elevada precisão em fontes previamente mapeadas, tais estruturas demonstram fragilidade ao processar artigos de domínios inéditos \cite{baly2020we}.
+atinjam elevada precisão em fontes previamente mapeadas, tais estruturas demonstram fragilidade ao processar artigos de domínios inéditos~\cite{baly2020we}.
 
-Para mitigar essa lacuna, o framework \textit{POLITICS} \cite{liu-etal-2022-politics} introduziu o aprendizado contrastivo, visando alinhar perspectivas distintas sobre um mesmo evento noticioso. Esse esforço foi aprimorado por volf2025political, 
+Para mitigar essa lacuna, o framework \textit{POLITICS} \cite{liu-etal-2022-politics} introduziu o aprendizado contrastivo, visando alinhar perspectivas distintas sobre um mesmo evento noticioso. Esse esforço foi aprimorado por Volf and Simko [2025], 
 que realizaram o ajuste fino (\textit{fine-tuning}) do modelo \textit{POLITICS} utilizando múltiplos datasets unificados. Os autores demonstraram que essa especialização, aliada a uma filtragem prévia de textos sobre assuntos políticos, é essencial para assegurar a robustez e a 
 generalização dos classificadores em diversos domínios.
 

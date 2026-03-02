@@ -14,7 +14,7 @@ treinamento de classificadores e análise de desempenho. As seções seguintes d
 Para o desenvolvimento deste estudo, utilizaram-se os conjunto de dados detalhados na Tabela~\ref{tab:conjuntos}. O foco principal recai
 sobre os dados do \textit{Article Bias Prediction} (ABP) \cite{baly2020we}, composto por $37.554$ notícias em inglês rotuladas em três categorias:
 \textit{left, center e right}. A confiabilidade desses rótulos provém da plataforma AllSides\footnote{\url{https://www.allsides.com/media-bias/media-bias-rating-methods}}, que
-emprega auditorias rigorosas e revisões da comunidade, conforme ilustrado na Figura~\ref{fig:example_article}. 
+emprega auditorias rigorosas e revisões da comunidade%% conforme ilustrado na Figura~\ref{fig:example_article}. 
 
 \begin{table}[ht]
 \centering
@@ -29,12 +29,12 @@ ABP \cite{baly2020we}                   & Left/Center/Right          & 37.554   
 \end{table}
 
 
-\begin{figure}[!ht]
-\centering
-\includegraphics[width=0.8\textwidth]{./imagens/example_areticle.png}
-\caption{\centering Exemplo de uma amostra de artigo de notícia com o tópico sobre a pandemia de coronavírus \cite{baly2020we}.}
-\label{fig:example_article}
-\end{figure}
+%\begin{figure}[!ht]
+%\centering
+%\includegraphics[width=0.8\textwidth]{./imagens/example_areticle.png}
+%\caption{\centering Exemplo de uma amostra de artigo de notícia com o tópico sobre a pandemia de coronavírus \cite{baly2020we}.}
+%\label{fig:example_article}
+%\end{figure}
 
 A robustez metodológica foi validada por dois critérios de particionamento. O primeiro, \textit{media-bias split} (Tabela~\ref{tab:particoes_media}), 
 segrega os artigos de modo que os dados de uma mesma fonte de notícia sejam exclusivos a uma única partição, impedindo que veículos presentes no conjunto de treinamento apareçam na validação ou teste. 
@@ -79,21 +79,21 @@ não expostos durante a etapa de treinamento.
 
 \subsection{Tarefa de Geração de \textit{Embeddings}}\label{sec:representacoes}
 
-Para a execução da tarefa, a Figura~\ref{fig:fluxo_embeddings} ilustra o fluxo de processamento adotado. O processo inicia-se com a
-\textit{tokenização} dos artigos de notícias, seguida pela mineração de exemplos. Esta etapa é fundamental para selecionar amostras
-informativas que otimizam a convergência e o aprendizado do modelo.
+%Para a execução da tarefa, a Figura~\ref{fig:fluxo_embeddings} ilustra o fluxo de processamento adotado. O processo inicia-se com a
+%\textit{tokenização} dos artigos de notícias, seguida pela mineração de exemplos. Esta etapa é fundamental para selecionar amostras
+%informativas que otimizam a convergência e o aprendizado do modelo.
 
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=0.8\columnwidth]{./imagens/fig_geracao_embeddings.pdf}
-    \caption{\centering Fluxo de treinamento e geração de características para artigos de notícias.}
-    \label{fig:fluxo_embeddings}
-\end{figure}
+%\begin{figure}[ht]
+%    \centering
+%    \includegraphics[width=0.8\columnwidth]{./imagens/fig_geracao_embeddings.pdf}
+%    \caption{\centering Fluxo de treinamento e geração de características para artigos de notícias.}
+%    \label{fig:fluxo_embeddings}
+%\end{figure}
 
-Conforme delineado na arquitetura apresentada, empregaram-se dois modelos fundamentados em \textit{Bidirectional Encoder Representations from Transformers (BERT)} \cite{bert}, 
+Para a execução da tarefa, foi utilizado um modelo fundamentado no \textit{Bidirectional Encoder Representations from Transformers (BERT)} \cite{bert}, 
 reconhecidos pela eficácia na modelagem de dependências de longo alcance e na extração de relações semânticas granulares \cite{Zhang}. 
-A seleção recaiu sobre o DistilBERT \cite{distilbert} e o DistilRoBERTa \cite{roberta}, variantes destiladas que preservam a robustez das arquiteturas originais, 
-contudo, apresentam reduções substanciais no custo computacional e nos requisitos de memória.
+A seleção recaiu sobre o DistilRoBERTa \cite{roberta}, variante destilada que preserva a robustez da arquitetura original, 
+contudo, apresenta reduções substanciais no custo computacional e nos requisitos de memória.
 
 O modelo \textit{Transformer} processa as sequências de entrada, seguido por uma camada de \textit{Mean Pooling} que consolida 
 as representações em um vetor único. O (\textit{fine-tuning}) é regido por estratégias de aprendizagem métrica\footnote{Aprendizagem métrica (ou \textit{metric learning}) refere-se ao uso de algoritmos para aprender uma função de distância que capture a similaridade entre dados.}, 
@@ -109,7 +109,7 @@ convergência da função de perda no conjunto de validação.
 \subsubsection{Mecanismos de Aproximação e Distanciamento}\label{sec:funcoes}
 
 
-Nesta abordagem, os codificadores (DistilBERT e DistilRoBERTa) ajustam os pesos de suas camadas para otimizar a 
+Nesta abordagem, o codificador (DistilRoBERTa) ajusta os pesos de suas camadas para otimizar a 
 qualidade dos \textit{embeddings} via \textit{Contrastive Loss} e \textit{Triplet Loss}. 
 O objetivo é o aprendizado de representações vetoriais onde instâncias semanticamente similares convirjam no espaço representação, 
 enquanto exemplos dissimilaridades sejam repelidos.

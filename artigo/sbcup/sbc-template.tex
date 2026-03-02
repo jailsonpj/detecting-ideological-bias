@@ -8,7 +8,8 @@
 \usepackage{graphicx,url}
 \usepackage[utf8]{inputenc}
 \usepackage[brazil]{babel}
-
+\usepackage{subcaption}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
 \sloppy
 
 \title{Detecção de Viés Ideológico em Artigos de Notícias Utilizando Aprendizagem Métrica Profunda e Representações Contextuais}
@@ -34,16 +35,17 @@
 \maketitle
 
 \begin{abstract}
-  This study investigates ideological bias identification using metric learning with BERT-based models. It demonstrates that Contrastive and Triplet Loss optimize 
-  embedding extraction for political classification, outperforming the literature baseline by 12 percentage points in rigorous evaluations. The model proved competitive 
-  against zero-shot LLMs, establishing itself as a robust, efficient alternative that captures semantic nuances beyond outlet memorization, ensuring integrity in analyzing unseen data.
+  This study aimed to investigate ideological bias detection via deep metric learning using the DistilRoBERTa model. It is demonstrated that the use of \textit{Contrastive} and \textit{Triplet Loss} 
+  with \textit{semi-hard sampling} optimizes the \textit{embeddings} space, reaching a \textit{Macro F1-Score} of $0.83$ on the ABP dataset. The method proved to be highly competitive, approaching 
+  the $0.84$ mark of the \textit{baseline} \cite{volf2025political}, and outperforming LLMs in a \textit{zero-shot} regime. This approach establishes itself as an efficient alternative for 
+  generalization across unseen sources and for mitigating native biases in large models.
 \end{abstract}
      
 \begin{resumo} 
-  Este estudo investiga a identificação de viés ideológico via aprendizagem métrica com modelos pré-treinados baseados em BERT. 
-  Demonstra-se que o uso de Contrastive e Triplet Loss otimiza a extração de embeddings para classificação política, superando o baseline da literatura em 12 pontos percentuais 
-  em avaliações rigorosas. O modelo mostrou-se competitivo frente a LLMs em modo zero-shot, consolidando-se como uma alternativa robusta e eficiente que captura nuances semânticas 
-  além da memorização de veículos de imprensa, garantindo integridade na análise de dados inéditos.
+  Este estudo teve por objetivo investigar a detecção de viés ideológico via aprendizagem métrica profunda com o modelo DistilRoBERTa. Demonstra-se que o uso de 
+  \textit{Contrastive} e \textit{Triplet Loss} com \textit{semi-hard sampling} otimiza o espaço de \textit{embeddings}, atingindo $0.83$ de \textit{Macro F1-Score} no conjunto ABP. 
+  O método mostrou-se altamente competitivo, aproximando-se do \textit{baseline} \cite{volf2025political} de $0.84$, e superando LLMs em regime \textit{zero-shot}. 
+  A abordagem consolida-se como uma alternativa eficiente para generalização em fontes inéditas e mitigação de vieses nativos de grandes modelos
 \end{resumo}
 
 

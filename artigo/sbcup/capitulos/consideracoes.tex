@@ -1,9 +1,8 @@
-Este estudo objetivou avaliar a eficácia da aprendizagem métrica na identificação de viés ideológico, integrando modelos pré-treinados e 
-funções de perda contrastivas. Os resultados demonstram que a \textit{Contrastive Loss} otimiza a separação vetorial, superando o baseline de 
-\cite{baly2020we} em $12$ pontos percentuais no cenário \textit{media-bias split}. A arquitetura mostrou-se competitiva frente a LLMs em modo \textit{zero-shot}, 
-validando a viabilidade de modelos leves e eficientes para a análise de nuances discursivas.
+Este trabalho teve por objetivo investigar a detecção de viés ideológico via aprendizagem métrica (\textit{Contrastive} e \textit{Triplet Loss}). 
+Os resultados mostraram que modelo proposto, AR-DR-C-Kmeans, atingiu $0.83$ de \textit{Macro F1-Score} no conjunto ABP, demonstrando alternativa
+competitividade e robustez na generalização entre diferentes domínios. Em relação às LLMs, os experimentos indicaram que modelos em \textit{zero-shot} 
+enfrentam dificuldades em equilibrar precisão em domínios políticos complexos, apresentando vieses inerentes que distorcem a percepção de neutralidade, conforme \cite{lin-etal-2025-investigating}. 
 
-Para trabalhos futuros, pretende-se explorar técnicas de \textit{Domain Adaptation} para otimizar a transferência de conhecimento e elevar o desempenho em 
-dados de fontes não expostas durante o treinamento. Além disso, planeja-se investigar o comportamento de LLMs sob estratégias de \textit{Few-Shot} e \textit{Fine-Tuning}, permitindo 
-uma comparação mais consistente com a arquitetura proposta. Tais avanços visam mitigar a memorização de padrões específicos de veículos e consolidar a robustez do modelo em 
-cenários de generalização rigorosa.
+
+Como trabalhos futuros, pretende-se explorar técnicas de adaptação de domínio, RAG para suporte de contexto histórico, além de estratégias de \textit{fine-tuning} e \textit{few-shot prompting}. 
+Essas abordagens visam unir a precisão de modelos especialistas à versatilidade das LLMs para discernir nuances ideológicas sutis.

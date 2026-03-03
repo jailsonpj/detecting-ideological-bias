@@ -10,9 +10,9 @@ No âmbito da análise textual direta, as investigações priorizam a escolha le
 de atenção para capturar o enquadramento (\textit{framing}) em manchetes \cite{gangula-etal-2019-detecting}. Embora modelos baseados na arquitetura \textit{Transformer}, como o BERT (\textit{Bidirectional Encoder Representations from Transformers}), 
 atinjam elevada precisão em fontes previamente mapeadas, tais estruturas demonstram fragilidade ao processar artigos de domínios inéditos~\cite{baly2020we}.
 
-Para mitigar essa lacuna, o framework \textit{POLITICS} \cite{liu-etal-2022-politics} introduziu o aprendizado contrastivo, visando alinhar perspectivas distintas sobre um mesmo evento noticioso. Esse esforço foi aprimorado por Volf and Simko [2025], 
-que realizaram o ajuste fino (\textit{fine-tuning}) do modelo \textit{POLITICS} utilizando múltiplos datasets unificados. Os autores demonstraram que essa especialização, aliada a uma filtragem prévia de textos sobre assuntos políticos, é essencial para assegurar a robustez e a 
-generalização dos classificadores em diversos domínios.
+Para mitigar essa lacuna, o framework \textit{POLITICS} \cite{liu-etal-2022-politics} introduziu o pré-treinamento de modelos RoBERTa via (\textit{triplet loss}), comparando artigos de diferentes espectros sobre a mesma notícia. 
+Esse esforço foi aprimorado por Volf and Simko [2025], que realizaram o ajuste fino (\textit{fine-tuning}) do modelo utilizando múltiplos datasets unificados. Os autores demonstraram que essa especialização, aliada a 
+uma filtragem prévia de textos políticos, é essencial para assegurar a robustez e a generalização dos classificadores em diversos domínios.
 
 Contudo, apesar do desempenho robusto desses modelos especializados, tanto as versões refinadas quanto sistemas baseados em modelos de larga escala, como o \textit{IndiVec} \cite{lin2024indivec}, estão sujeitos a vieses políticos inerentes ou a falhas de alinhamento com a percepção humana 
 em cenários \textit{zero-shot} \cite{lin-etal-2025-investigating}. Diante dessas limitações, este trabalho propõe o emprego de \textit{Deep Metric Learning} fundamentado na técnica de \textit{semi-hard sampling}. Diferente de abordagens puramente classificatórias, esta estratégia visa otimizar 

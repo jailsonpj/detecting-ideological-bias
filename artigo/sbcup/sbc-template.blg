@@ -3,10 +3,9 @@ Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: sbc-template.aux
 The style file: sbc.bst
 Database file #1: sbc-template.bib
-Warning--I didn't find a database entry for "lin2024indivecexplorationleveraginglarge"
 You've used 20 entries,
             1935 wiz_defined-function locations,
-            580 strings with 6715 characters,
+            579 strings with 6675 characters,
 and the built_in function-call counts, 9396 in all, are:
 = -- 948
 > -- 353
@@ -45,4 +44,3 @@ warning$ -- 0
 while$ -- 77
 width$ -- 0
 write$ -- 256
-(There was 1 warning)

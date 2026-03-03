@@ -1,94 +1,114 @@
-Os dados das Tabelas~\ref{tab:resultados_contrastive_media} a~\ref{tab:resultados_triplet_random} indicam que a estratégia de partição de dados é o principal fator no desempenho dos modelos. 
-Na partição \textit{media bias split}, o cenário revela-se mais rigoroso para a detecção de viés político, com o modelo AM-DR-C-MLP atingindo o melhor \textit{Macro F1-Score}, no domínio de origem, de $0.43$. 
-Em contraste, a partição \textit{random bias split} gera métricas superiores a $0.80$, sugerindo que essa abordagem pode viciar os índices de eficácia ao capturar semelhanças excessivas entre os conjuntos de treino e teste.
+
+Para a tarefa de geração de \textit{embeddings}, a análise do espaço de representação via t-SNE\footnote{Configuração do t-SNE: número de componentes=3, perplexidade=30, iterações=1000, métrica=euclidiana.} na Figura~\ref{fig:plot_embeddings} permite compreender como as diferentes funções de perda 
+estruturam as representações do modelo DistilRoBERTa. O comparativo revela que a \textit{Contrastive Loss} (Figura~\ref{fig:plot_embeddings}a) gera agrupamentos visivelmente mais densos 
+e com fronteiras de separação nítidas entre as classes ideológicas. Em contrapartida, o mapeamento via \textit{Triplet Loss} (Figura~\ref{fig:plot_embeddings}b) apresenta maior dispersão 
+e zonas de sobreposição entre os \textit{clusters}, o que compromete a precisão dos modelos de aprendizagem em cenários de maior complexidade.
+
+\begin{figure}[ht]
+     \centering
+     \begin{subfigure}[b]{0.48\textwidth}
+         \centering
+         \includegraphics[width=\linewidth]{imagens/contrastive_droberta_plot.png}
+         \caption{\textit{Contrastive Loss} com DistilRoBERTa.}
+         \label{fig:conf_abp}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.48\textwidth}
+         \centering
+         \includegraphics[width=\linewidth]{imagens/triplet_droberta_plot.png}
+         \caption{\textit{Triplet Loss} com DistilRoBERTa.}
+         \label{fig:conf_flipbias}
+     \end{subfigure}
+     \caption{Distribuição dos \textit{embeddings} via t-SNE no conjunto de teste do ABP. O comparativo demonstra a separação das classes entre as funções de perda \textit{Contrastive} e \textit{Triplet Loss}.}
+     \label{fig:plot_embeddings}
+\end{figure}
+
+Em relação a tarefa de classificação de viés ideológico, cujos resultados encontram-se sintetizados nas Tabelas \ref{tab:resultados_media_unificada} e \ref{tab:resultados_random_unificada},
+as métricas observadas no cenário \textit{random split} montram-se superiores àquelas obtidas via \textit{media-bias split}, uma consequência direta da maior homogeneidade na distribuição dos 
+dados de treinamento. Na partição \textit{media-bias split}, o modelo fundamentado em MLP com \textit{contrastive Loss} atingiu o maior \textit{Macro F1-score} com $0.43$, evidenciando
+uma estruturaçao à abordagem via \textit{Triplet Loss}
+
 
 \begin{table}[ht]
 \centering
-\small % Tamanho de fonte ideal para tabelas da SBC
-\caption{Desempenho dos modelos treinados no conjunto ABP (media split) e avaliados no FlipBias. AM: ABP media split; DR: DistilRoBERTa; C: Contrastive Loss; MF1: Macro F1-Score; ACC: Acurácia; Rec: Revocação; Prec: Precisão.}
-\label{tab:resultados_contrastive_media}
-\setlength{\tabcolsep}{2pt} % Espaçamento entre colunas reduzido para não estourar a margem
+\small
+\caption{Desempenho dos modelos treinados no conjunto ABP (media split) e avaliados no FlipBias, comparando as funções de perda Contrastive (C) e Triplet (T). AM: ABP media split; DR: DistilRoBERTa; MF1: Macro F1-Score; Acc: Acurácia; Rec: Revocação; Prec: Precisão.}
+\label{tab:resultados_media_unificada}
+\setlength{\tabcolsep}{2pt}
 \begin{tabularx}{\linewidth}{ll *{8}{>{\centering\arraybackslash}X}}
 \toprule
- & & \multicolumn{4}{c}{\textbf{ABP Media}} & \multicolumn{4}{c}{\textbf{FLIPBIAS}} \\
+ & & \multicolumn{4}{c}{\textbf{ABP Media-bias}} & \multicolumn{4}{c}{\textbf{FLIPBIAS}} \\
 \cmidrule(r){3-6} \cmidrule(l){7-10}
-\textbf{Dados} & \textbf{Modelos} & \textbf{MF1} & \textbf{Acc} & \textbf{Rec} & \textbf{Prec} & \textbf{F1} & \textbf{Acc} & \textbf{Rec} & \textbf{Prec} \\
+\textbf{Perda} & \textbf{Modelos} & \textbf{MF1} & \textbf{Acc} & \textbf{Rec} & \textbf{Prec} & \textbf{MF1} & \textbf{Acc} & \textbf{Rec} & \textbf{Prec} \\
 \midrule
-\multirow{3}{*}{ABP Media} & AM-DR-C-KNN & 0.31 & 0.31 & 0.36 & 0.36 & 0.24 & 0.28 & 0.28 & 0.30 \\
- & AM-DR-C-MLP & \textbf{0.43} & \textbf{0.43} & \textbf{0.49} & \textbf{0.47} & 0.29 & 0.32 & 0.32 & 0.46 \\
+\multirow{3}{*}{Contrastive} & AM-DR-C-KNN & 0.31 & 0.31 & 0.36 & 0.36 & 0.24 & 0.28 & 0.28 & 0.30 \\
+ & AM-DR-C-MLP & \textbf{0.43} & 0.43 & \textbf{0.49} & \textbf{0.47} & 0.29 & 0.32 & 0.32 & 0.46 \\
  & AM-DR-C-kmeans & 0.21 & 0.46 & 0.33 & 0.15 & \textbf{0.41} & \textbf{0.43} & \textbf{0.43} & \textbf{0.56} \\
-\bottomrule
-\end{tabularx}
-\end{table}
-
-
-%-----------------------------------
-\begin{table}[ht]
-\centering
-\small % Tamanho recomendado para tabelas em artigos da SBC
-\caption{Desempenho dos modelos treinados no conjunto ABP (random split) e avaliados no FlipBias. AR: ABP random split; DR: DistilRoBERTa; C: Contrastive Loss; MF1: Macro F1-Score; ACC: Acurácia; Rec: Revocação; Prec: Precisão.}
-\label{tab:resultados_contrastive_random}
-\setlength{\tabcolsep}{2pt} % Ajuste fino do espaço entre colunas
-\begin{tabularx}{\linewidth}{ll *{8}{>{\centering\arraybackslash}X}}
-\toprule
- & & \multicolumn{4}{c}{\textbf{ABP Random}} & \multicolumn{4}{c}{\textbf{FLIPBIAS}} \\
-\cmidrule(r){3-6} \cmidrule(l){7-10}
-\textbf{Dados} & \textbf{Modelos} & \textbf{MF1} & \textbf{Acc} & \textbf{Rec} & \textbf{Prec} & \textbf{F1} & \textbf{Acc} & \textbf{Rec} & \textbf{Prec} \\
 \midrule
-\multirow{3}{*}{ABP Random} & AR-DR-C-KNN & 0.83 & 0.83 & 0.84 & 0.83 & 0.41 & 0.41 & 0.41 & 0.50 \\
- & AR-DR-C-MLP & 0.80 & 0.80 & 0.82 & 0.79 & 0.42 & 0.42 & 0.42 & 0.48 \\
- & AR-DR-C-kmeans & \textbf{0.83} & \textbf{0.83} & \textbf{0.83} & \textbf{0.85} & \textbf{0.48} & \textbf{0.47} & \textbf{0.48} & \textbf{0.51} \\
-\bottomrule
-\end{tabularx}
-\end{table}
-
-Quanto à generalização para o conjunto FlipBias, observa-se que a \textit{Contrastive Loss} aliada ao agrupamento não supervisionado oferece maior estabilidade. 
-O modelo AM-DR-C-kmeans destacou-se com \textit{Macro F1-score} de $0.48$. 
-Esse comportamento indica que o aprendizado contrastivo consegue extrair representações mais generalizáveis e menos dependentes de rótulos específicos da base original,
-resultando em uma transferência de conhecimento mais robusta entre domínios distintos.
-
-\begin{table}[ht]
-\centering
-\small % Tamanho de fonte ideal para tabelas da SBC
-\caption{Desempenho dos modelos treinados no conjunto ABP (media split) e avaliados no FlipBias. AM: ABP media split; DR: DistilRoBERTa; T: Triplet Loss; MF1: Macro F1-Score; ACC: Acurácia; Rec: Revocação; Prec: Precisão.}
-\label{tab:resultados_triplet_media}
-\setlength{\tabcolsep}{2pt} % Espaçamento entre colunas reduzido para não estourar a margem
-\begin{tabularx}{\linewidth}{ll *{8}{>{\centering\arraybackslash}X}}
-\toprule
- & & \multicolumn{4}{c}{\textbf{ABP Media}} & \multicolumn{4}{c}{\textbf{FLIPBIAS}} \\
-\cmidrule(r){3-6} \cmidrule(l){7-10}
-\textbf{Dados} & \textbf{Modelos} & \textbf{MF1} & \textbf{Acc} & \textbf{Rec} & \textbf{Prec} & \textbf{MF1} & \textbf{Acc} & \textbf{Rec} & \textbf{Prec} \\
-\midrule
-\multirow{3}{*}{ABP Media} & AM-DR-T-KNN & 0.23 & 0.25 & 0.30 & 0.31 & 0.34 & 0.42 & 0.42 & 0.38 \\
+\multirow{3}{*}{Triplet} & AM-DR-T-KNN & 0.23 & 0.25 & 0.30 & 0.31 & 0.34 & 0.42 & 0.42 & 0.38 \\
  & AM-DR-T-MLP & 0.34 & 0.36 & 0.40 & 0.39 & 0.28 & 0.35 & 0.35 & 0.38 \\
- & AM-DR-T-kmeans & \textbf{0.36} & \textbf{0.50} & \textbf{0.41} & \textbf{0.33} & \textbf{0.39} & \textbf{0.40 }& \textbf{0.40} & \textbf{0.53} \\
+ & AM-DR-T-kmeans & 0.36 & \textbf{0.50} & 0.41 & 0.33 & 0.39 & 0.40 & 0.40 & 0.53 \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
+No tocante à generalização para o conjunto \textit{FlipBias}, os resultados dispostos revelam que o algoritmo \textit{K-means} obteve o melhor desempenho relativo em ambos
+os cenários de treinamento. O emprego de variados classificadores permitiu observar que, apesar das discrepâncias nominais, os modelos mantêm certa equivalência
+no tocante à precisão em bases externas, sugerindo estabilidade nas fronteiras de decisão extraídas, Nesse contexto, a configuração baseada
+em \textit{Contrastive Loss} com \textit{K-means} consolidou-se como a abordagem mais robusta, apresentando índices de \textit{Macro F1-score} de $0.41$ e $0.48$ consistentes frente
+à diversidade das amostras de dados.
+
+
+
 \begin{table}[ht]
 \centering
-\small % Tamanho recomendado para tabelas em artigos da SBC
-\caption{Desempenho dos modelos treinados no conjunto ABP (random split) e avaliados no FlipBias. AR: ABP random split; DR: DistilRoBERTa; T: Triplet Loss; MF1: Macro F1-Score; ACC: Acurácia; Rec: Revocação; Prec: Precisão.}
-\label{tab:resultados_triplet_random}
-\setlength{\tabcolsep}{2pt} % Ajuste fino do espaço entre colunas
+\small
+\caption{Desempenho dos modelos treinados no conjunto ABP (random split) e avaliados no FlipBias, comparando as funções de perda Contrastive (C) e Triplet (T). AR: ABP random split; DR: DistilRoBERTa; MF1: Macro F1-Score; Acc: Acurácia; Rec: Revocação; Prec: Precisão.}
+\label{tab:resultados_random_unificada}
+\setlength{\tabcolsep}{2pt}
 \begin{tabularx}{\linewidth}{ll *{8}{>{\centering\arraybackslash}X}}
 \toprule
  & & \multicolumn{4}{c}{\textbf{ABP Random}} & \multicolumn{4}{c}{\textbf{FLIPBIAS}} \\
 \cmidrule(r){3-6} \cmidrule(l){7-10}
-\textbf{Dados} & \textbf{Modelos} & \textbf{MF1} & \textbf{Acc} & \textbf{Rec} & \textbf{Prec} & \textbf{F1} & \textbf{Acc} & \textbf{Rec} & \textbf{Prec} \\
+\textbf{Perda} & \textbf{Modelos} & \textbf{MF1} & \textbf{Acc} & \textbf{Rec} & \textbf{Prec} & \textbf{MF1} & \textbf{Acc} & \textbf{Rec} & \textbf{Prec} \\
 \midrule
-\multirow{3}{*}{ABP Random} & AR-DR-T-KNN & \textbf{0.83} & \textbf{0.83} & \textbf{0.85} & \textbf{0.83} & \textbf{0.47} & \textbf{0.48} & \textbf{0.48} & \textbf{0.50 }\\
+\multirow{3}{*}{Contrastive} & AR-DR-C-KNN & 0.83 & 0.83 & 0.84 & 0.83 & 0.41 & 0.41 & 0.41 & 0.50 \\
+ & AR-DR-C-MLP & 0.80 & 0.80 & 0.82 & 0.79 & 0.42 & 0.42 & 0.42 & 0.48 \\
+ & AR-DR-C-kmeans & \textbf{0.83} & \textbf{0.83} & 0.83 & \textbf{0.85} & \textbf{0.48} & 0.47 & \textbf{0.48} & \textbf{0.51} \\
+\midrule
+\multirow{3}{*}{Triplet} & AR-DR-T-KNN & \textbf{0.83} & \textbf{0.83} & \textbf{0.85} & 0.83 & 0.47 & \textbf{0.48} & \textbf{0.48} & 0.50 \\
  & AR-DR-T-MLP & 0.83 & 0.83 & 0.84 & 0.83 & 0.43 & 0.45 & 0.45 & 0.50 \\
  & AR-DR-T-kmeans & 0.79 & 0.79 & 0.82 & 0.78 & 0.38 & 0.48 & 0.48 & 0.37 \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-Por fim, a análise da \textit{Triplet Loss} (Tabelas \ref{tab:resultados_triplet_media} e \ref{tab:resultados_triplet_random}) revela um desempenho competitivo na partição aleatória, onde o modelo AR-DR-T-KNN alcançou \textit{Macro F1-Score} de $0.47$
-no FlipBias. Contudo, em cenários de maior restrição (\textit{media bias split}), esta função de perda apresentou resultados inferiores à \textit{Contrastive Loss}. 
-Em suma, os experimentos confirmam que modelos baseados em vizinhança e agrupamento apresentam as melhores taxas de generalização, reforçando que a robustez na detecção de viés depende da sinergia 
-entre o rigor da partição e a função de aprendizado métrico.
+
+\begin{figure}[ht]
+     \centering
+     \begin{subfigure}[b]{0.48\textwidth}
+         \centering
+         \includegraphics[width=\linewidth]{imagens/AR-DR-C-KMEANS.png}
+         \caption{AR-DR-C-KMEANS no ABP.}
+         \label{fig:conf_abp}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.48\textwidth}
+         \centering
+         \includegraphics[width=\linewidth]{imagens/AR-DR-C-KMEANS-FP.png}
+         \caption{AR-DR-C-KMEANS no FlipBias.}
+         \label{fig:conf_flipbias}
+     \end{subfigure}
+     \caption{Resultados das métricas de precisão, acurácia e macro f1-score por classe para o modelo AR-DR-C-KMEANS avaliado nos conjuntos de dados ABP e FlipBias.}
+     \label{fig:metricas_classe}
+\end{figure}
+
+Essa robustez global, contudo, manifesta-se de forma heterogênea quando analisada sob a ótica das métricas por classe. A análise qualitativa do desempenho da melhor configuração experimental (AR-DR-C-KMEANS) no conjunto FlipBias revela
+que o modelo apresenta uma queda crítica de revocação na classe \textit{left}, atingindo apenas $0.31$. Esse fenômeno indica que o modelo, embora preciso ao identificar o viés progressista
+quando este segue os padrões léxicos do conjunto do ABP (onde obtém $0.83$ de precisão), falha em reconhecer as mesmas inclinações em fontes inéditas. Isso sugere que o 
+discurso da classe \textit{left} no FlipBias pode utilizar enquadramentos ou termos que o codificador DistilRoBERTa interpretou como neutros ou conservadores, evidenciando
+que a aprendizagem métrica, sozinha, não elimina a dependência de padrões discursivos específicos do domínio de treinamento.
+
 
 \subsection{Desempenho de Generalizacao}
 

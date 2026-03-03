@@ -74,21 +74,10 @@ mantém a consistência na distribuição de classes entre treino e validação 
 \end{table*}
 
 Adicionalmente, a generalização foi avaliada com o conjunto \textit{FlipBias} \cite{chen2018learning}, que contém $2.781$ eventos sob múltiplas perspectivas. 
-Os experimentos seguiram as diretrizes de \cite{lin2024indivecexplorationleveraginglarge,lin-etal-2025-investigating} para aferir a robustez das representações em dados 
+Os experimentos seguiram as diretrizes de Lin et al. [2025] para aferir a robustez das representações em dados 
 não expostos durante a etapa de treinamento.
 
 \subsection{Tarefa de Geração de \textit{Embeddings}}\label{sec:representacoes}
-
-%Para a execução da tarefa, a Figura~\ref{fig:fluxo_embeddings} ilustra o fluxo de processamento adotado. O processo inicia-se com a
-%\textit{tokenização} dos artigos de notícias, seguida pela mineração de exemplos. Esta etapa é fundamental para selecionar amostras
-%informativas que otimizam a convergência e o aprendizado do modelo.
-
-%\begin{figure}[ht]
-%    \centering
-%    \includegraphics[width=0.8\columnwidth]{./imagens/fig_geracao_embeddings.pdf}
-%    \caption{\centering Fluxo de treinamento e geração de características para artigos de notícias.}
-%    \label{fig:fluxo_embeddings}
-%\end{figure}
 
 Para a execução da tarefa, foi utilizado um modelo fundamentado no \textit{Bidirectional Encoder Representations from Transformers (BERT)} \cite{bert}, 
 reconhecidos pela eficácia na modelagem de dependências de longo alcance e na extração de relações semânticas granulares \cite{Zhang}. 
@@ -136,7 +125,7 @@ refina a capacidade discriminatória do modelo, permitindo que os \textit{embedd
 capturem relações semânticas profundas, como a ideologia de uma notícia, independentemente da fonte de publicação.
 
 \subsection{Tarefa de Classificação: Modelos e Parametrizaçao}\label{sec:classificacao}
-Após o mapeamento dos \textit{embeddings}, onde a proximidade entre os veotres reflete a similaridade ideológica das notícias.
+Após o mapeamento dos \textit{embeddings}, onde a proximidade entre os vetores reflete a similaridade ideológica das notícias.
 A classificação dos artigos foi realizada por meio de três algoritmos: \textit{K-Nearest Neighbors (KNN)}, \textit{K-Means} e
 \textit{Multilayer Perceptron (MLP)}. O \textit{KNN} e o \textit{K-Means} foram utilizados para explorar a organização dos dados
 por vizinhaça e agrupamento, respectivamente. Para o \textit{KNN}, aplicou-se um \textit{grid search} sistemático para otimização de hiperparâmetros, variando o número de vizinhos ($k$)
@@ -194,27 +183,6 @@ A validação da hipótese de pesquisa --- de que o discurso textual reflete o v
 mediante a obtenção de altos índices em ambas as métricas. 
 Espera-se que valores elevados de \textit{Macro F1-score} confirmem a capacidade discriminatória do modelo entre
 as diferentes vertentes ideológicas, assegurando que o desempenho não seja reflexo de uma classe majoritária no conjunto de dados.
-
-%\subsection{Configuração dos Experimentos e Espaço de Busca}
-
-%A exploração da configuração ótima para os modelos foi formalizada por uma função de desempenho $\mathcal{P}$, que parametriza 
-%as variações arquiteturais do método proposto conforme a Equação~\ref{eq:funcao_experimento}. Nesta formulação, $S$ 
-%representa o protocolo de particionamento dos dados (\textit{media-bias} ou \textit{random split}), $R$ define o codificador 
-%empregado na geração dos \textit{embeddings}, $L$ denota a função de perda aplicada ao aprendizado de representação em $R$, e $C$ 
-%designa o algoritmo de classificação final.
-
-%\begin{equation}\label{eq:funcao_experimento} 
-%  \mathcal{P} = f(S, R, L, C) 
-%\end{equation}
-
-%O objetivo experimental consiste em identificar a tupla de parâmetros $\hat{e}$ que maximize o desempenho global do método proposto. 
-%Tal busca é definida matematicamente pela operação de \textit{argmax} apresentada na Equação~\ref{eq:argmax}, permitindo a 
-%identificação sistemática da arquitetura que apresenta os melhores índices de acurácia e \textit{Macro F1-score} entre todas as 
-%combinações testadas.
-
-%\begin{equation}\label{eq:argmax} 
-%  \hat{e} = \arg\max f(S, R, L, C) 
-%\end{equation}
 
 \subsection{Ambiente de Execução}
 

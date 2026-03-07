@@ -73,9 +73,9 @@ mantém a consistência na distribuição de classes entre treino e validação 
     \end{tabularx}
 \end{table*}
 
-Adicionalmente, a generalização foi avaliada com o conjunto \textit{FlipBias} \cite{chen2018learning}, que contém $2.781$ eventos sob múltiplas perspectivas. 
-Os experimentos seguiram as diretrizes de Lin et al. [2025] para aferir a robustez das representações em dados 
-não expostos durante a etapa de treinamento.
+Adicionalmente, o experimento foi estendido para um cenário de generalização externa, onde o modelo treinado integralmente no conjunto ABP foi submetido à 
+avaliação no conjunto \textit{FlipBias} \cite{chen2018learning}. Este conjunto contém $2.781$ eventos sob múltiplas perspectivas es serve como referência para medir a eficácia das
+representações em contextos fora do domínio de treinamento, seguindo as mesmas diretrizes estabelecidas por Lin et al. [2025]. 
 
 \subsection{Tarefa de Geração de \textit{Embeddings}}\label{sec:representacoes}
 

@@ -8,11 +8,6 @@ Contudo, as soluções atuais frequentemente limitam-se a cenários puramente po
 a identificação de nuances ideológicas em contextos onde metadados não estão disponíveis. Além disso, avanços recentes com modelos de linguagem pré-treinados e sistemas baseados em \textit{Large Language Models} (LLMs) \cite{lin2024indivec}
 enfrentam críticas por manifestarem vieses políticos nativos de suas arquiteturas e disparidades com a percepeção humana \cite{lin-etal-2025-investigating}.
 
-Para mitigar essas limitações, este trabalho propõe uma metodologia baseada em \textit{Deep Metric Learning}. Diferente de classificadores tradicionais, nossa abordagem foca na
-extração de características ideológicas a partir de fragmentos textuais locais, permitindo uma classificação agnóstica à fonte. As principais contribuições deste estudo são:
-
-\begin{itemize}
-    \item Aplicação de \textit{Triplet} e \textit{Contrastive Losses} para estruturar espaços vetoriais onde a proximidade reflete afinidade ideológica;
-    \item Método capaz de identificar vieses em fontes inéditas, superando o sobreasjuste comum em modelos baseados em arquiteturas de \textit{Transformers};
-    \item Uma arquitetura especializada com contagem de parâmetros reduzida, garantindo baixo custo de inferência e operação e hardware convencional.
-\end{itemize}
+Para mitigar essas limitações, este trabalho propõe uma metodologia para investigar a robustez de modelos baseados em \textit{Deep Metric Learning}. Diferente de abordagens que avaliam o desempenho em dados de domínios conhecidos, esta pesquisa 
+foca na generalização para fontes não vistas durante o treinamento. Utiliza-se uma arquitetura capaz de identificar vieses ideológicos em fragmentos textuais de veículos de imprensa inéditos, permitindo validar se o modelo extraiu representações 
+semânticas agnósticas ao domínio ou se apenas memorizou padrões superficiais de determinados veículos.

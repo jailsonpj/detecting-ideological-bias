@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex sbc-template"] 1772901772.38971 "sbc-template.aux" "sbc-template.bbl" "sbc-template" 1772903023.84674 0
+["bibtex sbc-template"] 1772901772.38971 "sbc-template.aux" "sbc-template.bbl" "sbc-template" 1773066700.59684 0
   "./sbc-template.bib" 1772475353.6165 5585 59dccd29193006ce2e76b5a928c3a539 ""
   "./sbc.bst" 1770296092.52672 21864 a668496cca21cfdd211f7fb5f0d57565 ""
-  "sbc-template.aux" 1772903023.60679 8621 8f59e24b8942d09373402f2c79c1534f "pdflatex"
+  "sbc-template.aux" 1773066700.35958 8621 8f59e24b8942d09373402f2c79c1534f "pdflatex"
   (generated)
   "sbc-template.bbl"
   "sbc-template.blg"
   (rewritten before read)
-["pdflatex"] 1772903022.6814 "/Users/jailsonpereira/Documents/detecting-ideological-bias/artigo/sbcup/sbc-template.tex" "sbc-template.pdf" "sbc-template" 1772903023.8469 0
+["pdflatex"] 1773066699.44314 "/Users/jailsonpereira/Documents/detecting-ideological-bias/artigo/sbcup/sbc-template.tex" "sbc-template.pdf" "sbc-template" 1773066700.59701 0
   "/Users/jailsonpereira/Documents/detecting-ideological-bias/artigo/sbcup/sbc-template.tex" 1772477481.73065 2971 267b4c749eae10162cb0e95d296de7aa ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -113,14 +113,14 @@
   "capitulos/consideracoes.tex" 1772557930.39364 995 dbee1451ef2628531510d70ddc5658df ""
   "capitulos/introducao.tex" 1772902021.95576 1994 ea15d4beba72387261ab03bd13dd04c3 ""
   "capitulos/metodos.tex" 1772902670.05138 13167 a9acb10e506591aff34d02d527fe8c2e ""
-  "capitulos/resultados.tex" 1772903022.44823 12214 455f8b42d2b2ece61511c6ecb2afae8d ""
+  "capitulos/resultados.tex" 1773066699.12764 12214 7a9da61bec74633d2dca480fe08794c0 ""
   "capitulos/trabalhos_relacionados.tex" 1772547595.14196 3180 9635d66c6d77fc5624bac39451cecbfa ""
   "imagens/AR-DR-C-KMEANS-FP.png" 1772302558.19605 55289 cee1d31fbf1d68a0890cb51cf4f55783 ""
   "imagens/AR-DR-C-KMEANS.png" 1772302435.22537 58309 72cfa4347e3f5c8a73dd697f0468ba71 ""
   "imagens/contrastive_droberta_plot.png" 1772544695.81001 288602 56db313aef94c580f48f68acdd8dfa04 ""
   "imagens/fig_abordagem_proposta_texto.pdf" 1770661632.135 101902 ca710237b97d479b258e07aa0fcdeadb ""
   "imagens/triplet_droberta_plot.png" 1772544638.45568 302312 e16d7504e3b1d716dc01dd1eb18e5f3d ""
-  "sbc-template.aux" 1772903023.60679 8621 8f59e24b8942d09373402f2c79c1534f "pdflatex"
+  "sbc-template.aux" 1773066700.35958 8621 8f59e24b8942d09373402f2c79c1534f "pdflatex"
   "sbc-template.bbl" 1772901772.48964 4488 0e1401ecbc680767a3074f70bb3fbe58 "bibtex sbc-template"
   "sbc-template.sty" 1771525544.73646 6074 ecc54df5124d8db4ac67c42cc728f3a5 ""
   "sbc-template.tex" 1772477481.73065 2971 267b4c749eae10162cb0e95d296de7aa ""

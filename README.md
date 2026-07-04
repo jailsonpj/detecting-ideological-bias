@@ -2,6 +2,32 @@
 
 Este projeto tem como objetivo a detecção de viés ideológico em textos utilizando modelos de Deep Learning e Processamento de Linguagem Natural (NLP), especificamente arquiteturas baseadas em Transformers como o **DistilBERT**.
 
+## 📚 Publicação e Citação
+
+Este trabalho foi publicado no **XV Brazilian Workshop on Social Network Analysis and Mining (BrasNAM 2026)**. 
+
+O artigo completo pode ser acessado através do link: [Artigo no SOL SBC](https://sol.sbc.org.br/index.php/brasnam/article/view/43242)
+
+Para referenciar este projeto ou artigo em trabalhos acadêmicos, utilize o seguinte formato BibTeX:
+
+```bibtex
+@inproceedings{brasnam,
+ author = {Jailson Januário and André Luiz Carvalho},
+ title = { Detecção de Viés Ideológico em Artigos de Notícias Utilizando Aprendizagem Métrica Profunda e Representações Contextuais},
+ booktitle = {Anais do XV Brazilian Workshop on Social Network Analysis and Mining},
+ location = {Gramado/RS},
+ year = {2026},
+ keywords = {},
+ issn = {2595-6094},
+ pages = {109--121},
+ publisher = {SBC},
+ address = {Porto Alegre, RS, Brasil},
+ doi = {10.5753/brasnam.2026.21950},
+ url = {[https://sol.sbc.org.br/index.php/brasnam/article/view/43242](https://sol.sbc.org.br/index.php/brasnam/article/view/43242)}
+}
+
+```
+
 ## 🚀 Estrutura do Projeto
 
 * `src/executors/`: Scripts principais para treinamento e inferência.
@@ -17,19 +43,18 @@ Certifique-se de ter o [Conda](https://docs.conda.io/) instalado.
 ### Configuração do Ambiente
 
 1. Crie o ambiente a partir do arquivo `environment.yml`:
+
 ```bash
 conda env create -f environment.yml
 
 ```
 
-
 2. Ative o ambiente:
+
 ```bash
 conda activate [nome-do-ambiente]
 
 ```
-
-
 
 ## 📦 Dataset
 
@@ -66,18 +91,23 @@ Ou passe caminhos personalizados via linha de comando:
 ## 🧠 Modelos Utilizados
 
 Transformers:
-- **DistilBERT**
-- **DistilRoberta**
+
+* **DistilBERT**
+* **DistilRoberta**
 
 Modelo de Tópicos:
-- **LDA**
+
+* **LDA**
 
 Funções métricas:
-- **Contrastive Loss**
-- **Triple Loss**
+
+* **Contrastive Loss**
+* **Triple Loss**
 
 Modelos de Classificação
-- **KNN**
-- **Kmeans**
-- **MLP**
+
+* **KNN**
+* **Kmeans**
+* **MLP**
+
 ---

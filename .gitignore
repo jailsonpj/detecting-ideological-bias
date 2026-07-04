@@ -7,6 +7,7 @@ src/outputs
 src/dataset
 src/.DS_Store
 # C extensions
+*.DS_Store
 *.so
 
 # Distribution / packaging
